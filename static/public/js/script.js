@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // The list of tools for the carousel, as provided by the user.
     const toolsData = [
-        { name: 'Zenodo', link: 'https://zenodo.org/', logo: 'static/images/logos/omero-logo.png', description: 'A general-purpose open-access repository for research data, software, publications, and more.', documentation: 'https://help.zenodo.org/docs/', join: 'https://zenodo.org/signup/' },
+        { name: 'Zenodo', link: 'https://zenodo.org/', logo: 'static/images/logos/zenodo_logo.jpg', description: 'A general-purpose open-access repository for research data, software, publications, and more.', documentation: 'https://help.zenodo.org/docs/', join: 'https://zenodo.org/signup/' },
         { name: 'Figshare', link: 'https://figshare.com/', logo: 'static/images/logos/imagesc-logo.png', description: 'An online repository to share, publish, and discover research data, figures, and other scholarly outputs.', documentation: 'https://knowledge.figshare.com/', join: 'https://figshare.com/account/login' },
         { name: 'elabftw', link: 'https://elab.cmcb.tu-dresden.de/', logo: 'static/images/logos/elabftw-logo.png', description: 'An open-source electronic lab notebook for recording and managing experimental data.', documentation: 'https://doc.elabftw.net/', join: 'https://elab.cmcb.tu-dresden.de/login.php' },
         { name: 'Gitlab TUD', link: 'https://gitlab.mn.tu-dresden.de/', logo: 'static/images/logos/gitlab-logo.png', description: 'TU Dresden\'s platform for Git-based version control, code collaboration, and CI/CD.', documentation: 'https://tu-dresden.de/mn/der-bereich/it-kompetenz-und-servicezentrum/gitlab-dienst', join: 'https://gitlab.mn.tu-dresden.de/users/sign_in' },
@@ -95,166 +95,146 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalDescription = document.getElementById('tool-modal-description');
         const modalDocBtn = document.getElementById('tool-modal-doc-btn');
         const modalJoinBtn = document.getElementById('tool-modal-join-btn');
-        
         modalLogo.src = tool.logo;
         modalLogo.alt = `${tool.name} logo`;
         modalName.textContent = tool.name;
         modalDescription.textContent = tool.description;
         modalDocBtn.href = tool.documentation;
         modalJoinBtn.href = tool.join;
-    
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
     };
     
+    // --- Dark Mode Toggle ---
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const lightIcon = document.getElementById('theme-toggle-light-icon');
+    const darkIcon = document.getElementById('theme-toggle-dark-icon');
+    
+    // Set theme on page load based on localStorage or system preference
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark' || (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.body.classList.add('dark');
+        if (lightIcon && darkIcon) {
+            lightIcon.classList.remove('hidden');
+            darkIcon.classList.add('hidden');
+        }
+    } else {
+        document.body.classList.remove('dark');
+        if (lightIcon && darkIcon) {
+            lightIcon.classList.add('hidden');
+            darkIcon.classList.remove('hidden');
+        }
+    }
+    
+    // Add event listener to the toggle button
+    themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        const isDarkMode = document.body.classList.contains('dark');
+        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        if (lightIcon && darkIcon) {
+            lightIcon.classList.toggle('hidden');
+            darkIcon.classList.toggle('hidden');
+        }
+    });
+    // --- End Dark Mode Toggle ---
+    
     // Function to render slider cards
     const renderSliderCards = () => {
         sliderContainer.innerHTML = '';
-        
-        toolsData.forEach((tool, index) => {
+        const startIndex = currentSlide * toolsPerSlide;
+        const endIndex = startIndex + toolsPerSlide;
+        const toolsToShow = toolsData.slice(startIndex, endIndex);
+
+        toolsToShow.forEach(tool => {
             const card = document.createElement('div');
-            card.className = "slider-card-item cursor-pointer bg-light-bg dark:bg-dark-card rounded-lg shadow-sm p-3 hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex-shrink-0";
-            card.style.width = `calc(${100 / toolsPerSlide}% - ${(toolsPerSlide - 1) * 12 / toolsPerSlide}px)`;
-            
+            card.className = 'slider-card-item p-4 bg-gray-200 dark:bg-dark-surface rounded-lg shadow-md cursor-pointer transition-transform duration-200 transform hover:scale-105';
             card.innerHTML = `
-                <div class="flex flex-col items-center text-center h-full">
-                    <img src="${tool.logo}" alt="${tool.name} logo" class="w-10 h-10 object-contain mb-2">
-                    <h5 class="font-bold text-sm mb-1">${tool.name}</h5>
-                    <p class="text-xs text-gray-600 dark:text-gray-400 flex-grow">${tool.description.substring(0, 60)}${tool.description.length > 60 ? '...' : ''}</p>
+                <div class="flex items-center space-x-3">
+                    <img src="${tool.logo}" alt="${tool.name} logo" class="h-10 w-10 object-contain">
+                    <span class="font-semibold text-gray-800 dark:text-gray-200">${tool.name}</span>
                 </div>
             `;
-            
             card.addEventListener('click', () => {
                 openToolDetailsModal(tool);
             });
-            
             sliderContainer.appendChild(card);
         });
+
+        // Update dot pagination and button state
+        updateSliderDots();
+        updateSliderButtons();
     };
     
-    // Function to render pagination dots
-    const renderDots = () => {
+    // Function to update slider dots
+    const updateSliderDots = () => {
+        if (!sliderDots) return;
         sliderDots.innerHTML = '';
-        
         for (let i = 0; i < totalSlides; i++) {
-            const dot = document.createElement('button');
-            dot.className = `w-2 h-2 rounded-full transition-colors duration-200 ${i === currentSlide ? 'bg-secondary-violet' : 'bg-gray-300 dark:bg-gray-600'}`;
-            dot.addEventListener('click', () => goToSlide(i));
+            const dot = document.createElement('span');
+            dot.className = `w-2 h-2 rounded-full ${i === currentSlide ? 'bg-secondary-violet' : 'bg-gray-400 dark:bg-gray-600'} cursor-pointer`;
+            dot.addEventListener('click', () => {
+                currentSlide = i;
+                renderSliderCards();
+            });
             sliderDots.appendChild(dot);
         }
     };
     
-    // Function to update slider position
-    const updateSlider = () => {
-        const translateX = -(currentSlide * 100);
-        sliderContainer.style.transform = `translateX(${translateX}%)`;
-        
-        // Update button states
-        sliderPrev.disabled = currentSlide === 0;
-        sliderNext.disabled = currentSlide >= totalSlides - 1;
-        
-        // Update button opacity
-        sliderPrev.style.opacity = currentSlide === 0 ? '0.5' : '1';
-        sliderNext.style.opacity = currentSlide >= totalSlides - 1 ? '0.5' : '1';
-        
-        // Update dots
-        const dots = sliderDots.children;
-        for (let i = 0; i < dots.length; i++) {
-            dots[i].className = `w-2 h-2 rounded-full transition-colors duration-200 ${i === currentSlide ? 'bg-secondary-violet' : 'bg-gray-300 dark:bg-gray-600'}`;
+    // Function to update slider buttons
+    const updateSliderButtons = () => {
+        if (sliderPrev) {
+            sliderPrev.disabled = currentSlide === 0;
+        }
+        if (sliderNext) {
+            sliderNext.disabled = currentSlide >= totalSlides - 1;
         }
     };
-    
-    // Function to go to specific slide
-    const goToSlide = (slideIndex) => {
-        currentSlide = Math.max(0, Math.min(slideIndex, totalSlides - 1));
-        updateSlider();
-    };
-    
-    // Function to go to next slide
-    const nextSlide = () => {
-        if (currentSlide < totalSlides - 1) {
-            currentSlide++;
-            updateSlider();
-        }
-    };
-    
-    // Function to go to previous slide
-    const prevSlide = () => {
-        if (currentSlide > 0) {
-            currentSlide--;
-            updateSlider();
-        }
-    };
-    
-    // Initialize slider
-    const initSlider = () => {
+
+    // Event listeners for slider controls
+    if (sliderPrev) {
+        sliderPrev.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                renderSliderCards();
+            }
+        });
+    }
+
+    if (sliderNext) {
+        sliderNext.addEventListener('click', () => {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                renderSliderCards();
+            }
+        });
+    }
+
+    // Initialize the slider and handle window resize
+    const initializeSlider = () => {
         updateToolsPerSlide();
         renderSliderCards();
-        renderDots();
-        updateSlider();
     };
-    
-    // Event listeners
-    if (sliderPrev) {
-        sliderPrev.addEventListener('click', prevSlide);
-    }
-    if (sliderNext) {
-        sliderNext.addEventListener('click', nextSlide);
-    }
-    
-    // Handle window resize
+
     window.addEventListener('resize', () => {
-        const oldToolsPerSlide = toolsPerSlide;
-        updateToolsPerSlide();
-        if (oldToolsPerSlide !== toolsPerSlide) {
-            currentSlide = 0; // Reset to first slide when layout changes
-            initSlider();
-        }
+        // Reset to first slide on resize to prevent issues
+        currentSlide = 0;
+        initializeSlider();
     });
-    
-    // Auto-slide functionality (optional)
-    let autoSlideInterval;
-    const startAutoSlide = () => {
-        autoSlideInterval = setInterval(() => {
-            if (currentSlide >= totalSlides - 1) {
-                goToSlide(0);
-            } else {
-                nextSlide();
+
+    // Run initial setup
+    initializeSlider();
+
+    // Attach event listener for the tool details modal close button
+    const modalCloseButtons = document.querySelectorAll('[data-modal-close]');
+    modalCloseButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modalId = button.getAttribute('data-modal-close');
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Restore scrolling
             }
-        }, 5000); // Change slide every 5 seconds
-    };
-    
-    const stopAutoSlide = () => {
-        clearInterval(autoSlideInterval);
-    };
-    
-    // Start auto-slide and pause on hover
-    if (sliderContainer) {
-        initSlider();
-        // Optional: Enable auto-slide
-        // startAutoSlide();
-        // sliderContainer.addEventListener('mouseenter', stopAutoSlide);
-        // sliderContainer.addEventListener('mouseleave', startAutoSlide);
-    }
-    
-    // Touch/swipe support for mobile
-    let startX = 0;
-    let currentX = 0;
-    let isDragging = false;
-    
-    if (sliderContainer) {
-        sliderContainer.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-            isDragging = true;
         });
-        
-        sliderContainer.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            currentX = e.touches[0].clientX;
-            const diffX = startX - currentX;
-            // Prevent scrolling on the page when swiping the slider
-            e.preventDefault();
-        });
-    }
+    });
 
 });
