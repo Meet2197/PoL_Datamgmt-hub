@@ -520,12 +520,6 @@
             };
             
 
-            function toggleMobileMenu() {
-            mobileMenu.classList.toggle('open');
-            menuToggle.classList.toggle('active');
-            document.body.classList.toggle('menu-open');
-        }
-
             document.addEventListener('click', (event) => {
                 const openBtn = event.target.closest('[data-modal-target]');
                 if (openBtn) {
@@ -561,11 +555,22 @@
             const darkIcon = document.getElementById('theme-toggle-dark-icon');
             const mobileMenuBtn = document.querySelector('[data-collapse-toggle="navbar-sticky"]');
             const htmlTag = document.documentElement;
+            const isDarkMode = localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+
+                // Mobile menu logic
             const menuToggle = document.getElementById('menu-toggle');
             const mobileMenu = document.getElementById('mobile-menu');
             const closeMenuBtn = document.getElementById('close-menu');
-            const isDarkMode = localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
+            function toggleMobileMenu() {
+                mobileMenu.classList.toggle('open');
+                menuToggle.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            }
+
+            menuToggle.addEventListener('click', toggleMobileMenu);
+            closeMenuBtn.addEventListener('click', toggleMobileMenu);
             if (isDarkMode) {
                 htmlTag.classList.add('dark');
                 lightIcon.classList.add('hidden');
@@ -589,14 +594,6 @@
                     lightIcon.classList.add('hidden');
                     darkIcon.classList.remove('hidden');
                 }
-            });
-            menuToggle.addEventListener('click', toggleMobileMenu);
-            closeMenuBtn.addEventListener('click', toggleMobileMenu);
-
-            mobileMenuBtn.addEventListener('click', () => {
-                const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-                mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
-                mobileMenu.classList.toggle('hidden');
             });
         })
     </script>
