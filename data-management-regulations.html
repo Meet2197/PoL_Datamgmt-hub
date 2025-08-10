@@ -522,6 +522,12 @@
                 });
             });
 
+            document.getElementById('menu-toggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.getElementById('mobile-menu').classList.toggle('open');
+            document.body.classList.toggle('menu-open');
+            });
+
             // Theme toggle logic
             const themeToggleBtn = document.getElementById('theme-toggle');
             const lightIcon = document.getElementById('theme-toggle-light-icon');
