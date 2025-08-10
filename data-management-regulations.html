@@ -130,12 +130,31 @@
               <i id="theme-toggle-light-icon" class="fa-solid fa-sun hidden"></i>
               <i id="theme-toggle-dark-icon" class="fa-solid fa-moon"></i>
             </button>
-            <button class="md:hidden p-2" id="menu-toggle">
-              <i class="fa-solid fa-bars text-xl"></i>
+            <button class="md:hidden p-2" id="menu-toggle" aria-controls="mobile-menu" aria-expanded="false">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
             </button>
           </div>
         </div>
     </nav>
+
+
+<div id="mobile-menu" class="fixed inset-0 z-50 transform -translate-x-full transition-transform duration-300 ease-in-out bg-white dark:bg-dark-surface p-6 overflow-y-auto md:hidden">
+    <div class="flex justify-between items-center mb-6">
+        <a href="index.html"><img src="static/images/logos/pol-logo.png" alt="PoL" class="h-8 w-auto"></a>
+        <button id="close-menu" class="p-2">
+            <i class="fa-solid fa-xmark text-2xl"></i>
+        </button>
+    </div>
+    <div class="flex flex-col space-y-4 text-xl">
+        <a href="#" data-modal-target="about-modal" class="nav-link py-2 border-b border-gray-200 dark:border-gray-700">Overview</a>
+        <a href="#" data-modal-target="resources-modal" class="nav-link py-2 border-b border-gray-200 dark:border-gray-700">Resources</a>
+        <a href="Events.html" class="nav-link py-2 border-b border-gray-200 dark:border-gray-700">Events</a>
+        <a href="#" data-modal-target="contact-modal" class="nav-link py-2 border-b border-gray-200 dark:border-gray-700">Contact</a>
+        <a href="whats-new.html" class="nav-link py-2 text-secondary-red font-semibold">What's New</a>
+    </div>
+</div>
     
     <!-- Header -->
     <header class="relative pt-24 pb-16 md:pt-40 md:pb-24 bg-primary-blue text-white overflow-hidden shadow-xl">
