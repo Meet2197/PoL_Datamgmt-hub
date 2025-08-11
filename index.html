@@ -463,18 +463,23 @@
                 </div>
             </div>
         </div>
-
-        <!-- Resources Modal -->
         <div id="resources-modal" class="modal-wrapper">
             <div class="modal-content-container">
                 <div class="relative bg-white dark:bg-dark-surface p-4 sm:p-6 rounded-xl shadow-2xl max-w-3xl w-full mx-4 my-4 sm:my-8 max-h-[90vh] overflow-y-auto">
                     <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white z-10" data-modal-close="resources-modal"><i class="fa-solid fa-xmark text-2xl"></i></button>
                     <h2 class="text-xl sm:text-2xl font-bold mb-6 text-center pr-8">Key Resources</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        
                         <div class="resource-card p-4 sm:p-6 bg-gray-100 dark:bg-dark-card rounded-xl shadow-md">
-                            <h3 class="font-bold text-lg sm:text-xl mb-2"><i class="fa-solid fa-file-alt mr-2 text-secondary-violet"></i>Data Management Regulations</h3>
+                            <h3 class="font-bold text-lg sm:text-xl mb-2">
+                                <a href="data-management-regulations.html" class="hover:text-secondary-violet">
+                                    <i class="fa-solid fa-file-shield mr-2 text-secondary-violet"></i>Data Management & Regulations
+                                </a>
+                            </h3>
                             <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">Learn how to create effective Data management associated activities.</p>
                         </div>
+                        
                         <div class="resource-card p-4 sm:p-6 bg-gray-100 dark:bg-dark-card rounded-xl shadow-md">
                             <h3 class="font-bold text-lg sm:text-xl mb-2">
                                 <a href="data-storage-backup.html" class="hover:text-secondary-violet">
@@ -483,7 +488,8 @@
                             </h3>
                             <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">Guidelines for secure data storage.</p>
                         </div>
-                        <div class="resource-card p-4 sm:p-6 bg-gray-100 dark:bg-dark-card rounded-xl shadow-md col-span-1 sm:col-span-2">
+                        
+                        <div class="resource-card p-4 sm:p-6 bg-gray-100 dark:bg-dark-card rounded-xl shadow-md">
                             <h3 class="font-bold text-lg sm:text-xl mb-2">
                                 <a href="data-sharing-archiving.html" class="hover:text-secondary-violet">
                                     <i class="fa-solid fa-share-alt mr-2 text-secondary-violet"></i>Data Sharing & Archiving
@@ -491,7 +497,7 @@
                             </h3>
                             <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">Best practices for sharing and archiving data.</p>
                         </div>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>
