@@ -1,41 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Configuration and Data ---
-    const tailwindConfig = {
-        darkMode: 'class',
-        theme: {
-            extend: {
-                colors: {
-                    // Retaining the original color scheme as requested
-                    'primary-blue': '#1a237e',
-                    'secondary-violet': '#6a47a8',
-                    'secondary-red': '#ef4444',
-                    'light-bg': '#f4f7f9',
-                    'dark-bg': '#121212',
-                    'dark-surface': '#1e1e1e',
-                    'dark-card': '#2a2a2a',
-                    // Ensuring the gray color palette is available for text
-                    'gray': {
-                        100: '#f3f4f6',
-                        200: '#e5e7eb',
-                        300: '#d1d5db',
-                        400: '#9ca3af',
-                        500: '#6b7280',
-                        600: '#4b5563',
-                        700: '#374151',
-                        800: '#1f2937',
-                        900: '#111827',
-                    }
-                },
-                fontFamily: {
-                    sans: ['Inter', 'sans-serif'],
-                },
-            },
-        },
-    };
-    tailwind.config = tailwindConfig;
-
-    // The list of tools for the carousel, as provided by the user.
     const toolsData = [
         { name: 'Zenodo', link: 'https://zenodo.org/', logo: 'static/images/logos/zenodo_logo.jpg', description: 'A general-purpose open-access repository for research data, software, publications, and more.', documentation: 'https://help.zenodo.org/docs/', join: 'https://zenodo.org/signup/' },
         { name: 'Figshare', link: 'https://figshare.com/', logo: 'static/images/logos/imagesc-logo.png', description: 'An online repository to share, publish, and discover research data, figures, and other scholarly outputs.', documentation: 'https://knowledge.figshare.com/', join: 'https://figshare.com/account/login' },
@@ -46,65 +11,60 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'PRIDE Database', link: 'https://www.ebi.ac.uk/pride/', logo: 'static/images/logos/pride_logo.png', description: 'PRoteomics Archive database is data repository for mass spectrometry proteomics data.', documentation: 'https://www.ebi.ac.uk/pride/markdownpage/citationpage', join: 'https://www.ebi.ac.uk/pride/login'},
     ];
     
+    // --- DOM Elements ---
     const sliderContainer = document.getElementById('sharing-archiving-tools-container');
     const sliderPrev = document.getElementById('slider-prev');
     const sliderNext = document.getElementById('slider-next');
     const sliderDots = document.getElementById('slider-dots');
+    const modalToolDetails = document.getElementById('tool-details-modal');
     
     let currentSlide = 0;
-    let toolsPerSlide = 1; // Always slide one item at a time
-    let totalSlides = 0;
     
-    // --- Hamburger Menu Toggle ---
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuClose = document.getElementById('mobile-menu-close');
-    
-    if (menuToggle) {
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('open');
-        });
-    }
-
-    if (mobileMenuClose) {
-        mobileMenuClose.addEventListener('click', () => {
-            mobileMenu.classList.remove('open');
-        });
-    }
-    // --- End Hamburger Menu Toggle ---
-
-    // Function to determine tools per slide based on screen size
-    const updateToolsPerSlide = () => {
-        // Set toolsPerSlide to 1 to always move one item at a time
-        toolsPerSlide = 1;
-        totalSlides = Math.ceil(toolsData.length / toolsPerSlide);
+    // --- Helper Functions ---
+    const debounce = (func, delay) => {
+        let timeout;
+        return function(...args) {
+            const context = this;
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(context, args), delay);
+        };
     };
 
-    // Function to populate and open the tool details modal
-    const openToolDetailsModal = (tool) => {
-        const modal = document.getElementById('tool-details-modal');
-        const modalLogo = document.getElementById('tool-modal-logo');
-        const modalName = document.getElementById('tool-modal-name');
-        const modalDescription = document.getElementById('tool-modal-description');
-        const modalDocBtn = document.getElementById('tool-modal-doc-btn');
-        const modalJoinBtn = document.getElementById('tool-modal-join-btn');
-
-        if (modal && modalLogo && modalName && modalDescription && modalDocBtn && modalJoinBtn) {
-            modalLogo.src = tool.logo;
-            modalName.textContent = tool.name;
-            modalDescription.textContent = tool.description;
-            modalDocBtn.href = tool.documentation;
-            modalJoinBtn.href = tool.join;
-            modal.classList.remove('hidden');
+    const openModal = (modalId) => {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.style.display = 'flex'; // Use display:flex for the modal container
+            document.body.style.overflow = 'hidden';
+        }
+    };
+    
+    const closeModal = (modalId) => {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.style.display = 'none'; // Use display:none to hide the modal
+            document.body.style.overflow = '';
         }
     };
 
+    const openToolDetailsModal = (tool) => {
+        if (!modalToolDetails) return;
+        
+        document.getElementById('tool-modal-logo').src = tool.logo;
+        document.getElementById('tool-modal-name').textContent = tool.name;
+        document.getElementById('tool-modal-description').textContent = tool.description;
+        document.getElementById('tool-modal-doc-btn').href = tool.documentation;
+        document.getElementById('tool-modal-join-btn').href = tool.join;
+
+        openModal('tool-details-modal');
+    };
+    
     // --- Dynamic Tool Card Generation ---
     const renderTools = () => {
+        if (!sliderContainer) return;
         sliderContainer.innerHTML = '';
         toolsData.forEach(tool => {
             const card = document.createElement('div');
-            card.className = 'slider-card-item rounded-lg p-3 sm:p-4 bg-gray-100 dark:bg-dark-card shadow-md flex-shrink-0 cursor-pointer';
+            card.className = 'slider-card-item rounded-lg p-3 sm:p-4 bg-gray-100 dark:bg-dark-card shadow-md flex-shrink-0 cursor-pointer w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/3';
             card.innerHTML = `
                 <div class="flex flex-col items-center justify-between h-full">
                     <img src="${tool.logo}" alt="${tool.name} logo" class="h-10 w-10 sm:h-12 sm:w-12 object-contain mb-2">
@@ -116,27 +76,29 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             sliderContainer.appendChild(card);
         });
-
-        // Set the width of each card dynamically based on toolsPerSlide
-        const cards = document.querySelectorAll('.slider-card-item');
-        cards.forEach(card => {
-            card.style.width = `calc(100% / ${toolsPerSlide} - 12px)`;
-        });
     };
     
     // --- Slider Functionality ---
     const updateSlider = () => {
-        if (sliderContainer) {
-            const cardWidth = sliderContainer.querySelector('.slider-card-item').offsetWidth + 12; // Card width + margin
-            const offset = -currentSlide * cardWidth;
-            sliderContainer.style.transform = `translateX(${offset}px)`;
-            updateDots();
-            updateButtons();
-        }
+        if (!sliderContainer) return;
+        const card = sliderContainer.querySelector('.slider-card-item');
+        if (!card) return;
+        
+        const cardWidth = card.offsetWidth + 12;
+        const totalSlides = toolsData.length;
+        
+        if (currentSlide < 0) currentSlide = 0;
+        if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
+
+        sliderContainer.style.transform = `translateX(-${currentSlide * cardWidth}px)`;
+        
+        updateButtons();
+        updateDots();
     };
     
     const updateButtons = () => {
         if (sliderPrev && sliderNext) {
+            const totalSlides = toolsData.length;
             sliderPrev.disabled = currentSlide === 0;
             sliderNext.disabled = currentSlide >= totalSlides - 1;
         }
@@ -145,9 +107,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateDots = () => {
         if (sliderDots) {
             sliderDots.innerHTML = '';
-            for (let i = 0; i < totalSlides; i++) {
+            for (let i = 0; i < toolsData.length; i++) {
                 const dot = document.createElement('span');
-                dot.className = `w-2 h-2 rounded-full mx-1 transition-colors duration-200 ${i === currentSlide ? 'bg-secondary-violet' : 'bg-gray-400 dark:bg-gray-600'}`;
+                dot.className = `w-2 h-2 rounded-full mx-1 transition-colors duration-200 cursor-pointer ${i === currentSlide ? 'bg-secondary-violet' : 'bg-gray-400 dark:bg-gray-600'}`;
                 dot.addEventListener('click', () => {
                     currentSlide = i;
                     updateSlider();
@@ -157,9 +119,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     
+    // --- Event Listeners ---
     if (sliderNext) {
         sliderNext.addEventListener('click', () => {
-            if (currentSlide < totalSlides - 1) {
+            if (currentSlide < toolsData.length - 1) {
                 currentSlide++;
                 updateSlider();
             }
@@ -175,41 +138,52 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Modals Functionality ---
+    // --- Modal Functionality ---
     document.querySelectorAll('[data-modal-target]').forEach(button => {
         button.addEventListener('click', (e) => {
             e.preventDefault();
             const modalId = button.getAttribute('data-modal-target');
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.remove('hidden');
-                document.body.style.overflow = 'hidden'; // Prevent scrolling
-            }
+            openModal(modalId);
         });
     });
 
     document.querySelectorAll('[data-modal-close]').forEach(button => {
-        button.addEventListener('click', () => {
-            const modal = button.closest('.modal-wrapper');
-            if (modal) {
-                modal.classList.add('hidden');
-                document.body.style.overflow = ''; // Re-enable scrolling
-            }
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const modalId = button.getAttribute('data-modal-close');
+            closeModal(modalId);
         });
     });
 
     document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
         backdrop.addEventListener('click', (e) => {
-            const modal = e.target.closest('.modal-wrapper');
-            if (modal) {
-                modal.classList.add('hidden');
-                document.body.style.overflow = '';
+            const modalWrapper = e.target.closest('.modal-wrapper');
+            if (modalWrapper) {
+                const modalId = modalWrapper.id;
+                closeModal(modalId);
             }
         });
     });
 
-
     // --- Other Functionality ---
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    
+    if (menuToggle) {
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            document.body.classList.toggle('menu-open');
+        });
+    }
+
+    if (mobileMenuClose) {
+        mobileMenuClose.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            document.body.classList.remove('menu-open');
+        });
+    }
+
     const themeToggleBtn = document.getElementById('theme-toggle');
     const lightIcon = document.getElementById('theme-toggle-light-icon');
     const darkIcon = document.getElementById('theme-toggle-dark-icon');
@@ -241,7 +215,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Intersection Observer for Navbar
     const heroSection = document.querySelector('header');
     const navbar = document.getElementById('navbar');
     
@@ -261,119 +234,33 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(heroSection);
     }
     
-    // Initial call to set up the slider
-    updateToolsPerSlide();
+    // --- Initial Setup and Event Handling ---
     renderTools();
     updateSlider();
 
-    // Re-calculate on window resize
-    window.addEventListener('resize', () => {
-        updateToolsPerSlide();
-        renderTools();
+    window.addEventListener('resize', debounce(() => {
         updateSlider();
-    });
+    }, 250));
 
     particlesJS("particles-js", {
         "particles": {
-            "number": {
-                "value": 80,
-                "density": {
-                    "enable": true,
-                    "value_area": 800
-                }
-            },
-            "color": {
-                "value": "#ffffff"
-            },
-            "shape": {
-                "type": "circle",
-                "stroke": {
-                    "width": 0,
-                    "color": "#000000"
-                },
-                "polygon": {
-                    "nb_sides": 5
-                }
-            },
-            "opacity": {
-                "value": 0.5,
-                "random": false,
-                "anim": {
-                    "enable": false,
-                    "speed": 1,
-                    "opacity_min": 0.1,
-                    "sync": false
-                }
-            },
-            "size": {
-                "value": 3,
-                "random": true,
-                "anim": {
-                    "enable": false,
-                    "speed": 40,
-                    "size_min": 0.1,
-                    "sync": false
-                }
-            },
-            "line_linked": {
-                "enable": true,
-                "distance": 150,
-                "color": "#ffffff",
-                "opacity": 0.4,
-                "width": 1
-            },
-            "move": {
-                "enable": true,
-                "speed": 6,
-                "direction": "none",
-                "random": false,
-                "straight": false,
-                "out_mode": "out",
-                "bounce": false,
-                "attract": {
-                    "enable": false,
-                    "rotateX": 600,
-                    "rotateY": 1200
-                }
-            }
+            "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": "#ffffff" },
+            "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } },
+            "opacity": { "value": 0.5, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } },
+            "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } },
+            "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
+            "move": { "enable": true, "speed": 6, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } }
         },
         "interactivity": {
             "detect_on": "canvas",
-            "events": {
-                "onhover": {
-                    "enable": true,
-                    "mode": "repulse"
-                },
-                "onclick": {
-                    "enable": true,
-                    "mode": "push"
-                },
-                "resize": true
-            },
+            "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
             "modes": {
-                "grab": {
-                    "distance": 400,
-                    "line_linked": {
-                        "opacity": 1
-                    }
-                },
-                "bubble": {
-                    "distance": 400,
-                    "size": 40,
-                    "duration": 2,
-                    "opacity": 8,
-                    "speed": 3
-                },
-                "repulse": {
-                    "distance": 200,
-                    "duration": 0.4
-                },
-                "push": {
-                    "particles_nb": 4
-                },
-                "remove": {
-                    "particles_nb": 2
-                }
+                "grab": { "distance": 400, "line_linked": { "opacity": 1 } },
+                "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 },
+                "repulse": { "distance": 200, "duration": 0.4 },
+                "push": { "particles_nb": 4 },
+                "remove": { "particles_nb": 2 }
             }
         },
         "retina_detect": true
