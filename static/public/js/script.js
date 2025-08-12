@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sliderDots = document.getElementById('slider-dots');
     
     let currentSlide = 0;
-    let toolsPerSlide = 2; // Default for mobile
+    let toolsPerSlide = 1; // Always slide one item at a time
     let totalSlides = 0;
     
     // --- Hamburger Menu Toggle ---
@@ -75,83 +75,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to determine tools per slide based on screen size
     const updateToolsPerSlide = () => {
-        const width = window.innerWidth;
-        if (width >= 1024) {
-            toolsPerSlide = 3; // Desktop
-        } else if (width >= 768) {
-            toolsPerSlide = 2; // Tablet
-        } else {
-            toolsPerSlide = 1; // Mobile
-        }
+        // Set toolsPerSlide to 1 to always move one item at a time
+        toolsPerSlide = 1;
         totalSlides = Math.ceil(toolsData.length / toolsPerSlide);
     };
-    
+
     // Function to populate and open the tool details modal
     const openToolDetailsModal = (tool) => {
         const modal = document.getElementById('tool-details-modal');
-        
         const modalLogo = document.getElementById('tool-modal-logo');
         const modalName = document.getElementById('tool-modal-name');
         const modalDescription = document.getElementById('tool-modal-description');
         const modalDocBtn = document.getElementById('tool-modal-doc-btn');
         const modalJoinBtn = document.getElementById('tool-modal-join-btn');
-        modalLogo.src = tool.logo;
-        modalLogo.alt = `${tool.name} logo`;
-        modalName.textContent = tool.name;
-        modalDescription.textContent = tool.description;
-        modalDocBtn.href = tool.documentation;
-        modalJoinBtn.href = tool.join;
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    };
-    
-    // --- Dark Mode Toggle ---
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const lightIcon = document.getElementById('theme-toggle-light-icon');
-    const darkIcon = document.getElementById('theme-toggle-dark-icon');
-    
-    // Set theme on page load based on localStorage or system preference
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme === 'dark' || (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.body.classList.add('dark');
-        if (lightIcon && darkIcon) {
-            lightIcon.classList.remove('hidden');
-            darkIcon.classList.add('hidden');
-        }
-    } else {
-        document.body.classList.remove('dark');
-        if (lightIcon && darkIcon) {
-            lightIcon.classList.add('hidden');
-            darkIcon.classList.remove('hidden');
-        }
-    }
-    
-    // Add event listener to the toggle button
-    themeToggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('dark');
-        const isDarkMode = document.body.classList.contains('dark');
-        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-        if (lightIcon && darkIcon) {
-            lightIcon.classList.toggle('hidden');
-            darkIcon.classList.toggle('hidden');
-        }
-    });
-    // --- End Dark Mode Toggle ---
-    
-    // Function to render slider cards
-    const renderSliderCards = () => {
-        sliderContainer.innerHTML = '';
-        const startIndex = currentSlide * toolsPerSlide;
-        const endIndex = startIndex + toolsPerSlide;
-        const toolsToShow = toolsData.slice(startIndex, endIndex);
 
-        toolsToShow.forEach(tool => {
+        if (modal && modalLogo && modalName && modalDescription && modalDocBtn && modalJoinBtn) {
+            modalLogo.src = tool.logo;
+            modalName.textContent = tool.name;
+            modalDescription.textContent = tool.description;
+            modalDocBtn.href = tool.documentation;
+            modalJoinBtn.href = tool.join;
+            modal.classList.remove('hidden');
+        }
+    };
+
+    // --- Dynamic Tool Card Generation ---
+    const renderTools = () => {
+        sliderContainer.innerHTML = '';
+        toolsData.forEach(tool => {
             const card = document.createElement('div');
-            card.className = 'slider-card-item p-4 bg-gray-200 dark:bg-dark-surface rounded-lg shadow-md cursor-pointer transition-transform duration-200 transform hover:scale-105';
+            card.className = 'slider-card-item rounded-lg p-3 sm:p-4 bg-gray-100 dark:bg-dark-card shadow-md flex-shrink-0 cursor-pointer';
             card.innerHTML = `
-                <div class="flex items-center space-x-3">
-                    <img src="${tool.logo}" alt="${tool.name} logo" class="h-10 w-10 object-contain">
-                    <span class="font-semibold text-gray-800 dark:text-gray-200">${tool.name}</span>
+                <div class="flex flex-col items-center justify-between h-full">
+                    <img src="${tool.logo}" alt="${tool.name} logo" class="h-10 w-10 sm:h-12 sm:w-12 object-contain mb-2">
+                    <p class="font-semibold text-xs sm:text-sm text-primary-blue dark:text-gray-200 text-center">${tool.name}</p>
                 </div>
             `;
             card.addEventListener('click', () => {
@@ -160,81 +117,265 @@ document.addEventListener('DOMContentLoaded', () => {
             sliderContainer.appendChild(card);
         });
 
-        // Update dot pagination and button state
-        updateSliderDots();
-        updateSliderButtons();
+        // Set the width of each card dynamically based on toolsPerSlide
+        const cards = document.querySelectorAll('.slider-card-item');
+        cards.forEach(card => {
+            card.style.width = `calc(100% / ${toolsPerSlide} - 12px)`;
+        });
     };
     
-    // Function to update slider dots
-    const updateSliderDots = () => {
-        if (!sliderDots) return;
-        sliderDots.innerHTML = '';
-        for (let i = 0; i < totalSlides; i++) {
-            const dot = document.createElement('span');
-            dot.className = `w-2 h-2 rounded-full ${i === currentSlide ? 'bg-secondary-violet' : 'bg-gray-400 dark:bg-gray-600'} cursor-pointer`;
-            dot.addEventListener('click', () => {
-                currentSlide = i;
-                renderSliderCards();
-            });
-            sliderDots.appendChild(dot);
+    // --- Slider Functionality ---
+    const updateSlider = () => {
+        if (sliderContainer) {
+            const cardWidth = sliderContainer.querySelector('.slider-card-item').offsetWidth + 12; // Card width + margin
+            const offset = -currentSlide * cardWidth;
+            sliderContainer.style.transform = `translateX(${offset}px)`;
+            updateDots();
+            updateButtons();
         }
     };
     
-    // Function to update slider buttons
-    const updateSliderButtons = () => {
-        if (sliderPrev) {
+    const updateButtons = () => {
+        if (sliderPrev && sliderNext) {
             sliderPrev.disabled = currentSlide === 0;
-        }
-        if (sliderNext) {
             sliderNext.disabled = currentSlide >= totalSlides - 1;
         }
     };
-
-    // Event listeners for slider controls
-    if (sliderPrev) {
-        sliderPrev.addEventListener('click', () => {
-            if (currentSlide > 0) {
-                currentSlide--;
-                renderSliderCards();
+    
+    const updateDots = () => {
+        if (sliderDots) {
+            sliderDots.innerHTML = '';
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('span');
+                dot.className = `w-2 h-2 rounded-full mx-1 transition-colors duration-200 ${i === currentSlide ? 'bg-secondary-violet' : 'bg-gray-400 dark:bg-gray-600'}`;
+                dot.addEventListener('click', () => {
+                    currentSlide = i;
+                    updateSlider();
+                });
+                sliderDots.appendChild(dot);
             }
-        });
-    }
-
+        }
+    };
+    
     if (sliderNext) {
         sliderNext.addEventListener('click', () => {
             if (currentSlide < totalSlides - 1) {
                 currentSlide++;
-                renderSliderCards();
+                updateSlider();
             }
         });
     }
 
-    // Initialize the slider and handle window resize
-    const initializeSlider = () => {
-        updateToolsPerSlide();
-        renderSliderCards();
-    };
+    if (sliderPrev) {
+        sliderPrev.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlider();
+            }
+        });
+    }
 
-    window.addEventListener('resize', () => {
-        // Reset to first slide on resize to prevent issues
-        currentSlide = 0;
-        initializeSlider();
-    });
-
-    // Run initial setup
-    initializeSlider();
-
-    // Attach event listener for the tool details modal close button
-    const modalCloseButtons = document.querySelectorAll('[data-modal-close]');
-    modalCloseButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const modalId = button.getAttribute('data-modal-close');
+    // --- Modals Functionality ---
+    document.querySelectorAll('[data-modal-target]').forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const modalId = button.getAttribute('data-modal-target');
             const modal = document.getElementById(modalId);
             if (modal) {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto'; // Restore scrolling
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
             }
         });
     });
 
+    document.querySelectorAll('[data-modal-close]').forEach(button => {
+        button.addEventListener('click', () => {
+            const modal = button.closest('.modal-wrapper');
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = ''; // Re-enable scrolling
+            }
+        });
+    });
+
+    document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+        backdrop.addEventListener('click', (e) => {
+            const modal = e.target.closest('.modal-wrapper');
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        });
+    });
+
+
+    // --- Other Functionality ---
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const lightIcon = document.getElementById('theme-toggle-light-icon');
+    const darkIcon = document.getElementById('theme-toggle-dark-icon');
+    const root = document.documentElement;
+
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme) {
+        root.classList.add(currentTheme);
+        if (currentTheme === 'dark') {
+            darkIcon.classList.add('hidden');
+            lightIcon.classList.remove('hidden');
+        } else {
+            lightIcon.classList.add('hidden');
+            darkIcon.classList.remove('hidden');
+        }
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        root.classList.add('dark');
+        darkIcon.classList.add('hidden');
+        lightIcon.classList.remove('hidden');
+    }
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            root.classList.toggle('dark');
+            const newTheme = root.classList.contains('dark') ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme);
+            lightIcon.classList.toggle('hidden');
+            darkIcon.classList.toggle('hidden');
+        });
+    }
+
+    // Intersection Observer for Navbar
+    const heroSection = document.querySelector('header');
+    const navbar = document.getElementById('navbar');
+    
+    if (heroSection && navbar) {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (!entry.isIntersecting) {
+                    navbar.classList.add('bg-white/80', 'dark:bg-dark-surface/80', 'shadow-md');
+                } else {
+                    navbar.classList.remove('bg-white/80', 'dark:bg-dark-surface/80', 'shadow-md');
+                }
+            },
+            {
+                rootMargin: '-50px 0px 0px 0px',
+            }
+        );
+        observer.observe(heroSection);
+    }
+    
+    // Initial call to set up the slider
+    updateToolsPerSlide();
+    renderTools();
+    updateSlider();
+
+    // Re-calculate on window resize
+    window.addEventListener('resize', () => {
+        updateToolsPerSlide();
+        renderTools();
+        updateSlider();
+    });
+
+    particlesJS("particles-js", {
+        "particles": {
+            "number": {
+                "value": 80,
+                "density": {
+                    "enable": true,
+                    "value_area": 800
+                }
+            },
+            "color": {
+                "value": "#ffffff"
+            },
+            "shape": {
+                "type": "circle",
+                "stroke": {
+                    "width": 0,
+                    "color": "#000000"
+                },
+                "polygon": {
+                    "nb_sides": 5
+                }
+            },
+            "opacity": {
+                "value": 0.5,
+                "random": false,
+                "anim": {
+                    "enable": false,
+                    "speed": 1,
+                    "opacity_min": 0.1,
+                    "sync": false
+                }
+            },
+            "size": {
+                "value": 3,
+                "random": true,
+                "anim": {
+                    "enable": false,
+                    "speed": 40,
+                    "size_min": 0.1,
+                    "sync": false
+                }
+            },
+            "line_linked": {
+                "enable": true,
+                "distance": 150,
+                "color": "#ffffff",
+                "opacity": 0.4,
+                "width": 1
+            },
+            "move": {
+                "enable": true,
+                "speed": 6,
+                "direction": "none",
+                "random": false,
+                "straight": false,
+                "out_mode": "out",
+                "bounce": false,
+                "attract": {
+                    "enable": false,
+                    "rotateX": 600,
+                    "rotateY": 1200
+                }
+            }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+                "onhover": {
+                    "enable": true,
+                    "mode": "repulse"
+                },
+                "onclick": {
+                    "enable": true,
+                    "mode": "push"
+                },
+                "resize": true
+            },
+            "modes": {
+                "grab": {
+                    "distance": 400,
+                    "line_linked": {
+                        "opacity": 1
+                    }
+                },
+                "bubble": {
+                    "distance": 400,
+                    "size": 40,
+                    "duration": 2,
+                    "opacity": 8,
+                    "speed": 3
+                },
+                "repulse": {
+                    "distance": 200,
+                    "duration": 0.4
+                },
+                "push": {
+                    "particles_nb": 4
+                },
+                "remove": {
+                    "particles_nb": 2
+                }
+            }
+        },
+        "retina_detect": true
+    });
 });
