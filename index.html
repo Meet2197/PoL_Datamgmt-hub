@@ -241,39 +241,40 @@
     </nav>
 
       <!-- Hero Section -->
-      <header class="relative bg-primary-blue text-white min-h-screen flex items-center justify-center pt-20 sm:pt-32 pb-12 sm:pb-24">
-        <div class="absolute inset-0 z-0">
-          <div class="absolute inset-0 bg-black opacity-50"></div>
-          <img src="static/images/background_img.jpg" class="w-full h-full object-cover opacity-30" alt="Background">
+      <header class="relative bg-primary-blue text-white min-h-screen flex items-center justify-center pt-20 sm:pt-32 pb-12 sm:pb-24 overflow-hidden">
+        <div class="absolute inset-0 z-0 bg-black">
+            <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-50">
+                <source src="static/images/mice cells.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 animate-stagger-1 leading-tight">Data Management Corner</h1>
-          <p class="text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-6 sm:mb-8 animate-stagger-2 px-4">
-            Streamline your research data lifecycle with comprehensive guides, best practices, and tools designed for researchers at PoL.
-          </p>
-          <div class="hero-buttons flex flex-col sm:flex-row justify-center gap-4 animate-stagger-3 px-4">
-            <div class="relative group inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 border border-transparent text-sm sm:text-base font-medium rounded-full text-white bg-secondary-violet cursor-default transition-all duration-300 transform hover:scale-105">
-              <i class="fa-solid fa-play mr-2"></i> Get Started
-              <div class="absolute bottom-full mb-3 left-1/2 bg-black text-white text-sm rounded-lg shadow-lg px-4 py-2 tooltip-hover whitespace-nowrap">
-                Quick links to resources, events, news, and contact info.
-              </div>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 animate-stagger-1 leading-tight">Data Management Corner</h1>
+            <p class="text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-6 sm:mb-8 animate-stagger-2 px-4">
+                Streamline your research data lifecycle with comprehensive guides, best practices, and tools designed for researchers at PoL.
+            </p>
+            <div class="hero-buttons flex flex-col sm:flex-row justify-center gap-4 animate-stagger-3 px-4">
+                <div class="relative group inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 border border-transparent text-sm sm:text-base font-medium rounded-full text-white bg-secondary-violet cursor-default transition-all duration-300 transform hover:scale-105">
+                    <i class="fa-solid fa-play mr-2"></i> Get Started
+                    <div class="absolute bottom-full mb-3 left-1/2 bg-black text-white text-sm rounded-lg shadow-lg px-4 py-2 tooltip-hover whitespace-nowrap">
+                        Quick links to resources, events, news, and contact info.
+                    </div>
+                </div>
+                <div class="relative group inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 border-2 border-white text-sm sm:text-base font-medium rounded-full text-white cursor-default transition-all duration-300 transform hover:scale-105">
+                    <i class="fa-solid fa-book-open mr-2"></i> View Our Guidelines
+                    <div class="absolute bottom-full mb-3 left-1/2 bg-black text-white text-sm rounded-lg shadow-lg px-4 py-2 tooltip-hover text-left min-w-[300px] hidden sm:block">
+                        <h4 class="font-bold mb-1">Key Data Regulations:</h4>
+                        <ul class="list-disc list-inside space-y-1 text-xs">
+                            <li><strong>GDPR</strong>: Legal framework for personal data.</li>
+                            <li><strong>DFG Guidelines</strong>: Best practices for scientific data.</li>
+                            <li><strong>Ethics</strong>: Rules for animal and sensitive data.</li>
+                            <li><strong>Metadata</strong>: Standards for data quality and discoverability.</li>
+                            <li><strong>FHIR, UCUM, LOINC, SNOMED CT</strong>: Interoperability standards for healthcare data.</li>
+                        </ul>
+                        <a href="data-management-regulations.html" class="inline-block mt-2 text-secondary-violet bg-white px-2 py-1 rounded-full text-xs font-semibold hover:underline">Read More &rarr;</a>
+                    </div>
+                </div>
             </div>
-          
-            <div class="relative group inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 border-2 border-white text-sm sm:text-base font-medium rounded-full text-white cursor-default transition-all duration-300 transform hover:scale-105">
-              <i class="fa-solid fa-book-open mr-2"></i> View Our Guidelines
-              <div class="absolute bottom-full mb-3 left-1/2 bg-black text-white text-sm rounded-lg shadow-lg px-4 py-2 tooltip-hover text-left min-w-[300px] hidden sm:block">
-                <h4 class="font-bold mb-1">Key Data Regulations:</h4>
-                <ul class="list-disc list-inside space-y-1 text-xs">
-                    <li><strong>GDPR</strong>: Legal framework for personal data.</li>
-                    <li><strong>DFG Guidelines</strong>: Best practices for scientific data.</li>
-                    <li><strong>Ethics</strong>: Rules for animal and sensitive data.</li>
-                    <li><strong>Metadata</strong>: Standards for data quality and discoverability.</li>
-                    <li><strong>FHIR, UCUM, LOINC, SNOMED CT</strong>: Interoperability standards for healthcare data.</li>
-                </ul>
-                <a href="data-management-regulations.html" class="inline-block mt-2 text-secondary-violet bg-white px-2 py-1 rounded-full text-xs font-semibold hover:underline">Read More &rarr;</a>
-              </div>
-            </div>
-          </div>
         </div>
       </header>
 
@@ -332,21 +333,19 @@
             </div>
           </section>
     
-          <!-- What's New Section -->
-          <section id="whats-new-section" class="relative my-12 sm:my-16">
-            <div class="relative bg-white dark:bg-dark-card p-6 sm:p-8 lg:p-10 rounded-3xl shadow-xl overflow-hidden min-h-[250px] sm:min-h-[300px] flex items-center justify-center">
-              <img src="static/images/openFrame-Microscope-6.jpg" class="absolute inset-0 w-full h-full object-cover opacity-30" alt="Microscope">
-              <div class="absolute inset-0 bg-black opacity-50"></div>
-          
-              <div class="relative z-10 text-center text-white px-4">
-                <h3 class="text-2xl sm:text-3xl font-bold mb-3">Stay Up-to-Date with Latest Trends!</h3>
-                <p class="text-base sm:text-lg mb-6 max-w-xl mx-auto">Discover the newest advancements in data science, AI, and research tools.</p>
-                <a href="whats-new.html" class="inline-block bg-white text-secondary-violet font-bold py-3 px-6 rounded-full shadow-lg hover:bg-gray-100 transition transform hover:scale-105">
-                  Read More &rarr;
-                </a>
-              </div>
+          <section id="whats-new-section" class="relative bg-primary-blue text-white min-h-screen flex items-center justify-center pt-20 sm:pt-32 pb-12 sm:pb-24 overflow-hidden">
+            <div class="absolute inset-0 z-0 flex items-center justify-center">
+                <img src="static/images/background_img.jpg" class="absolute inset-0 w-full h-full object-cover opacity-50" alt="Microscope">
+        
+                <div class="relative z-10 text-center text-white px-4">
+                    <h3 class="text-2xl sm:text-3xl font-bold mb-3">Stay Up-to-Date with Latest Trends!</h3>
+                    <p class="text-base sm:text-lg mb-6 max-w-xl mx-auto">Discover the newest advancements in data science, AI, and research tools.</p>
+                    <a href="whats-new.html" class="inline-block bg-white text-secondary-violet font-bold py-3 px-6 rounded-full shadow-lg hover:bg-gray-100 transition transform hover:scale-105">
+                        Read More &rarr;
+                    </a>
+                </div>
             </div>
-          </section>
+        </section>
     
           <!-- Events Section -->
           <section id="events-section" class="relative bg-primary-blue dark:bg-violet-900 text-white p-8 sm:p-10 lg:p-12 rounded-3xl my-12 sm:my-16 overflow-hidden text-center">
