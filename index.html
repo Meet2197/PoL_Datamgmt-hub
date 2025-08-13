@@ -38,6 +38,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="static/public/css/style.css">
     <link rel="icon" href="static/images/logos/pol-logo.png" type="image/png">
+    
     <style>
         /* Define a subtle fade-in and slide-up animation */
         @keyframes fadeInUp {
@@ -204,11 +205,11 @@
             </div>
           
             <div class="hidden md:flex space-x-4 lg:space-x-6 font-medium text-sm" id="desktop-menu">
-                <a href="#" data-modal-target="about-modal" class="nav-link text-white hover:text-gray-300 transition-colors">Overview</a>
-                <a href="#" data-modal-target="resources-modal" class="nav-link text-white hover:text-gray-300 transition-colors">Resources</a>
-                <a href="Events.html" class="nav-link text-white hover:text-gray-300 transition-colors">Events</a>
-                <a href="#" data-modal-target="contact-modal" class="nav-link text-white hover:text-gray-300 transition-colors">Contact</a>
-                <a href="whats-new.html" class="nav-link text-white hover:text-gray-300 font-semibold transition-colors">What's New</a>
+                <a href="#" data-modal-target="about-modal" class="nav-link text-white hover:text-secondary-violet transition-colors">Overview</a>
+                <a href="#" data-modal-target="resources-modal" class="nav-link text-white hover:text-secondary-violet transition-colors">Resources</a>
+                <a href="Events.html" class="nav-link text-white hover:text-secondary-violet transition-colors">Events</a>
+                <a href="#" data-modal-target="contact-modal" class="nav-link text-white hover:text-secondary-violet transition-colors">Contact</a>
+                <a href="whats-new.html" class="nav-link text-secondary-red hover:text-secondary-violet font-semibold transition-colors">What's New</a>
               </div>
         
         <div class="flex items-center space-x-3">
@@ -227,8 +228,8 @@
         
         <div id="mobile-menu" class="md:hidden fixed top-0 left-0 w-full h-full bg-white dark:bg-dark-surface z-40 transform -translate-x-full transition-transform duration-300 ease-in-out">
             <div class="flex flex-col pt-20 px-4">
-                <button id="mobile-menu-close" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white">
-                    <i class="fa-solid fa-xmark text-xl"></i>
+                <button id="mobile-menu-close" class="absolute top-4 right-4 z-50 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center transition-colors duration-200 hover:bg-black/70">
+                    <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
                 <a href="#" data-modal-target="about-modal" class="nav-link text-white dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Overview</a>
                 <a href="#" data-modal-target="resources-modal" class="nav-link text-white dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Resources</a>
@@ -374,8 +375,8 @@
         <div id="tool-details-modal" class="modal-wrapper hidden fixed inset-0 z-50 flex items-center justify-center p-4">
             <div class="modal-backdrop absolute inset-0 bg-black bg-opacity-50"></div>
             <div class="modal-content-container relative bg-white dark:bg-dark-card w-full max-w-xs sm:max-w-sm p-4 sm:p-6 rounded-lg shadow-xl">
-                <button data-modal-close="tool-details-modal" class="modal-close-btn absolute top-3 right-3 text-xl text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white transition-colors duration-200 z-10">
-                    <i class="fa-solid fa-xmark"></i>
+                <button data-modal-close="tool-details-modal" class="modal-close-btn absolute top-4 right-4 z-50 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center transition-colors duration-200 hover:bg-black/70">
+                    <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
                 <div class="flex flex-col items-center text-center">
                     <img id="tool-modal-logo" src="" alt="Tool logo" class="w-16 h-16 object-contain mb-2">
@@ -406,8 +407,9 @@
                     </div>
         
                     <div class="p-4 sm:p-6 lg:p-8">
-                        <button class="absolute top-4 right-4 text-white hover:text-gray-200 dark:text-gray-400 dark:hover:text-white z-20" data-modal-close="about-modal"><i class="fa-solid fa-xmark text-2xl"></i></button>
-        
+                        <button data-modal-close="about-modal" class="modal-close-btn">
+                            <i class="fa-solid fa-xmark text-lg"></i>
+                        </button>       
                         <div class="text-center mb-6">
                             <p class="text-primary-blue dark:text-gray-400 text-sm sm:text-base">
                                 This is your central hub for all things related to research data management at the Physics of Life (PoL) and TU Dresden (TUD). We provide comprehensive guides, best practices, and essential tools to help you streamline the entire lifecycle of your research data, from project inception to long-term archiving.
@@ -454,7 +456,7 @@
         <div id="resources-modal" class="modal-wrapper">
             <div class="modal-content-container">
                 <div class="relative bg-white dark:bg-dark-surface p-4 sm:p-6 rounded-xl shadow-2xl max-w-3xl w-full mx-4 my-4 sm:my-8 max-h-[90vh] overflow-y-auto">
-                    <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white z-10" data-modal-close="resources-modal"><i class="fa-solid fa-xmark text-2xl"></i></button>
+                    <button class="modal-close-btn" data-modal-close="resources-modal"><i class="fa-solid fa-xmark text-2xl"></i></button>
                     <h2 class="text-xl sm:text-2xl font-bold mb-6 text-center pr-8">Key Resources</h2>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -493,8 +495,8 @@
         <div id="contact-modal" class="modal-wrapper hidden fixed inset-0 z-50 flex items-center justify-center p-4">>
             <div class="modal-backdrop absolute inset-0 bg-black bg-opacity-50"></div>
             <div class="modal-content-container relative bg-white dark:bg-dark-surface p-4 sm:p-6 rounded-xl shadow-2xl max-w-2xl w-full mx-4 my-4 sm:my-8 max-h-[90vh] overflow-y-auto">
-                <button data-modal-close="contact-modal" class="modal-close-btn absolute top-4 right-4 text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white transition-colors duration-200 z-10">
-                    <i class="fa-solid fa-xmark text-2xl"></i>
+                <button data-modal-close="contact-modal" class="modal-close-btn">
+                    <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
                 <h2 class="text-xl sm:text-2xl font-bold mb-4 text-center pr-8">Contact Us </h2>
                 <form id="contact-form" class="space-y-4 mt-6">
@@ -520,8 +522,8 @@
         <div id="email-us-modal" class="modal-wrapper hidden fixed inset-0 z-50 flex items-center justify-center p-4">
             <div class="modal-backdrop absolute inset-0 bg-black bg-opacity-50"></div>
             <div class="modal-content-container relative bg-white dark:bg-dark-surface p-4 sm:p-6 rounded-xl shadow-2xl max-w-2xl w-full mx-4 my-4 sm:my-8 max-h-[90vh] overflow-y-auto">
-                <button data-modal-close="email-us-modal" class="modal-close-btn absolute top-4 right-4 text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white transition-colors duration-200 z-10">
-                    <i class="fa-solid fa-xmark text-2xl"></i>
+                <button data-modal-close="email-us-modal" class="modal-close-btn">
+                    <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
                 <h2 class="text-xl sm:text-2xl font-bold mb-4 text-center pr-8">Contact Data Manager</h2>
                 <form id="email-us-form" class="space-y-4">

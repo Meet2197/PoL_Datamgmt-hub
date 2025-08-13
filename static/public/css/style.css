@@ -308,30 +308,31 @@ body.menu-open {
 }
 /* Modal close button improvements */
 .modal-close-btn {
-    width: 32px;
-    height: 32px;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 50;
+    width: 2rem; /* 32px */
+    height: 2rem; /* 32px */
+    border-radius: 9999px; /* rounded-full */
+    background: rgba(0, 0, 0, 0.5); /* bg-black/50 */
+    color: white; /* text-white */
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
+    transition: background 0.2s ease;
 }
 
 .modal-close-btn:hover {
-    background: rgba(0, 0, 0, 0.2);
-    transform: scale(1.1);
+    background: rgba(0, 0, 0, 0.7); /* hover:bg-black/70 */
 }
 
+/* Dark mode for the modal close button */
 .dark .modal-close-btn {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.5);
+    color: black;
 }
 
 .dark .modal-close-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* Ensure close button is always on top */
-.modal-close-btn {
-    z-index: 9999;
+    background: rgba(255, 255, 255, 0.7);
 }
