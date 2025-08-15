@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+        // Configure Tailwind CSS for dark mode and custom colors
         tailwind.config = {
             darkMode: 'class',
             theme: {
@@ -21,7 +22,6 @@
                         'dark-bg': '#1C1C1C',
                         'dark-surface': '#1e1e1e',
                         'dark-card': '#2a2a2a',
-                        'dark-surface': '#252540',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -33,493 +33,427 @@
             },
         }
     </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../Resources/public/css/style.css">
-  <link rel="icon" href="../Resources/images/logos/pol-logo.png" type="image/png">
-  <style>
-      .figshare-bg {
-          background-image: url('/Resources/images/logos/zenodo_logo.png');
-          background-repeat: no-repeat;
-          background-size: contain;
-          background-position: center;
-      }
-      .navbar {
-          background-color: rgba(255, 255, 255, 0.9) !important;
-          backdrop-filter: blur(10px);
-          }
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="Resources/images/logos/pol-logo.png" type="image/png">
+    
+    <style>
+        /* Custom styles for the responsive navigation bar */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.9) !important;
+            backdrop-filter: blur(10px);
+        }
 
-          .dark .navbar {
-              background-color: rgba(30, 30, 30, 0.9) !important;
-          }
+        .dark .navbar {
+            background-color: rgba(30, 30, 30, 0.9) !important;
+        }
 
-          /* Ensure logos always stay visible */
-          #nav-logos {
-              position: relative;
-              z-index: 1001;
-          }
+        /* Ensure logos always stay visible */
+        #nav-logos {
+            position: relative;
+            z-index: 1001;
+        }
 
-          #nav-logos img {
-              opacity: 1 !important;
-              visibility: visible !important;
-              transition: none !important;
-          }
+        /* Hamburger menu styles */
+        #menu-toggle {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            z-index: 1002;
+        }
 
-          /* Hamburger menu styles */
-          #menu-toggle {
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              width: 40px;
-              height: 40px;
-              position: relative;
-              z-index: 1002;
-          }
+        .hamburger-bar {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background-color: currentColor;
+            margin: 2px 0;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
 
-          .hamburger-bar {
-              display: block;
-              width: 20px;
-              height: 2px;
-              background-color: currentColor;
-              margin: 2px 0;
-              transition: all 0.3s ease;
-              transform-origin: center;
-          }
+        /* Active hamburger animation */
+        #menu-toggle.active .hamburger-bar:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
 
-          /* Active hamburger animation */
-          #menu-toggle.active .hamburger-bar:nth-child(1) {
-              transform: rotate(45deg) translate(5px, 5px);
-          }
+        #menu-toggle.active .hamburger-bar:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
 
-          #menu-toggle.active .hamburger-bar:nth-child(2) {
-              opacity: 0;
-              transform: translateX(-20px);
-          }
+        #menu-toggle.active .hamburger-bar:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
 
-          #menu-toggle.active .hamburger-bar:nth-child(3) {
-              transform: rotate(-45deg) translate(7px, -6px);
-          }
+        /* Mobile menu styles */
+        #mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            background-color: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(10px);
+        }
 
-          /* Mobile menu styles */
-          #mobile-menu {
-              transform: translateX(-100%);
-              transition: transform 0.3s ease-in-out;
-              background-color: rgba(255, 255, 255, 0.98) !important;
-              backdrop-filter: blur(10px);
-          }
+        .dark #mobile-menu {
+            background-color: rgba(30, 30, 30, 0.98) !important;
+        }
 
-          .dark #mobile-menu {
-              background-color: rgba(30, 30, 30, 0.98) !important;
-          }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
 
-          #mobile-menu.open {
-              transform: translateX(0);
-          }
+        /* Prevent body scroll when mobile menu is open */
+        body.menu-open {
+            overflow: hidden;
+        }
+        
+        /* Modal close button improvements */
+        .modal-close-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+        }
 
-          /* Prevent body scroll when mobile menu is open */
-          body.menu-open {
-              overflow: hidden;
-          }
+        .modal-close-btn:hover {
+            background: rgba(0, 0, 0, 0.2);
+            transform: scale(1.1);
+        }
 
-          /* Mobile menu links */
-          #mobile-menu .nav-link {
-              border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-              transition: all 0.2s ease;
-          }
+        .dark .modal-close-btn {
+            background: rgba(255, 255, 255, 0.1);
+        }
 
-          .dark #mobile-menu .nav-link {
-              border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-          }
+        .dark .modal-close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
 
-          #mobile-menu .nav-link:last-child {
-              border-bottom: none;
-          }
-
-          /* Responsive improvements */
-          @media (max-width: 768px) {
-              .navbar {
-                  padding: 0.75rem 1rem;
-              }
-              
-              #nav-logos img {
-                  height: 2rem !important;
-              }
-              
-              /* Ensure mobile menu covers full screen */
-              #mobile-menu {
-                  top: 0;
-                  left: 0;
-                  right: 0;
-                  bottom: 0;
-                  height: 100vh;
-                  width: 100vw;
-              }
-          }
-          /* Modal close button improvements */
-          .modal-close-btn {
-              width: 32px;
-              height: 32px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              border-radius: 50%;
-              background: rgba(0, 0, 0, 0.1);
-              transition: all 0.2s ease;
-          }
-
-          .modal-close-btn:hover {
-              background: rgba(0, 0, 0, 0.2);
-              transform: scale(1.1);
-          }
-
-          .dark .modal-close-btn {
-              background: rgba(255, 255, 255, 0.1);
-          }
-
-          .dark .modal-close-btn:hover {
-              background: rgba(255, 255, 255, 0.2);
-          }
-
-          /* Ensure close button is always on top */
-          .modal-close-btn {
-              z-index: 9999;
-          }
-  </style>
+        /* Ensure close button is always on top */
+        .modal-close-btn {
+            z-index: 9999;
+        }
+    </style>
 </head>
 <body class="bg-light-bg dark:bg-dark-bg text-white dark:text-gray-200 transition-colors duration-300">
+    <!-- Navbar -->
     <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/80 dark:bg-dark-surface/80 shadow-md transition-all" id="navbar">
         <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <!-- Logos -->
             <div class="flex items-center space-x-2 sm:space-x-4" id="nav-logos">
-                <a href="index.html"><img src="Resources/images/logos/tud_logo.svg" alt="TUD" class="h-8 sm:h-10 w-auto rounded-full" id="tud-logo" /></a>
-                <a href="index.html"><img src="Resources/images/logos/pol-logo.png" alt="PoL" class="h-6 sm:h-8 w-auto" id="pol-logo" /></a>
+                <a href="index.html">
+                    <img src="Resources/images/logos/tud_logo.svg" alt="TUD" class="h-8 sm:h-10 w-auto rounded-full" id="tud-logo" />
+                </a>
+                <a href="index.html">
+                    <img src="Resources/images/logos/pol-logo.png" alt="PoL" class="h-6 sm:h-8 w-auto" id="pol-logo" />
+                </a>
             </div>
-          
+
+            <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-4 lg:space-x-6 font-medium text-sm" id="desktop-menu">
-                <a href="#" data-modal-target="about-modal" class="nav-link text-white hover:text-secondary-violet transition-colors">Overview</a>
-                <a href="#" data-modal-target="resources-modal" class="nav-link text-white hover:text-secondary-violet transition-colors">Resources</a>
-                <a href="Events.html" class="nav-link text-white hover:text-secondary-violet transition-colors">Events</a>
-                <a href="#" data-modal-target="contact-modal" class="nav-link text-white hover:text-secondary-violet transition-colors">Contact</a>
-                <a href="whats-new.html" class="nav-link text-secondary-red hover:text-secondary-violet font-semibold transition-colors">What's New</a>
-              </div>
-        
-        <div class="flex items-center space-x-3">
-            <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-                <i id="theme-toggle-light-icon" class="fa-solid fa-sun hidden"></i>
-                <i id="theme-toggle-dark-icon" class="fa-solid fa-moon"></i>
-            </button>
-            <button class="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" id="menu-toggle">
-                <span class="hamburger-bar"></span>
-                <span class="hamburger-bar"></span>
-                <span class="hamburger-bar"></span>
-            </button>
-        </div>
-        </div>  
-        </div>
-        
-        <div id="mobile-menu" class="md:hidden fixed top-0 left-0 w-full h-full bg-white dark:bg-dark-surface z-40 transform -translate-x-full transition-transform duration-300 ease-in-out">
-            <div class="flex flex-col pt-20 px-4">
-                <button id="mobile-menu-close" class="absolute top-4 right-4 z-50 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center transition-colors duration-200 hover:bg-black/70">
-                    <i class="fa-solid fa-xmark text-lg"></i>
+                <a href="#" data-modal-target="about-modal" class="nav-link text-gray-700 dark:text-gray-200 hover:text-secondary-violet transition-colors">Overview</a>
+                <a href="#" data-modal-target="resources-modal" class="nav-link text-gray-700 dark:text-gray-200 hover:text-secondary-violet transition-colors">Resources</a>
+                <a href="Events.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-secondary-violet transition-colors">Events</a>
+                <a href="#" data-modal-target="contact-modal" class="nav-link text-gray-700 dark:text-gray-200 hover:text-secondary-violet transition-colors">Contact</a>
+                <a href="whats-new.html" class="nav-link text-secondary-red hover:text-secondary-violet font-semibold transition-colors">What's New <i class="fas fa-arrow-right ml-1 text-sm"></i></a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button and Dark Mode Toggle -->
+            <div class="flex items-center space-x-4 md:space-x-6">
+                <!-- Dark Mode Toggle -->
+                <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 transition-colors duration-300">
+                    <i id="theme-toggle-light-icon" class="fa-solid fa-moon text-lg hidden"></i>
+                    <i id="theme-toggle-dark-icon" class="fa-solid fa-sun text-lg hidden"></i>
                 </button>
-                <a href="#" data-modal-target="about-modal" class="nav-link text-white dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Overview</a>
-                <a href="#" data-modal-target="resources-modal" class="nav-link text-white dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Resources</a>
-                <a href="Events.html" class="nav-link text-white dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Events</a>
-                <a href="#" data-modal-target="contact-modal" class="nav-link text-white dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Contact</a>
-                <a href="whats-new.html" class="nav-link text-secondary-red font-semibold hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">What's New</a>
+                <!-- Hamburger Menu -->
+                <button id="menu-toggle" class="md:hidden text-gray-700 dark:text-gray-200">
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                </button>
             </div>
         </div>
     </nav>
+    
+    <!-- Mobile Menu Container -->
+    <div id="mobile-menu" class="fixed top-0 left-0 h-full w-full bg-white dark:bg-dark-surface/90 shadow-lg z-40 p-4 pt-20 flex flex-col items-center justify-center space-y-4 md:hidden">
+        <a href="#" data-modal-target="about-modal" class="nav-link text-gray-700 dark:text-gray-200 hover:text-secondary-violet transition-colors w-full text-center py-4 border-b border-gray-200 dark:border-gray-700">Overview</a>
+        <a href="#" data-modal-target="resources-modal" class="nav-link text-gray-700 dark:text-gray-200 hover:text-secondary-violet transition-colors w-full text-center py-4 border-b border-gray-200 dark:border-gray-700">Resources</a>
+        <a href="Events.html" class="nav-link text-gray-700 dark:text-gray-200 hover:text-secondary-violet transition-colors w-full text-center py-4 border-b border-gray-200 dark:border-gray-700">Events</a>
+        <a href="#" data-modal-target="contact-modal" class="nav-link text-gray-700 dark:text-gray-200 hover:text-secondary-violet transition-colors w-full text-center py-4 border-b border-gray-200 dark:border-gray-700">Contact</a>
+        <a href="whats-new.html" class="nav-link text-secondary-red hover:text-secondary-violet font-semibold transition-colors w-full text-center py-4">What's New <i class="fas fa-arrow-right ml-1 text-sm"></i></a>
+        <button id="close-menu-btn" class="absolute top-4 right-4 text-gray-700 dark:text-gray-200 text-3xl">&times;</button>
+    </div>
 
-    <main class="pt-24">
-        <section class="bg-gradient-to-br from-blue-500 to-indigo-600 text-white py-20 relative overflow-hidden">
-            <div class="absolute inset-0 zenodo-bg opacity-10"></div>
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                <img src="Resources/images/logos/zenodo_logo.jpg" alt="Zenodo Logo" class="mx-auto w-24 h-24 mb-4 rounded-full shadow-lg">
-                <h1 class="text-4xl sm:text-5xl font-bold mb-2">Zenodo</h1>
-                <p class="text-lg sm:text-xl max-w-3xl mx-auto mb-6">
-                    A general-purpose open-access repository for research data, software, publications, and more.
+    <!-- Main Content -->
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section class="relative w-full py-20 md:py-32 overflow-hidden bg-white dark:bg-dark-surface transition-colors duration-300">
+            <div class="absolute inset-0 figshare-bg opacity-10"></div>
+            <div class="relative max-w-screen-lg mx-auto px-4 text-center z-10">
+                <div class="flex items-center justify-center mb-6">
+                    <h1 class="text-4xl md:text-6xl font-extrabold text-primary-blue dark:text-white ml-4">Zenodo</h1>
+                </div>
+                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                    Zenodo is an open-access repository developed by CERN, allowing researchers from any discipline to upload, share, and archive research data, software, publications, and more. It is a key tool for ensuring the long-term preservation and discoverability of research outputs.
                 </p>
-                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                    <a href="https://zenodo.org/signup/" target="_blank" class="bg-white text-indigo-600 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105">
-                        Log In / Sign Up
-                    </a>
-                    <a href="https://help.zenodo.org/docs/" target="_blank" class="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-indigo-600 transition duration-300 transform hover:scale-105">
-                        Documentation
-                    </a>
+                <div class="mt-8 flex justify-center space-x-4">
+                    <button data-modal-target="about-modal" class="bg-secondary-violet text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-secondary-violet/90 transition transform hover:scale-105">Learn More</button>
+                    <a href="https://zenodo.org" target="_blank" rel="noopener noreferrer" class="bg-primary-blue text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-primary-blue/90 transition transform hover:scale-105">Visit Zenodo</a>
                 </div>
             </div>
         </section>
 
-        <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-black dark:text-white">Zenodo</h2>
-                    <p class="mb-6 text-gray-700 dark:text-gray-300 text-lg">
-                        An open-access data repository that allows researchers from all disciplines to deposit and share their research output. Designed to be a simple and reliable way to make your data and software citable and discoverable. It's a great tool for ensuring the long-term preservation of your work.
-                    </p>
-                    <ul class="space-y-3 text-gray-700 dark:text-gray-300">
-                        <li class="flex items-start">
-                            <i class="fa-solid fa-check-circle text-green-500 mt-1 mr-2"></i>
-                            <div>
-                                <strong class="text-black dark:text-white">Persistent Identifiers:</strong> Each submission receives a Digital Object Identifier (DOI), making your research citable.
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa-solid fa-check-circle text-green-500 mt-1 mr-2"></i>
-                            <div>
-                                <strong class="text-black dark:text-white">Versatility:</strong> Accepts a wide range of file types, including data, software, publications, and presentations.
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa-solid fa-check-circle text-green-500 mt-1 mr-2"></i>
-                            <div>
-                                <strong class="text-black dark:text-white">Open Access:</strong> Aligns with FAIR principles (Findable, Accessible, Interoperable, Reusable) by making research openly available.
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <div class="relative w-full h-0 pb-[56.25%] rounded-xl overflow-hidden shadow-2xl">
-                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/watch?v=BPVSErzNtME" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <!-- What You Can Do with Zenodo Section -->
+        <section class="bg-light-bg dark:bg-dark-bg py-16 md:py-24">
+            <div class="max-w-screen-xl mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-primary-blue dark:text-white mb-12">What You Can Do with Zenodo</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white dark:bg-dark-card rounded-xl p-6 shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                        <div class="text-secondary-violet text-4xl mb-4"><i class="fas fa-cloud-upload-alt"></i></div>
+                        <h3 class="font-bold text-xl text-primary-blue dark:text-gray-200 mb-2">Upload and Share</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Easily upload any type of file, including datasets, software, and publications, and get a DOI for easy citation.</p>
                     </div>
-                </div>
-            </div>
-        </section>
-        
-        <section class="bg-gray-100 dark:bg-gray-900 py-16">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-black dark:text-white">FAQs </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-white dark:bg-dark-card p-6 rounded-lg shadow-lg">
-                        <h3 class="text-xl font-bold mb-3 text-secondary-violet">Who can use Zenodo?</h3>
-                        <p class="text-gray-700 dark:text-gray-300">
-                            It's a general-purpose repository, which means it's not limited to a specific discipline. It's suitable for researchers, students, and institutions from all fields.
-                        </p>
+                    <div class="bg-white dark:bg-dark-card rounded-xl p-6 shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                        <div class="text-secondary-violet text-4xl mb-4"><i class="fas fa-search"></i></div>
+                        <h3 class="font-bold text-xl text-primary-blue dark:text-gray-200 mb-2">Discover Research</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Search and access a vast collection of open-access research outputs from a wide range of fields.</p>
                     </div>
-                    <div class="bg-white dark:bg-dark-card p-6 rounded-lg shadow-lg">
-                        <h3 class="text-xl font-bold mb-3 text-secondary-violet">Why should I use Zenodo as a Reasearcher   ?</h3>
-                        <p class="text-gray-700 dark:text-gray-300">
-                            Using Zenodo helps you fulfill funder mandates for data sharing, increases the visibility and impact of your research by making it citable, and provides a stable, long-term home for your data and code.
-                        </p>
+                    <div class="bg-white dark:bg-dark-card rounded-xl p-6 shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                        <div class="text-secondary-violet text-4xl mb-4"><i class="fas fa-archive"></i></div>
+                        <h3 class="font-bold text-xl text-primary-blue dark:text-gray-200 mb-2">Long-Term Archiving</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Benefit from reliable long-term preservation, ensuring your research remains accessible for future generations.</p>
                     </div>
-                    <div class="bg-white dark:bg-dark-card p-6 rounded-lg shadow-lg">
-                        <h3 class="text-xl font-bold mb-3 text-secondary-violet">How do I create a community for my lab?</h3>
-                        <p class="text-gray-700 dark:text-gray-300">
-                            Zenodo allows you to create communities to group together research from your lab or project. This makes it easier for others to find all your related work in one place. You can manage access and curation rights for your community.
-                        </p>
-                    </div>
-                    <div class="bg-white dark:bg-dark-card p-6 rounded-lg shadow-lg">
-                        <h3 class="text-xl font-bold mb-3 text-secondary-violet">What is a DOI and why is it important?</h3>
-                        <p class="text-gray-700 dark:text-gray-300">
-                            A DOI (Digital Object Identifier) is a unique, persistent identifier for an electronic document or data set. It's a permanent link to your research, ensuring that your work can always be found, even if its web address changes. Zenodo automatically assigns a DOI to your submissions.
-                        </p>
+                    <div class="bg-white dark:bg-dark-card rounded-xl p-6 shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                        <div class="text-secondary-violet text-4xl mb-4"><i class="fas fa-code"></i></div>
+                        <h3 class="font-bold text-xl text-primary-blue dark:text-gray-200 mb-2">Software Integration</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Zenodo integrates with GitHub, automatically archiving your releases and assigning a DOI for each version.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="get-in-touch" class="bg-gradient-to-br from-primary-blue to-secondary-violet text-white py-16 sm:py-20 px-4 sm:px-6 lg:px-8 rounded-3xl shadow-lg text-center my-12 sm:my-16">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Get in Touch</h2>
-            <p class="text-base sm:text-lg max-w-2xl mx-auto mb-8">Have questions or need support with your data management? Contact a Data Manager for personalized assistance.</p>
-            <button data-modal-target="email-us-modal" class="bg-white text-secondary-violet font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition transform hover:scale-105">
-                Email Us
-            </button>
+        <!-- Key Features Section -->
+        <section class="bg-white dark:bg-dark-surface py-16 md:py-24">
+            <div class="max-w-screen-xl mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-primary-blue dark:text-white mb-12">Key Features</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="text-secondary-violet flex-shrink-0 mt-1">
+                                    <i class="fas fa-certificate text-2xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-primary-blue dark:text-gray-200">Digital Object Identifiers (DOIs)</h3>
+                                    <p class="text-gray-600 dark:text-gray-400">Zenodo automatically mints a DOI for every public deposit, making your research outputs citable and easily traceable.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="text-secondary-violet flex-shrink-0 mt-1">
+                                    <i class="fas fa-lock text-2xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-primary-blue dark:text-gray-200">Open and Secure</h3>
+                                    <p class="text-gray-600 dark:text-gray-400">Built on a secure and trusted infrastructure by CERN, Zenodo ensures your data is safely stored and openly accessible.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="text-secondary-violet flex-shrink-0 mt-1">
+                                    <i class="fas fa-users text-2xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-primary-blue dark:text-gray-200">Community Support</h3>
+                                    <p class="text-gray-600 dark:text-gray-400">Zenodo supports various communities and collaborations, providing a platform for group-specific data management.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://placehold.co/600x400/12163b/FFFFFF?text=Zenodo+Dashboard" alt="Zenodo Dashboard" class="w-full h-auto rounded-xl shadow-lg"/>
+                    </div>
+                </div>
+            </div>
         </section>
 
+        <!-- Call to Action -->
+        <section class="bg-light-bg dark:bg-dark-bg py-16 md:py-24">
+            <div class="max-w-screen-xl mx-auto px-4 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary-blue dark:text-white mb-4">Ready to get started?</h2>
+                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8">
+                    Use Zenodo to publish your research outputs and contribute to open science.
+                </p>
+                <a href="https://zenodo.org/join" target="_blank" rel="noopener noreferrer" class="bg-secondary-red text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-secondary-red/90 transition transform hover:scale-105">
+                    Create a free account today
+                </a>
+            </div>
+        </section>
     </main>
 
-    <footer class="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-sm text-center py-6 mt-12 rounded-t-3xl shadow-inner">
-        <p>&copy; 2025 PoL Data Management Corner. All rights reserved.</p>
+    <!-- Footer -->
+    <footer class="bg-primary-blue dark:bg-dark-surface py-8 md:py-12 text-white">
+        <div class="max-w-screen-xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
+            <div class="col-span-1 md:col-span-2">
+                <h3 class="font-bold text-lg mb-2">PoL Data Management Corner</h3>
+                <p class="text-sm text-gray-300">
+                    Your resource for all things data management at the PoL.
+                </p>
+            </div>
+            <div>
+                <h4 class="font-semibold text-md mb-2">Quick Links</h4>
+                <ul class="text-sm space-y-1">
+                    <li><a href="#" class="hover:text-secondary-violet transition-colors">Overview</a></li>
+                    <li><a href="#" class="hover:text-secondary-violet transition-colors">Key Resources</a></li>
+                    <li><a href="Events.html" class="hover:text-secondary-violet transition-colors">Events</a></li>
+                    <li><a href="#" class="hover:text-secondary-violet transition-colors">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-screen-xl mx-auto px-4 mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400">
+            &copy; 2024 PoL Data Management Corner. All rights reserved.
+        </div>
     </footer>
 
-    <div id="modal-container">
+    <!-- Modals -->
+    <!-- About Modal -->
+    <div id="about-modal" class="modal-wrapper fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="modal-backdrop absolute inset-0 bg-black bg-opacity-50"></div>
+        <div class="modal-content-container relative w-full max-w-2xl bg-white dark:bg-dark-surface rounded-xl shadow-lg p-6 md:p-8 transform scale-95 transition-transform duration-300">
+            <button data-modal-close="about-modal" class="modal-close-btn absolute top-4 right-4 text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white text-2xl">&times;</button>
+            <h3 class="text-2xl font-bold text-primary-blue dark:text-white mb-4">About Zenodo</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                Zenodo is a general-purpose open-access repository operated by CERN. It allows researchers to preserve and share their research outputs from various disciplines, including datasets, software, publications, and reports. By providing a stable platform and a Digital Object Identifier (DOI) for every upload, Zenodo ensures that research outputs are permanently citable and accessible.
+            </p>
+            <p class="text-gray-600 dark:text-gray-400">
+                It's an essential tool for open science, promoting reproducibility and collaboration by making research data openly available.
+            </p>
         </div>
+    </div>
 
-        <div id="about-modal" class="modal-wrapper">
-            <div class="modal-content-container">
-                <div class="relative bg-white dark:bg-dark-surface p-0 rounded-xl shadow-2xl max-w-2xl w-full mx-4 my-4 sm:my-8 overflow-hidden max-h-[90vh] overflow-y-auto">
-        
-                    <div class="relative pt-12 pb-8 px-6 bg-primary-blue text-white text-center">
-                        <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('Resources/images/image2.jpg');"></div>
-                        <div class="relative z-10">
-                            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">About Our Initiative</h2>
-                            <p class="text-base sm:text-lg opacity-80">Your guide to effective research data management at PoL.</p>
-                        </div>
-                    </div>
-        
-                    <div class="p-4 sm:p-6 lg:p-8">
-                        <button data-modal-close="about-modal" class="modal-close-btn">
-                            <i class="fa-solid fa-xmark text-lg"></i>
-                        </button>       
-                        <div class="text-center mb-6">
-                            <p class="text-primary-blue dark:text-gray-400 text-sm sm:text-base">
-                                This is your central hub for all things related to research data management at the Physics of Life (PoL) and TU Dresden (TUD). We provide comprehensive guides, best practices, and essential tools to help you streamline the entire lifecycle of your research data, from project inception to long-term archiving.
-                            </p>
-                        </div>
-        
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-6">
-                            <a href="resources.html" class="flex items-center p-4 bg-gray-100 dark:bg-dark-card rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-dark-card/80 transition duration-300">
-                                <i class="fa-solid fa-file-contract mr-4 text-2xl sm:text-3xl text-secondary-violet"></i>
-                                <div>
-                                    <h3 class="font-bold text-lg sm:text-xl">Key Resources</h3>
-                                    <p class="text-xs sm:text-sm text-primary-blue dark:text-gray-400">Detailed guides on regulations, storage, and sharing.</p>
-                                </div>
-                            </a>
-        
-                            <a href="Events.html" class="flex items-center p-4 bg-gray-100 dark:bg-dark-card rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-dark-card/80 transition duration-300">
-                                <i class="fa-solid fa-calendar-alt mr-4 text-2xl sm:text-3xl text-secondary-violet"></i>
-                                <div>
-                                    <h3 class="font-bold text-lg sm:text-xl">Upcoming Events</h3>
-                                    <p class="text-xs sm:text-sm text-primary-blue dark:text-gray-400">Workshops, seminars, and talks on data science.</p>
-                                </div>
-                            </a>
-        
-                            <a href="whats-new.html" class="flex items-center p-4 bg-gray-100 dark:bg-dark-card rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-dark-card/80 transition duration-300">
-                                <i class="fa-solid fa-bell mr-4 text-2xl sm:text-3xl text-secondary-violet"></i>
-                                <div>
-                                    <h3 class="font-bold text-lg sm:text-xl">What's New</h3>
-                                    <p class="text-xs sm:text-sm text-primary-blue dark:text-gray-400">Latest updates and news from the team.</p>
-                                </div>
-                            </a>
-        
-                            <a href="#" class="flex items-center p-4 bg-gray-100 dark:bg-dark-card rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-dark-card/80 transition duration-300">
-                                <i class="fa-solid fa-envelope mr-4 text-2xl sm:text-3xl text-secondary-violet"></i>
-                                <div>
-                                    <h3 class="font-bold text-lg sm:text-xl">Contact Us</h3>
-                                    <p class="text-xs sm:text-sm text-primary-blue dark:text-gray-400">Get in touch with the data management team.</p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Resources Modal -->
+    <div id="resources-modal" class="modal-wrapper fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="modal-backdrop absolute inset-0 bg-black bg-opacity-50"></div>
+        <div class="modal-content-container relative w-full max-w-2xl bg-white dark:bg-dark-surface rounded-xl shadow-lg p-6 md:p-8 transform scale-95 transition-transform duration-300">
+            <button data-modal-close="resources-modal" class="modal-close-btn absolute top-4 right-4 text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white text-2xl">&times;</button>
+            <h3 class="text-2xl font-bold text-primary-blue dark:text-white mb-4">Key Resources</h3>
+            <ul class="space-y-4">
+                <li>
+                    <a href="https://guides.zenodo.org/" target="_blank" rel="noopener noreferrer" class="text-secondary-violet hover:underline flex items-center">
+                        <i class="fas fa-book mr-2"></i> Zenodo User Guides
+                    </a>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Official documentation and guides to help you get started with Zenodo.</p>
+                </li>
+                <li>
+                    <a href="https://zenodo.org/faq" target="_blank" rel="noopener noreferrer" class="text-secondary-violet hover:underline flex items-center">
+                        <i class="fas fa-question-circle mr-2"></i> Zenodo FAQ
+                    </a>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Find answers to common questions about Zenodo's features and policies.</p>
+                </li>
+                <li>
+                    <a href="https://about.zenodo.org/" target="_blank" rel="noopener noreferrer" class="text-secondary-violet hover:underline flex items-center">
+                        <i class="fas fa-info-circle mr-2"></i> About Zenodo
+                    </a>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Learn more about the mission, infrastructure, and history of Zenodo.</p>
+                </li>
+            </ul>
         </div>
-        <div id="resources-modal" class="modal-wrapper">
-            <div class="modal-content-container">
-                <div class="relative bg-white dark:bg-dark-surface p-4 sm:p-6 rounded-xl shadow-2xl max-w-3xl w-full mx-4 my-4 sm:my-8 max-h-[90vh] overflow-y-auto">
-                    <button class="modal-close-btn" data-modal-close="resources-modal"><i class="fa-solid fa-xmark text-2xl"></i></button>
-                    <h2 class="text-xl sm:text-2xl font-bold mb-6 text-center pr-8">Key Resources</h2>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        
-                        <div class="resource-card p-4 sm:p-6 bg-gray-100 dark:bg-dark-card rounded-xl shadow-md">
-                            <h3 class="font-bold text-lg sm:text-xl mb-2">
-                                <a href="data-management-regulations.html" class="hover:text-secondary-violet">
-                                    <i class="fa-solid fa-file-shield mr-2 text-secondary-violet"></i>Data Management & Regulations
-                                </a>
-                            </h3>
-                            <p class="text-sm sm:text-base text-primary-blue dark:text-gray-400">Learn how to create effective Data management associated activities.</p>
-                        </div>
-                        
-                        <div class="resource-card p-4 sm:p-6 bg-gray-100 dark:bg-dark-card rounded-xl shadow-md">
-                            <h3 class="font-bold text-lg sm:text-xl mb-2">
-                                <a href="data-storage-backup.html" class="hover:text-secondary-violet">
-                                    <i class="fa-solid fa-hard-drive mr-2 text-secondary-violet"></i>Data Storage & Backup
-                                </a>
-                            </h3>
-                            <p class="text-sm sm:text-base text-primary-blue dark:text-gray-400">Guidelines for secure data storage.</p>
-                        </div>
-                        
-                        <div class="resource-card p-4 sm:p-6 bg-gray-100 dark:bg-dark-card rounded-xl shadow-md">
-                            <h3 class="font-bold text-lg sm:text-xl mb-2">
-                                <a href="data-sharing-archiving.html" class="hover:text-secondary-violet">
-                                    <i class="fa-solid fa-share-alt mr-2 text-secondary-violet"></i>Data Sharing & Archiving
-                                </a>
-                            </h3>
-                            <p class="text-sm sm:text-base text-primary-blue dark:text-gray-400">Best practices for sharing and archiving data.</p>
-                        </div>
-                    </div> 
-                </div>
-            </div>
-        </div>
- 
-        <div id="contact-modal" class="modal-wrapper hidden fixed inset-0 z-50 flex items-center justify-center p-4">>
-            <div class="modal-backdrop absolute inset-0 bg-black bg-opacity-50"></div>
-            <div class="modal-content-container relative bg-white dark:bg-dark-surface p-4 sm:p-6 rounded-xl shadow-2xl max-w-2xl w-full mx-4 my-4 sm:my-8 max-h-[90vh] overflow-y-auto">
-                <button data-modal-close="contact-modal" class="modal-close-btn">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-                <h2 class="text-xl sm:text-2xl font-bold mb-4 text-center pr-8">Contact Us </h2>
-                <form id="contact-form" class="space-y-4 mt-6">
-                    <div>
-                        <label for="name" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Name</label>
-                        <input type="text" id="name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" placeholder="John Doe">
-                    </div>
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Email</label>
-                        <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" placeholder="john.doe@example.com">
-                    </div>
-                    <div>
-                        <label for="message" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Message</label>
-                        <textarea id="message" name="message" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" placeholder="Your message..."></textarea>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="w-full sm:w-auto bg-secondary-violet text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-violet-700 hover:shadow-xl transition duration-300">Send Message</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+    </div>
 
-        <div id="email-us-modal" class="modal-wrapper hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div class="modal-backdrop absolute inset-0 bg-black bg-opacity-50"></div>
-            <div class="modal-content-container relative bg-white dark:bg-dark-surface p-4 sm:p-6 rounded-xl shadow-2xl max-w-2xl w-full mx-4 my-4 sm:my-8 max-h-[90vh] overflow-y-auto">
-                <button data-modal-close="email-us-modal" class="modal-close-btn">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-                <h2 class="text-xl sm:text-2xl font-bold mb-4 text-center pr-8">Contact Data Manager</h2>
-                <form id="email-us-form" class="space-y-4">
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                          <label for="email-us-name" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Name</label>
-                          <input type="text" id="email-us-name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" required>
-                      </div>
-                      <div>
-                          <label for="email-us-email" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Email</label>
-                          <input type="email" id="email-us-email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" required>
-                      </div>
-                  </div>
-                  <div>
-                      <label for="group-name" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Name of group</label>
-                      <input type="text" id="group-name" name="group-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" required>
-                  </div>
-                  <div>
-                      <label for="concern-type" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Type of concern</label>
-                      <select id="concern-type" name="concern-type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" required>
-                          <option value="" disabled selected>Select an option</option>
-                          <option value="Regulations for Data management/software">Regulations for Data management/software</option>
-                          <option value="Frequent data storage issues">Frequent data storage issues</option>
-                          <option value="Tools to know">Tools to know</option>
-                          <option value="Require meeting">Require meeting</option>
-                      </select>
-                  </div>
-                  <div class="text-center">
-                      <button type="submit" class="w-full sm:w-auto bg-secondary-violet text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-violet-700 transition duration-300">Send Email</button>
-                  </div>
-              </form>
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="modal-wrapper fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="modal-backdrop absolute inset-0 bg-black bg-opacity-50"></div>
+        <div class="modal-content-container relative w-full max-w-2xl bg-white dark:bg-dark-surface rounded-xl shadow-lg p-6 md:p-8 transform scale-95 transition-transform duration-300">
+            <button data-modal-close="contact-modal" class="modal-close-btn absolute top-4 right-4 text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white text-2xl">&times;</button>
+            <h3 class="text-2xl font-bold text-primary-blue dark:text-white mb-4">Contact Us</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                If you have questions about Zenodo or data management in general, please don't hesitate to reach out.
+            </p>
+            <p class="text-gray-600 dark:text-gray-400 flex items-center space-x-2">
+                <i class="fas fa-envelope text-secondary-violet"></i>
+                <a href="mailto:info@pol-dm.org" class="text-secondary-violet hover:underline">info@pol-dm.org</a>
+            </p>
+            <div class="mt-6 p-4 rounded-lg bg-light-bg dark:bg-dark-card border border-gray-200 dark:border-gray-700">
+                <h4 class="font-semibold text-lg text-primary-blue dark:text-white mb-2">Data Management Office</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Physical Office: <br>
+                    PoL building, room 205<br>
+                    TUD Campus
+                </p>
             </div>
         </div>
     </div>
+
+    <!-- JavaScript for Mobile Menu and Dark Mode Toggle -->
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-     // --- Modal Management Functions ---
-     const openModal = (modalId) => {
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const closeMenuBtn = document.getElementById('close-menu-btn');
+            const navLinks = document.querySelectorAll('#mobile-menu a');
+            const body = document.body;
+            
+            // Function to toggle the mobile menu
+            function toggleMobileMenu() {
+                mobileMenu.classList.toggle('open');
+                menuToggle.classList.toggle('active');
+                body.classList.toggle('menu-open');
+            }
+
+            // Event listeners for menu toggle and close button
+            menuToggle.addEventListener('click', toggleMobileMenu);
+            closeMenuBtn.addEventListener('click', toggleMobileMenu);
+            
+            // Close mobile menu when a link is clicked
+            navLinks.forEach(link => {
+                link.addEventListener('click', toggleMobileMenu);
+            });
+
+            // Dark Mode Logic
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+            const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+            // Set initial theme based on localStorage or system preference
+            const theme = localStorage.getItem('color-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            if (theme === 'dark') {
+                body.classList.add('dark');
+                themeToggleLightIcon.classList.remove('hidden');
+            } else {
+                body.classList.remove('dark');
+                themeToggleDarkIcon.classList.remove('hidden');
+            }
+
+            // Handle theme toggle button click
+            themeToggleBtn.addEventListener('click', () => {
+                const isDark = body.classList.toggle('dark');
+                localStorage.setItem('color-theme', isDark ? 'dark' : 'light');
+                themeToggleLightIcon.classList.toggle('hidden', !isDark);
+                themeToggleDarkIcon.classList.toggle('hidden', isDark);
+            });
+            
+            // Modal Management Logic (updated for better perfect response)
+            const openModal = (modalId) => {
                 const modal = document.getElementById(modalId);
                 if (modal) {
-                    modal.style.display = 'flex';
-                    modal.classList.remove('hidden');
-                    document.body.style.overflow = 'hidden';
+                    modal.classList.add('active');
+                    body.classList.add('overflow-hidden');
                 }
             };
-        
+            
             const closeModal = (modal) => {
                 if (modal) {
-                    modal.style.display = 'none';
-                    modal.classList.add('hidden');
-                    document.body.style.overflow = 'auto';
+                    modal.classList.remove('active');
+                    body.classList.remove('overflow-hidden');
                 }
             };
-        
-            // --- Modal Event Listeners ---
+            
             // Open modal buttons
             document.querySelectorAll('[data-modal-target]').forEach(button => {
                 button.addEventListener('click', (event) => {
@@ -528,18 +462,18 @@
                     openModal(modalId);
                 });
             });
-        
+            
             // Close modal buttons
             document.querySelectorAll('[data-modal-close]').forEach(button => {
                 button.addEventListener('click', (event) => {
                     event.preventDefault();
-                    event.stopPropagation(); // Prevent event bubbling
+                    event.stopPropagation();
                     const modalId = button.getAttribute('data-modal-close');
                     const modal = document.getElementById(modalId);
                     closeModal(modal);
                 });
             });
-        
+            
             // Close modal when clicking outside
             document.querySelectorAll('.modal-wrapper').forEach(modal => {
                 modal.addEventListener('click', (event) => {
@@ -548,19 +482,39 @@
                     }
                 });
             });
-        
+            
             // Close modal with Escape key
             document.addEventListener('keydown', (event) => {
                 if (event.key === 'Escape') {
-                    const openModal = document.querySelector('.modal-wrapper[style*="flex"]');
+                    const openModal = document.querySelector('.modal-wrapper.active');
                     if (openModal) {
                         closeModal(openModal);
                     }
                 }
             });
-    });
+            
+            // Modal animation styles
+            const modalStyle = document.createElement('style');
+            modalStyle.textContent = `
+                .modal-wrapper {
+                    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+                    opacity: 0;
+                    visibility: hidden;
+                }
+                .modal-wrapper.active {
+                    opacity: 1;
+                    visibility: visible;
+                }
+                .modal-content-container {
+                    transform: scale(0.9);
+                    transition: transform 0.3s ease-in-out;
+                }
+                .modal-wrapper.active .modal-content-container {
+                    transform: scale(1);
+                }
+            `;
+            document.head.appendChild(modalStyle);
+        });
     </script>
-    <script src="../Resources/public/js/chatbot.js"></script>
-    <script src="../Resources/public/js/script.js"></script>
 </body>
 </html>
