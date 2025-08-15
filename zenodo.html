@@ -34,10 +34,11 @@
         }
     </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="icon" href="Resources/images/logos/pol-logo.png" type="image/png">
+  <link rel="stylesheet" href="../Resources/public/css/style.css">
+  <link rel="icon" href="../Resources/images/logos/pol-logo.png" type="image/png">
   <style>
-      .Zenodo-bg {
-          background-image: url('Resources/images/logos/Resources/zenodo_logo.jpg');
+      .figshare-bg {
+          background-image: url('/Resources/images/logos/imagesc-logo.png');
           background-repeat: no-repeat;
           background-size: contain;
           background-position: center;
@@ -325,6 +326,8 @@
             </button>
         </section>
 
+    </main>
+
     <footer class="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-sm text-center py-6 mt-12 rounded-t-3xl shadow-inner">
         <p>&copy; 2025 PoL Data Management Corner. All rights reserved.</p>
     </footer>
@@ -498,66 +501,66 @@
     </div>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-     /*
-    // --- Modal Management Functions ---
-    const openModal = (modalId) => {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.style.display = 'flex';
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-    };
-    
-    const closeModal = (modal) => {
-        if (modal) {
-            modal.style.display = 'none';
-            modal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-    };
-    
-    // --- Modal Event Listeners ---
-    // Open modal buttons
-    document.querySelectorAll('[data-modal-target]').forEach(button => {
-        button.addEventListener('click', (event) => {
-            event.preventDefault();
-            const modalId = button.getAttribute('data-modal-target');
-            openModal(modalId);
-        });
+     // --- Modal Management Functions ---
+     const openModal = (modalId) => {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.style.display = 'flex';
+                    modal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
+            };
+        
+            const closeModal = (modal) => {
+                if (modal) {
+                    modal.style.display = 'none';
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            };
+        
+            // --- Modal Event Listeners ---
+            // Open modal buttons
+            document.querySelectorAll('[data-modal-target]').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const modalId = button.getAttribute('data-modal-target');
+                    openModal(modalId);
+                });
+            });
+        
+            // Close modal buttons
+            document.querySelectorAll('[data-modal-close]').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    event.stopPropagation(); // Prevent event bubbling
+                    const modalId = button.getAttribute('data-modal-close');
+                    const modal = document.getElementById(modalId);
+                    closeModal(modal);
+                });
+            });
+        
+            // Close modal when clicking outside
+            document.querySelectorAll('.modal-wrapper').forEach(modal => {
+                modal.addEventListener('click', (event) => {
+                    if (event.target === modal || event.target.classList.contains('modal-backdrop')) {
+                        closeModal(modal);
+                    }
+                });
+            });
+        
+            // Close modal with Escape key
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    const openModal = document.querySelector('.modal-wrapper[style*="flex"]');
+                    if (openModal) {
+                        closeModal(openModal);
+                    }
+                }
+            });
     });
-    
-    // Close modal buttons
-    document.querySelectorAll('[data-modal-close]').forEach(button => {
-        button.addEventListener('click', (event) => {
-            event.preventDefault();
-            event.stopPropagation(); // Prevent event bubbling
-            const modalId = button.getAttribute('data-modal-close');
-            const modal = document.getElementById(modalId);
-            closeModal(modal);
-        });
-    });
-    
-    // Close modal when clicking outside
-    document.querySelectorAll('.modal-wrapper').forEach(modal => {
-        modal.addEventListener('click', (event) => {
-            if (event.target === modal || event.target.classList.contains('modal-backdrop')) {
-                closeModal(modal);
-            }
-        });
-    });
-    
-    // Close modal with Escape key
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-            const openModal = document.querySelector('.modal-wrapper[style*="flex"]');
-            if (openModal) {
-                closeModal(openModal);
-            }
-        }
-*/    });
-
     </script>
-    <script src="Resources/public/js/chatbot.js"></script>
+    <script src="../Resources/public/js/chatbot.js"></script>
+    <script src="../Resources/public/js/script.js"></script>
 </body>
 </html>
