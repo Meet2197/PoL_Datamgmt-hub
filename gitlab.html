@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Figshare - PoL Data Management Corner</title>
+    <title>Gitlab TUD - PoL Data Management Corner</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -37,8 +37,8 @@
     <link rel="stylesheet" href="/Resources/public/css/style.css">
     <link rel="icon" href="/Resources/images/logos/pol-logo.png" type="image/png">
     <style>
-        .figshare-bg {
-            background-image: url('/Resources/images/logos/imagesc-logo.png');
+        .gitlab-bg {
+            background-image: url('/Resources/images/logos/gitlab-logo.png');
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center;
@@ -191,15 +191,15 @@
     <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/80 dark:bg-dark-surface/80 shadow-md transition-all" id="navbar">
         <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-2 sm:space-x-4" id="nav-logos">
-                <a href="/index.html"><img src="/Resources/images/logos/tud_logo.svg" alt="TUD" class="h-8 sm:h-10 w-auto rounded-full" id="tud-logo" /></a>
-                <a href="/index.html"><img src="/Resources/images/logos/pol-logo.png" alt="PoL" class="h-6 sm:h-8 w-auto" id="pol-logo" /></a>
+                <a href="index.html"><img src="Resources/images/logos/tud_logo.svg" alt="TUD" class="h-8 sm:h-10 w-auto rounded-full" id="tud-logo" /></a>
+                <a href="index.html"><img src="Resources/images/logos/pol-logo.png" alt="PoL" class="h-6 sm:h-8 w-auto" id="pol-logo" /></a>
             </div>
             <div class="hidden md:flex space-x-4 lg:space-x-6 font-medium text-sm" id="desktop-menu">
                 <a href="#" data-modal-target="about-modal" class="nav-link text-black hover:text-secondary-violet transition-colors">Overview</a>
                 <a href="#" data-modal-target="resources-modal" class="nav-link text-black hover:text-secondary-violet transition-colors">Resources</a>
-                <a href="/Events.html" class="nav-link text-black hover:text-secondary-violet transition-colors">Events</a>
+                <a href="Events.html" class="nav-link text-black hover:text-secondary-violet transition-colors">Events</a>
                 <a href="#" data-modal-target="contact-modal" class="nav-link text-black hover:text-secondary-violet transition-colors">Contact</a>
-                <a href="/whats-new.html" class="nav-link text-secondary-red hover:text-secondary-violet font-semibold transition-colors">What's New</a>
+                <a href="whats-new.html" class="nav-link text-secondary-red hover:text-secondary-violet font-semibold transition-colors">What's New</a>
             </div>
             <div class="flex items-center space-x-3">
                 <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
@@ -220,27 +220,27 @@
                 </button>
                 <a href="#" data-modal-target="about-modal" class="nav-link text-black dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Overview</a>
                 <a href="#" data-modal-target="resources-modal" class="nav-link text-black dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Resources</a>
-                <a href="/Events.html" class="nav-link text-black dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Events</a>
+                <a href="Events.html" class="nav-link text-black dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Events</a>
                 <a href="#" data-modal-target="contact-modal" class="nav-link text-black dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Contact</a>
-                <a href="/whats-new.html" class="nav-link text-secondary-red font-semibold hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">What's New</a>
+                <a href="whats-new.html" class="nav-link text-secondary-red font-semibold hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">What's New</a>
             </div>
         </div>
     </nav>
 
     <main class="pt-24">
-        <section class="bg-gradient-to-br from-orange-400 to-red-500 text-white py-20 relative overflow-hidden">
-            <div class="absolute inset-0 figshare-bg opacity-10"></div>
+        <section class="bg-gradient-to-br from-red-600 to-purple-700 text-white py-20 relative overflow-hidden">
+            <div class="absolute inset-0 gitlab-bg opacity-10"></div>
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                <img src="/Resources/images/logos/imagesc-logo.png" alt="Figshare Logo" class="mx-auto w-24 h-24 mb-4 rounded-full shadow-lg">
-                <h1 class="text-4xl sm:text-5xl font-bold mb-2">Figshare</h1>
+                <img src="Resources/images/logos/gitlab-logo.png" alt="Gitlab TUD Logo" class="mx-auto w-24 h-24 mb-4 rounded-full shadow-lg">
+                <h1 class="text-4xl sm:text-5xl font-bold mb-2">Gitlab TUD</h1>
                 <p class="text-lg sm:text-xl max-w-3xl mx-auto mb-6">
-                    An online repository to share, publish, and discover research data, figures, and other scholarly outputs.
+                    TU Dresden's platform for Git-based version control, code collaboration, and CI/CD.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                    <a href="https://figshare.com/account/login" target="_blank" class="bg-white text-red-500 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105">
-                        Log In
+                    <a href="https://gitlab.mn.tu-dresden.de/users/sign_in" target="_blank" class="bg-white text-purple-700 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105">
+                        Sign In
                     </a>
-                    <a href="https://knowledge.figshare.com/" target="_blank" class="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-red-500 transition duration-300 transform hover:scale-105">
+                    <a href="https://tu-dresden.de/mn/der-bereich/it-kompetenz-und-servicezentrum/gitlab-dienst" target="_blank" class="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-purple-700 transition duration-300 transform hover:scale-105">
                         Documentation
                     </a>
                 </div>
@@ -250,34 +250,34 @@
         <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
-                    <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-black dark:text-white">Summary of Figshare</h2>
+                    <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-black dark:text-white"> Gitlab TUD</h2>
                     <p class="mb-6 text-gray-700 dark:text-gray-300 text-lg">
-                        Repository that enables researchers to make all of their research outputs, including data, figures, code, and supplementary materials, citable, shareable, and discoverable. It's a platform for publishing your work in a way that goes beyond the traditional article.
+                        Gitlab TUD is a powerful platform for code management and collaboration, providing a Git repository for version control, issue tracking, and continuous integration/continuous deployment (CI/CD) pipelines. It is the university's central service for managing research software and scripts.
                     </p>
                     <ul class="space-y-3 text-gray-700 dark:text-gray-300">
                         <li class="flex items-start">
                             <i class="fa-solid fa-check-circle text-green-500 mt-1 mr-2"></i>
                             <div>
-                                <strong class="text-black dark:text-white">Citable & Discoverable:</strong> All items receive a DOI, ensuring they are persistently linked and can be cited in publications.
+                                <strong class="text-black dark:text-white">Version Control:</strong> Track changes to your code over time, making it easy to revert to previous versions and collaborate without conflicts.
                             </div>
                         </li>
                         <li class="flex items-start">
                             <i class="fa-solid fa-check-circle text-green-500 mt-1 mr-2"></i>
                             <div>
-                                <strong class="text-black dark:text-white">Comprehensive:</strong> Supports a wide variety of file types, allowing you to share your entire research story, not just the final paper.
+                                <strong class="text-black dark:text-white">CI/CD:</strong> Automate the building, testing, and deployment of your code, ensuring consistent and reproducible results.
                             </div>
                         </li>
                         <li class="flex items-start">
                             <i class="fa-solid fa-check-circle text-green-500 mt-1 mr-2"></i>
                             <div>
-                                <strong class="text-black dark:text-white">Metrics & Impact:</strong> Provides real-time metrics on views, downloads, and citations, giving you insight into the impact of your work.
+                                <strong class="text-black dark:text-white">Collaboration:</strong> Work on projects with multiple team members, manage issues, and review code changes efficiently.
                             </div>
                         </li>
                     </ul>
                 </div>
                 <div>
                     <div class="relative w-full h-0 pb-[56.25%] rounded-xl overflow-hidden shadow-2xl">
-                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/your-figshare-tutorial-video-id" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/your-gitlab-tutorial-video-id" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -288,27 +288,27 @@
                 <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-black dark:text-white">FAQs & Helpful Info for Researchers</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="bg-white dark:bg-dark-card p-6 rounded-lg shadow-lg">
-                        <h3 class="text-xl font-bold mb-3 text-secondary-violet">What types of files can I upload?</h3>
+                        <h3 class="text-xl font-bold mb-3 text-secondary-violet">What is Git, and why is it important for my research?</h3>
                         <p class="text-gray-700 dark:text-gray-300">
-                            Figshare supports virtually all file types. You can upload datasets, figures, posters, presentations, code, and more. This makes it a great solution for sharing supplementary materials or non-traditional research outputs.
+                            Git is a version control system that tracks changes to your files. For researchers, this means you can save different versions of your code, scripts, or thesis chapters, making it easy to see what changed and who made the change. It's crucial for reproducibility and collaborative work.
                         </p>
                     </div>
                     <div class="bg-white dark:bg-dark-card p-6 rounded-lg shadow-lg">
-                        <h3 class="text-xl font-bold mb-3 text-secondary-violet">How does Figshare increase my research impact?</h3>
+                        <h3 class="text-xl font-bold mb-3 text-secondary-violet">How does Gitlab TUD help with code reproducibility?</h3>
                         <p class="text-gray-700 dark:text-gray-300">
-                            By making your data and figures publicly available and citable, you increase the chance of your work being used and cited by other researchers. Figshare's metrics provide evidence of this impact.
+                            By hosting your code in a Git repository, you create a public or private record of every change. This means that anyone can access the exact version of the code used for a specific publication, ensuring that the computational aspects of your research are fully reproducible.
                         </p>
                     </div>
                     <div class="bg-white dark:bg-dark-card p-6 rounded-lg shadow-lg">
-                        <h3 class="text-xl font-bold mb-3 text-secondary-violet">Can I link my Figshare data to my publications?</h3>
+                        <h3 class="text-xl font-bold mb-3 text-secondary-violet">Can I use Gitlab TUD for data as well as code?</h3>
                         <p class="text-gray-700 dark:text-gray-300">
-                            Yes. The DOI assigned to your Figshare item can be included in the data availability statement or references of your academic papers, creating a direct link between your publication and the underlying data.
+                            While Git is designed for code, Gitlab can handle smaller data files. For large datasets, it is better to use dedicated data repositories like OpARA TUD, Zenodo, or Figshare and link to them from your Gitlab project.
                         </p>
                     </div>
                     <div class="bg-white dark:bg-dark-card p-6 rounded-lg shadow-lg">
-                        <h3 class="text-xl font-bold mb-3 text-secondary-violet">Is Figshare suitable for code sharing?</h3>
+                        <h3 class="text-xl font-bold mb-3 text-secondary-violet">Is this service only for TU Dresden members?</h3>
                         <p class="text-gray-700 dark:text-gray-300">
-                            While Figshare can host code, it's often used in conjunction with a version control system like GitLab or GitHub. You can archive a specific version of your code from these platforms and deposit it in Figshare to get a DOI and ensure long-term preservation.
+                            Yes, Gitlab TUD is an internal service provided by the university's IT center. It is specifically for members of the TU Dresden community to manage their research projects and is integrated with university accounts.
                         </p>
                     </div>
                 </div>
@@ -557,7 +557,7 @@
             });
     });
     </script>
-    <script src="/Resources/public/js/chatbot.js"></script>
-    <script src="/Resources/public/js/script.js"></script>
+    <script src="Resources/public/js/chatbot.js"></script>
+    <script src="Resources/public/js/script.js"></script>
 </body>
 </html>
