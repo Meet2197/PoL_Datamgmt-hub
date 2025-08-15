@@ -9,9 +9,9 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve static files (your frontend HTML, CSS, JS) from the 'static' directory
-// Assumes CSS is in static/css/ and JS is in static/js/
-app.use('/static', express.static(path.join(__dirname, 'static')));
+// Serve Resources files (your frontend HTML, CSS, JS) from the 'Resources' directory
+// Assumes CSS is in Resources/css/ and JS is in Resources/js/
+app.use('/Resources', express.Resources(path.join(__dirname, 'Resources')));
 
 // --- Migrate SOFTWARE_DATA from app.py ---
 const SOFTWARE_DATA = {
