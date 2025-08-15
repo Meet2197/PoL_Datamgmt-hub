@@ -34,11 +34,11 @@
         }
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="Resources/public/css/style.css">
-    <link rel="icon" href="Resources/images/logos/pol-logo.png" type="image/png">
+    <link rel="stylesheet" href="/Resources/public/css/style.css">
+    <link rel="icon" href="/Resources/images/logos/pol-logo.png" type="image/png">
     <style>
         .opara-bg {
-            background-image: url('/Resources/images/logos/opara-logo.png');
+            background-image: url('Resources/images/logos/opara-logo.png');
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center;
@@ -186,47 +186,49 @@
             }
     </style>
 </head>
-<body class="bg-light-bg dark:bg-dark-bg text-black dark:text-gray-200 transition-colors duration-300">
-
+<body class="bg-light-bg dark:bg-dark-bg text-white dark:text-gray-200 transition-colors duration-300">
     <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/80 dark:bg-dark-surface/80 shadow-md transition-all" id="navbar">
         <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-2 sm:space-x-4" id="nav-logos">
                 <a href="index.html"><img src="Resources/images/logos/tud_logo.svg" alt="TUD" class="h-8 sm:h-10 w-auto rounded-full" id="tud-logo" /></a>
                 <a href="index.html"><img src="Resources/images/logos/pol-logo.png" alt="PoL" class="h-6 sm:h-8 w-auto" id="pol-logo" /></a>
             </div>
+          
             <div class="hidden md:flex space-x-4 lg:space-x-6 font-medium text-sm" id="desktop-menu">
-                <a href="#" data-modal-target="about-modal" class="nav-link text-black hover:text-secondary-violet transition-colors">Overview</a>
-                <a href="#" data-modal-target="resources-modal" class="nav-link text-black hover:text-secondary-violet transition-colors">Resources</a>
-                <a href="Events.html" class="nav-link text-black hover:text-secondary-violet transition-colors">Events</a>
-                <a href="#" data-modal-target="contact-modal" class="nav-link text-black hover:text-secondary-violet transition-colors">Contact</a>
+                <a href="#" data-modal-target="about-modal" class="nav-link text-white hover:text-secondary-violet transition-colors">Overview</a>
+                <a href="#" data-modal-target="resources-modal" class="nav-link text-white hover:text-secondary-violet transition-colors">Resources</a>
+                <a href="Events.html" class="nav-link text-white hover:text-secondary-violet transition-colors">Events</a>
+                <a href="#" data-modal-target="contact-modal" class="nav-link text-white hover:text-secondary-violet transition-colors">Contact</a>
                 <a href="whats-new.html" class="nav-link text-secondary-red hover:text-secondary-violet font-semibold transition-colors">What's New</a>
-            </div>
-            <div class="flex items-center space-x-3">
-                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-                    <i id="theme-toggle-light-icon" class="fa-solid fa-sun hidden"></i>
-                    <i id="theme-toggle-dark-icon" class="fa-solid fa-moon"></i>
-                </button>
-                <button class="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" id="menu-toggle">
-                    <span class="hamburger-bar"></span>
-                    <span class="hamburger-bar"></span>
-                    <span class="hamburger-bar"></span>
-                </button>
-            </div>
+              </div>
+        
+        <div class="flex items-center space-x-3">
+            <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                <i id="theme-toggle-light-icon" class="fa-solid fa-sun hidden"></i>
+                <i id="theme-toggle-dark-icon" class="fa-solid fa-moon"></i>
+            </button>
+            <button class="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" id="menu-toggle">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
         </div>
+        </div>  
+        </div>
+        
         <div id="mobile-menu" class="md:hidden fixed top-0 left-0 w-full h-full bg-white dark:bg-dark-surface z-40 transform -translate-x-full transition-transform duration-300 ease-in-out">
             <div class="flex flex-col pt-20 px-4">
                 <button id="mobile-menu-close" class="absolute top-4 right-4 z-50 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center transition-colors duration-200 hover:bg-black/70">
                     <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
-                <a href="#" data-modal-target="about-modal" class="nav-link text-black dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Overview</a>
-                <a href="#" data-modal-target="resources-modal" class="nav-link text-black dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Resources</a>
-                <a href="Events.html" class="nav-link text-black dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Events</a>
-                <a href="#" data-modal-target="contact-modal" class="nav-link text-black dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Contact</a>
+                <a href="#" data-modal-target="about-modal" class="nav-link text-white dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Overview</a>
+                <a href="#" data-modal-target="resources-modal" class="nav-link text-white dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Resources</a>
+                <a href="Events.html" class="nav-link text-white dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Events</a>
+                <a href="#" data-modal-target="contact-modal" class="nav-link text-white dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Contact</a>
                 <a href="whats-new.html" class="nav-link text-secondary-red font-semibold hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">What's New</a>
             </div>
         </div>
     </nav>
-
     <main class="pt-24">
         <section class="bg-gradient-to-br from-blue-800 to-yellow-600 text-white py-20 relative overflow-hidden">
             <div class="absolute inset-0 opara-bg opacity-10"></div>
