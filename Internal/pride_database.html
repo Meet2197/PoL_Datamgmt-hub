@@ -34,10 +34,11 @@
         }
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" href="Resources/images/logos/pol-logo.png" type="image/png">
+    <link rel="stylesheet" href="../Resources/public/css/style.css">
+    <link rel="icon" href="../Resources/images/logos/pol-logo.png" type="image/png">
     <style>
         .pride-bg {
-            background-image: url('/Resources/images/logos/pride_logo.png');
+            background-image: url('../Resources/images/logos/pride_logo.png');
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center;
@@ -185,55 +186,52 @@
             }
     </style>
 </head>
-<body class="bg-light-bg dark:bg-dark-bg text-white dark:text-gray-200 transition-colors duration-300">
-    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/80 dark:bg-dark-surface/80 shadow-md transition-all" id="navbar">
-        <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-2 sm:space-x-4" id="nav-logos">
-                <a href="../index.html"><img src="Resources/images/logos/tud_logo.svg" alt="TUD" class="h-8 sm:h-10 w-auto rounded-full" id="tud-logo" /></a>
-                <a href="../index.html"><img src="Resources/images/logos/pol-logo.png" alt="PoL" class="h-6 sm:h-8 w-auto" id="pol-logo" /></a>
-            </div>
-          
-            <div class="hidden md:flex space-x-4 lg:space-x-6 font-medium text-sm" id="desktop-menu">
-                <a href="#" data-modal-target="about-modal" class="nav-link text-white hover:text-secondary-violet transition-colors">Overview</a>
-                <a href="#" data-modal-target="resources-modal" class="nav-link text-white hover:text-secondary-violet transition-colors">Resources</a>
-                <a href="../Internal/Events.html" class="nav-link text-white hover:text-secondary-violet transition-colors">Events</a>
-                <a href="#" data-modal-target="contact-modal" class="nav-link text-white hover:text-secondary-violet transition-colors">Contact</a>
-                <a href="../Internal/whats-new.html" class="nav-link text-secondary-red hover:text-secondary-violet font-semibold transition-colors">What's New</a>
-              </div>
-        
-        <div class="flex items-center space-x-3">
-            <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-                <i id="theme-toggle-light-icon" class="fa-solid fa-sun hidden"></i>
-                <i id="theme-toggle-dark-icon" class="fa-solid fa-moon"></i>
-            </button>
-            <button class="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" id="menu-toggle">
-                <span class="hamburger-bar"></span>
-                <span class="hamburger-bar"></span>
-                <span class="hamburger-bar"></span>
-            </button>
-        </div>
-        </div>  
-        </div>
-        
-        <div id="mobile-menu" class="md:hidden fixed top-0 left-0 w-full h-full bg-white dark:bg-dark-surface z-40 transform -translate-x-full transition-transform duration-300 ease-in-out">
-            <div class="flex flex-col pt-20 px-4">
-                <button id="mobile-menu-close" class="absolute top-4 right-4 z-50 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center transition-colors duration-200 hover:bg-black/70">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-                <a href="#" data-modal-target="about-modal" class="nav-link text-white dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Overview</a>
-                <a href="#" data-modal-target="resources-modal" class="nav-link text-white dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Resources</a>
-                <a href="../Internal/Events.html" class="nav-link text-white dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Events</a>
-                <a href="#" data-modal-target="contact-modal" class="nav-link text-white dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Contact</a>
-                <a href="../Internal/whats-new.html" class="nav-link text-secondary-red font-semibold hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">What's New</a>
-            </div>
-        </div>
-    </nav>
+<body class="bg-light-bg dark:bg-dark-bg text-gray-800 dark:text-gray-200 transition-colors duration-300">    
+<nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/80 dark:bg-dark-surface/80 shadow-md transition-all">
+<div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+     <!-- Logos -->
+  <div class="flex items-center space-x-4">
+    <a href="../index.html"><img src="../Resources/images/logos/tud_logo.svg" alt="TUD" class="h-10 w-auto rounded-full" /></a>
+    <a href="../index.html"><img src="../Resources/images/logos/pol-logo.png" alt="PoL" class="h-8 w-auto" /></a>
+  </div>
+    <div class="hidden md:flex space-x-4 lg:space-x-6 font-medium text-sm" id="desktop-menu">
+        <a href="#" data-modal-target="about-modal" class="nav-link text-black hover:text-secondary-violet transition-colors">Overview</a>
+        <a href="#" data-modal-target="resources-modal" class="nav-link text-black hover:text-secondary-violet transition-colors">Resources</a>
+        <a href="../Internal/Events.html" class="nav-link text-black hover:text-secondary-violet transition-colors">Events</a>
+        <a href="#" data-modal-target="contact-modal" class="nav-link text-black hover:text-secondary-violet transition-colors">Contact</a>
+        <a href="../Internal/whats-new.html" class="nav-link text-secondary-red hover:text-secondary-violet font-semibold transition-colors">What's New</a>
+    </div>
+    <div class="flex items-center space-x-3">
+        <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+            <i id="theme-toggle-light-icon" class="fa-solid fa-sun hidden"></i>
+            <i id="theme-toggle-dark-icon" class="fa-solid fa-moon"></i>
+        </button>
+        <button class="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" id="menu-toggle">
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+        </button>
+    </div>
+    </div>
+    <div id="mobile-menu" class="md:hidden fixed top-0 left-0 w-full h-full bg-white dark:bg-dark-surface z-40 transform -translate-x-full transition-transform duration-300 ease-in-out">
+    <div class="flex flex-col pt-20 px-4">
+        <button id="mobile-menu-close" class="absolute top-4 right-4 z-50 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center transition-colors duration-200 hover:bg-black/70">
+            <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+        <a href="#" data-modal-target="about-modal" class="nav-link text-black dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Overview</a>
+        <a href="#" data-modal-target="resources-modal" class="nav-link text-black dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Resources</a>
+        <a href="../Internal/Events.html" class="nav-link text-black dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Events</a>
+        <a href="#" data-modal-target="contact-modal" class="nav-link text-black dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Contact</a>
+        <a href="../Internal/whats-new.html" class="nav-link text-secondary-red font-semibold hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">What's New</a>
+    </div>
+    </div>
+</nav>
 
     <main class="pt-24">
         <section class="bg-gradient-to-br from-fuchsia-600 to-purple-700 text-white py-20 relative overflow-hidden">
             <div class="absolute inset-0 pride-bg opacity-10"></div>
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                <img src="Resources/images/logos/pride_logo.png" alt="PRIDE Database Logo" class="mx-auto w-24 h-24 mb-4 rounded-full shadow-lg">
+                <img src="../Resources/images/logos/pride_logo.png" alt="PRIDE Database Logo" class="mx-auto w-24 h-24 mb-4 rounded-full shadow-lg">
                 <h1 class="text-4xl sm:text-5xl font-bold mb-2">PRIDE Database</h1>
                 <p class="text-lg sm:text-xl max-w-3xl mx-auto mb-6">
                     PRoteomics IDEntifications (PRIDE) database is a data repository for mass spectrometry proteomics data.
@@ -332,234 +330,234 @@
     </footer>
 
     <div id="modal-container">
-        </div>
+    </div>
 
-        <div id="about-modal" class="modal-wrapper">
-            <div class="modal-content-container">
-                <div class="relative bg-white dark:bg-dark-surface p-0 rounded-xl shadow-2xl max-w-2xl w-full mx-4 my-4 sm:my-8 overflow-hidden max-h-[90vh] overflow-y-auto">
-        
-                    <div class="relative pt-12 pb-8 px-6 bg-primary-blue text-white text-center">
-                        <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('Resources/images/image2.jpg');"></div>
-                        <div class="relative z-10">
-                            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">About Our Initiative</h2>
-                            <p class="text-base sm:text-lg opacity-80">Your guide to effective research data management at PoL.</p>
-                        </div>
-                    </div>
-        
-                    <div class="p-4 sm:p-6 lg:p-8">
-                        <button data-modal-close="about-modal" class="modal-close-btn">
-                            <i class="fa-solid fa-xmark text-lg"></i>
-                        </button>       
-                        <div class="text-center mb-6">
-                            <p class="text-primary-blue dark:text-gray-400 text-sm sm:text-base">
-                                This is your central hub for all things related to research data management at the Physics of Life (PoL) and TU Dresden (TUD). We provide comprehensive guides, best practices, and essential tools to help you streamline the entire lifecycle of your research data, from project inception to long-term archiving.
-                            </p>
-                        </div>
-        
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-6">
-                            <a href="../Internal/resources.html" class="flex items-center p-4 bg-gray-100 dark:bg-dark-card rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-dark-card/80 transition duration-300">
-                                <i class="fa-solid fa-file-contract mr-4 text-2xl sm:text-3xl text-secondary-violet"></i>
-                                <div>
-                                    <h3 class="font-bold text-lg sm:text-xl">Key Resources</h3>
-                                    <p class="text-xs sm:text-sm text-primary-blue dark:text-gray-400">Detailed guides on regulations, storage, and sharing.</p>
-                                </div>
-                            </a>
-        
-                            <a href="../Internal/Events.html" class="flex items-center p-4 bg-gray-100 dark:bg-dark-card rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-dark-card/80 transition duration-300">
-                                <i class="fa-solid fa-calendar-alt mr-4 text-2xl sm:text-3xl text-secondary-violet"></i>
-                                <div>
-                                    <h3 class="font-bold text-lg sm:text-xl">Upcoming Events</h3>
-                                    <p class="text-xs sm:text-sm text-primary-blue dark:text-gray-400">Workshops, seminars, and talks on data science.</p>
-                                </div>
-                            </a>
-        
-                            <a href="../Internal/whats-new.html" class="flex items-center p-4 bg-gray-100 dark:bg-dark-card rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-dark-card/80 transition duration-300">
-                                <i class="fa-solid fa-bell mr-4 text-2xl sm:text-3xl text-secondary-violet"></i>
-                                <div>
-                                    <h3 class="font-bold text-lg sm:text-xl">What's New</h3>
-                                    <p class="text-xs sm:text-sm text-primary-blue dark:text-gray-400">Latest updates and news from the team.</p>
-                                </div>
-                            </a>
-        
-                            <a href="#" class="flex items-center p-4 bg-gray-100 dark:bg-dark-card rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-dark-card/80 transition duration-300">
-                                <i class="fa-solid fa-envelope mr-4 text-2xl sm:text-3xl text-secondary-violet"></i>
-                                <div>
-                                    <h3 class="font-bold text-lg sm:text-xl">Contact Us</h3>
-                                    <p class="text-xs sm:text-sm text-primary-blue dark:text-gray-400">Get in touch with the data management team.</p>
-                                </div>
-                            </a>
-                        </div>
+    <div id="about-modal" class="modal-wrapper">
+        <div class="modal-content-container">
+            <div class="relative bg-white dark:bg-dark-surface p-0 rounded-xl shadow-2xl max-w-2xl w-full mx-4 my-4 sm:my-8 overflow-hidden max-h-[90vh] overflow-y-auto">
+    
+                <div class="relative pt-12 pb-8 px-6 bg-primary-blue text-white text-center">
+                    <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('Resources/images/image2.jpg');"></div>
+                    <div class="relative z-10">
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">About Our Initiative</h2>
+                        <p class="text-base sm:text-lg opacity-80">Your guide to effective research data management at PoL.</p>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div id="resources-modal" class="modal-wrapper">
-            <div class="modal-content-container">
-                <div class="relative bg-white dark:bg-dark-surface p-4 sm:p-6 rounded-xl shadow-2xl max-w-3xl w-full mx-4 my-4 sm:my-8 max-h-[90vh] overflow-y-auto">
-                    <button class="modal-close-btn" data-modal-close="resources-modal"><i class="fa-solid fa-xmark text-2xl"></i></button>
-                    <h2 class="text-xl sm:text-2xl font-bold mb-6 text-center pr-8">Key Resources</h2>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        
-                        <div class="resource-card p-4 sm:p-6 bg-gray-100 dark:bg-dark-card rounded-xl shadow-md">
-                            <h3 class="font-bold text-lg sm:text-xl mb-2">
-                                <a href="../Internal/data-management-regulations.html" class="hover:text-secondary-violet">
-                                    <i class="fa-solid fa-file-shield mr-2 text-secondary-violet"></i>Data Management & Regulations
-                                </a>
-                            </h3>
-                            <p class="text-sm sm:text-base text-primary-blue dark:text-gray-400">Learn how to create effective Data management associated activities.</p>
-                        </div>
-                        
-                        <div class="resource-card p-4 sm:p-6 bg-gray-100 dark:bg-dark-card rounded-xl shadow-md">
-                            <h3 class="font-bold text-lg sm:text-xl mb-2">
-                                <a href="../Internal/data-storage-backup.html" class="hover:text-secondary-violet">
-                                    <i class="fa-solid fa-hard-drive mr-2 text-secondary-violet"></i>Data Storage & Backup
-                                </a>
-                            </h3>
-                            <p class="text-sm sm:text-base text-primary-blue dark:text-gray-400">Guidelines for secure data storage.</p>
-                        </div>
-                        
-                        <div class="resource-card p-4 sm:p-6 bg-gray-100 dark:bg-dark-card rounded-xl shadow-md">
-                            <h3 class="font-bold text-lg sm:text-xl mb-2">
-                                <a href="../Internal/data-sharing-archiving.html" class="hover:text-secondary-violet">
-                                    <i class="fa-solid fa-share-alt mr-2 text-secondary-violet"></i>Data Sharing & Archiving
-                                </a>
-                            </h3>
-                            <p class="text-sm sm:text-base text-primary-blue dark:text-gray-400">Best practices for sharing and archiving data.</p>
-                        </div>
-                    </div> 
+    
+                <div class="p-4 sm:p-6 lg:p-8">
+                    <button data-modal-close="about-modal" class="modal-close-btn">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>       
+                    <div class="text-center mb-6">
+                        <p class="text-primary-blue dark:text-gray-400 text-sm sm:text-base">
+                            This is your central hub for all things related to research data management at the Physics of Life (PoL) and TU Dresden (TUD). We provide comprehensive guides, best practices, and essential tools to help you streamline the entire lifecycle of your research data, from project inception to long-term archiving.
+                        </p>
+                    </div>
+    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-6">
+                        <a href="../Internal/resources.html" class="flex items-center p-4 bg-gray-100 dark:bg-dark-card rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-dark-card/80 transition duration-300">
+                            <i class="fa-solid fa-file-contract mr-4 text-2xl sm:text-3xl text-secondary-violet"></i>
+                            <div>
+                                <h3 class="font-bold text-lg sm:text-xl">Key Resources</h3>
+                                <p class="text-xs sm:text-sm text-primary-blue dark:text-gray-400">Detailed guides on regulations, storage, and sharing.</p>
+                            </div>
+                        </a>
+    
+                        <a href="../Internal/Events.html" class="flex items-center p-4 bg-gray-100 dark:bg-dark-card rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-dark-card/80 transition duration-300">
+                            <i class="fa-solid fa-calendar-alt mr-4 text-2xl sm:text-3xl text-secondary-violet"></i>
+                            <div>
+                                <h3 class="font-bold text-lg sm:text-xl">Upcoming Events</h3>
+                                <p class="text-xs sm:text-sm text-primary-blue dark:text-gray-400">Workshops, seminars, and talks on data science.</p>
+                            </div>
+                        </a>
+    
+                        <a href="../Internal/whats-new.html" class="flex items-center p-4 bg-gray-100 dark:bg-dark-card rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-dark-card/80 transition duration-300">
+                            <i class="fa-solid fa-bell mr-4 text-2xl sm:text-3xl text-secondary-violet"></i>
+                            <div>
+                                <h3 class="font-bold text-lg sm:text-xl">What's New</h3>
+                                <p class="text-xs sm:text-sm text-primary-blue dark:text-gray-400">Latest updates and news from the team.</p>
+                            </div>
+                        </a>
+    
+                        <a href="#" class="flex items-center p-4 bg-gray-100 dark:bg-dark-card rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-dark-card/80 transition duration-300">
+                            <i class="fa-solid fa-envelope mr-4 text-2xl sm:text-3xl text-secondary-violet"></i>
+                            <div>
+                                <h3 class="font-bold text-lg sm:text-xl">Contact Us</h3>
+                                <p class="text-xs sm:text-sm text-primary-blue dark:text-gray-400">Get in touch with the data management team.</p>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </div>
- 
-        <div id="contact-modal" class="modal-wrapper hidden fixed inset-0 z-50 flex items-center justify-center p-4">>
-            <div class="modal-backdrop absolute inset-0 bg-black bg-opacity-50"></div>
-            <div class="modal-content-container relative bg-white dark:bg-dark-surface p-4 sm:p-6 rounded-xl shadow-2xl max-w-2xl w-full mx-4 my-4 sm:my-8 max-h-[90vh] overflow-y-auto">
-                <button data-modal-close="contact-modal" class="modal-close-btn">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-                <h2 class="text-xl sm:text-2xl font-bold mb-4 text-center pr-8">Contact Us </h2>
-                <form id="contact-form" class="space-y-4 mt-6">
-                    <div>
-                        <label for="name" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Name</label>
-                        <input type="text" id="name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" placeholder="John Doe">
-                    </div>
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Email</label>
-                        <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" placeholder="john.doe@example.com">
-                    </div>
-                    <div>
-                        <label for="message" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Message</label>
-                        <textarea id="message" name="message" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" placeholder="Your message..."></textarea>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="w-full sm:w-auto bg-secondary-violet text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-violet-700 hover:shadow-xl transition duration-300">Send Message</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div id="email-us-modal" class="modal-wrapper hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div class="modal-backdrop absolute inset-0 bg-black bg-opacity-50"></div>
-            <div class="modal-content-container relative bg-white dark:bg-dark-surface p-4 sm:p-6 rounded-xl shadow-2xl max-w-2xl w-full mx-4 my-4 sm:my-8 max-h-[90vh] overflow-y-auto">
-                <button data-modal-close="email-us-modal" class="modal-close-btn">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-                <h2 class="text-xl sm:text-2xl font-bold mb-4 text-center pr-8">Contact Data Manager</h2>
-                <form id="email-us-form" class="space-y-4">
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                          <label for="email-us-name" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Name</label>
-                          <input type="text" id="email-us-name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" required>
-                      </div>
-                      <div>
-                          <label for="email-us-email" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Email</label>
-                          <input type="email" id="email-us-email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" required>
-                      </div>
-                  </div>
-                  <div>
-                      <label for="group-name" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Name of group</label>
-                      <input type="text" id="group-name" name="group-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" required>
-                  </div>
-                  <div>
-                      <label for="concern-type" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Type of concern</label>
-                      <select id="concern-type" name="concern-type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" required>
-                          <option value="" disabled selected>Select an option</option>
-                          <option value="Regulations for Data management/software">Regulations for Data management/software</option>
-                          <option value="Frequent data storage issues">Frequent data storage issues</option>
-                          <option value="Tools to know">Tools to know</option>
-                          <option value="Require meeting">Require meeting</option>
-                      </select>
-                  </div>
-                  <div class="text-center">
-                      <button type="submit" class="w-full sm:w-auto bg-secondary-violet text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-violet-700 transition duration-300">Send Email</button>
-                  </div>
-              </form>
             </div>
         </div>
     </div>
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-     // --- Modal Management Functions ---
-     const openModal = (modalId) => {
+    <div id="resources-modal" class="modal-wrapper">
+        <div class="modal-content-container">
+            <div class="relative bg-white dark:bg-dark-surface p-4 sm:p-6 rounded-xl shadow-2xl max-w-3xl w-full mx-4 my-4 sm:my-8 max-h-[90vh] overflow-y-auto">
+                <button class="modal-close-btn" data-modal-close="resources-modal"><i class="fa-solid fa-xmark text-2xl"></i></button>
+                <h2 class="text-xl sm:text-2xl font-bold mb-6 text-center pr-8">Key Resources</h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    
+                    <div class="resource-card p-4 sm:p-6 bg-gray-100 dark:bg-dark-card rounded-xl shadow-md">
+                        <h3 class="font-bold text-lg sm:text-xl mb-2">
+                            <a href="../Internal/data-management-regulations.html" class="hover:text-secondary-violet">
+                                <i class="fa-solid fa-file-shield mr-2 text-secondary-violet"></i>Data Management & Regulations
+                            </a>
+                        </h3>
+                        <p class="text-sm sm:text-base text-primary-blue dark:text-gray-400">Learn how to create effective Data management associated activities.</p>
+                    </div>
+                    
+                    <div class="resource-card p-4 sm:p-6 bg-gray-100 dark:bg-dark-card rounded-xl shadow-md">
+                        <h3 class="font-bold text-lg sm:text-xl mb-2">
+                            <a href="../Internal/data-storage-backup.html" class="hover:text-secondary-violet">
+                                <i class="fa-solid fa-hard-drive mr-2 text-secondary-violet"></i>Data Storage & Backup
+                            </a>
+                        </h3>
+                        <p class="text-sm sm:text-base text-primary-blue dark:text-gray-400">Guidelines for secure data storage.</p>
+                    </div>
+                    
+                    <div class="resource-card p-4 sm:p-6 bg-gray-100 dark:bg-dark-card rounded-xl shadow-md">
+                        <h3 class="font-bold text-lg sm:text-xl mb-2">
+                            <a href="../Internal/data-sharing-archiving.html" class="hover:text-secondary-violet">
+                                <i class="fa-solid fa-share-alt mr-2 text-secondary-violet"></i>Data Sharing & Archiving
+                            </a>
+                        </h3>
+                        <p class="text-sm sm:text-base text-primary-blue dark:text-gray-400">Best practices for sharing and archiving data.</p>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+
+    <div id="contact-modal" class="modal-wrapper hidden fixed inset-0 z-50 flex items-center justify-center p-4">>
+        <div class="modal-backdrop absolute inset-0 bg-black bg-opacity-50"></div>
+        <div class="modal-content-container relative bg-white dark:bg-dark-surface p-4 sm:p-6 rounded-xl shadow-2xl max-w-2xl w-full mx-4 my-4 sm:my-8 max-h-[90vh] overflow-y-auto">
+            <button data-modal-close="contact-modal" class="modal-close-btn">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h2 class="text-xl sm:text-2xl font-bold mb-4 text-center pr-8">Contact Us </h2>
+            <form id="contact-form" class="space-y-4 mt-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Name</label>
+                    <input type="text" id="name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" placeholder="John Doe">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Email</label>
+                    <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" placeholder="john.doe@example.com">
+                </div>
+                <div>
+                    <label for="message" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Message</label>
+                    <textarea id="message" name="message" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" placeholder="Your message..."></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="w-full sm:w-auto bg-secondary-violet text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-violet-700 hover:shadow-xl transition duration-300">Send Message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="email-us-modal" class="modal-wrapper hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="modal-backdrop absolute inset-0 bg-black bg-opacity-50"></div>
+        <div class="modal-content-container relative bg-white dark:bg-dark-surface p-4 sm:p-6 rounded-xl shadow-2xl max-w-2xl w-full mx-4 my-4 sm:my-8 max-h-[90vh] overflow-y-auto">
+            <button data-modal-close="email-us-modal" class="modal-close-btn">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h2 class="text-xl sm:text-2xl font-bold mb-4 text-center pr-8">Contact Data Manager</h2>
+            <form id="email-us-form" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                      <label for="email-us-name" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Name</label>
+                      <input type="text" id="email-us-name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" required>
+                  </div>
+                  <div>
+                      <label for="email-us-email" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Email</label>
+                      <input type="email" id="email-us-email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" required>
+                  </div>
+              </div>
+              <div>
+                  <label for="group-name" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Name of group</label>
+                  <input type="text" id="group-name" name="group-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" required>
+              </div>
+              <div>
+                  <label for="concern-type" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Type of concern</label>
+                  <select id="concern-type" name="concern-type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" required>
+                      <option value="" disabled selected>Select an option</option>
+                      <option value="Regulations for Data management/software">Regulations for Data management/software</option>
+                      <option value="Frequent data storage issues">Frequent data storage issues</option>
+                      <option value="Tools to know">Tools to know</option>
+                      <option value="Require meeting">Require meeting</option>
+                  </select>
+              </div>
+              <div class="text-center">
+                  <button type="submit" class="w-full sm:w-auto bg-secondary-violet text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-violet-700 transition duration-300">Send Email</button>
+              </div>
+          </form>
+        </div>
+    </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+ // --- Modal Management Functions ---
+ const openModal = (modalId) => {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'flex';
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        };
+    
+        const closeModal = (modal) => {
+            if (modal) {
+                modal.style.display = 'none';
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        };
+    
+        // --- Modal Event Listeners ---
+        // Open modal buttons
+        document.querySelectorAll('[data-modal-target]').forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+                const modalId = button.getAttribute('data-modal-target');
+                openModal(modalId);
+            });
+        });
+    
+        // Close modal buttons
+        document.querySelectorAll('[data-modal-close]').forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation(); // Prevent event bubbling
+                const modalId = button.getAttribute('data-modal-close');
                 const modal = document.getElementById(modalId);
-                if (modal) {
-                    modal.style.display = 'flex';
-                    modal.classList.remove('hidden');
-                    document.body.style.overflow = 'hidden';
-                }
-            };
-        
-            const closeModal = (modal) => {
-                if (modal) {
-                    modal.style.display = 'none';
-                    modal.classList.add('hidden');
-                    document.body.style.overflow = 'auto';
-                }
-            };
-        
-            // --- Modal Event Listeners ---
-            // Open modal buttons
-            document.querySelectorAll('[data-modal-target]').forEach(button => {
-                button.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const modalId = button.getAttribute('data-modal-target');
-                    openModal(modalId);
-                });
+                closeModal(modal);
             });
-        
-            // Close modal buttons
-            document.querySelectorAll('[data-modal-close]').forEach(button => {
-                button.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    event.stopPropagation(); // Prevent event bubbling
-                    const modalId = button.getAttribute('data-modal-close');
-                    const modal = document.getElementById(modalId);
+        });
+    
+        // Close modal when clicking outside
+        document.querySelectorAll('.modal-wrapper').forEach(modal => {
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal || event.target.classList.contains('modal-backdrop')) {
                     closeModal(modal);
-                });
-            });
-        
-            // Close modal when clicking outside
-            document.querySelectorAll('.modal-wrapper').forEach(modal => {
-                modal.addEventListener('click', (event) => {
-                    if (event.target === modal || event.target.classList.contains('modal-backdrop')) {
-                        closeModal(modal);
-                    }
-                });
-            });
-        
-            // Close modal with Escape key
-            document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape') {
-                    const openModal = document.querySelector('.modal-wrapper[style*="flex"]');
-                    if (openModal) {
-                        closeModal(openModal);
-                    }
                 }
             });
-    });
-    </script>
-    <script src="Resources/public/js/chatbot.js"></script>
-    <script src="Resources/public/js/script.js"></script>
+        });
+    
+        // Close modal with Escape key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                const openModal = document.querySelector('.modal-wrapper[style*="flex"]');
+                if (openModal) {
+                    closeModal(openModal);
+                }
+            }
+        });
+});
+</script>
+<script src="../Resources/public/js/chatbot.js"></script>
+<script src="../Resources/public/js/script.js"></script>
 </body>
 </html>
