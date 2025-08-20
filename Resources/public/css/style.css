@@ -1,0 +1,372 @@
+/* Custom CSS for PoL Data Management Hub */
+
+/* Smooth scrolling for anchor links */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+    background: #1e1e1e;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #4a4a4a;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #6a47a8;
+}
+
+/* Hero Section Animations */
+.hero-background .container {
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-down {
+    animation: fadeInDown 0.8s ease-out forwards;
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+/* Base Styles */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Resource Card Styles */
+.resource-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.resource-card:hover {
+    box-shadow: 0 10px 20px rgba(106, 71, 168, 0.2);
+}
+
+/* Tool Item Styles */
+.tool-item {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Modal base styles */
+.modal-wrapper {
+    display: none;
+    position: fixed;
+    z-index: 9999 !important;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Slider Styles */
+.slider-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+    will-change: transform;
+}
+
+.slider-card-item {
+    flex-shrink: 0;
+    width: 200px;
+    min-height: 120px;
+    background-color: #8ab5d6;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-right: 12px;
+}
+
+.slider-card-item:last-child {
+    margin-right: 0;
+}
+
+.slider-card-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.slider-card-item > div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.slider-card-item p {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+.dark .slider-card-item {
+    background-color: #3a3a3a;
+}
+
+.dark .slider-card-item:hover {
+    background-color: #4a4a4a;
+}
+
+/* Button improvements */
+#slider-prev:disabled,
+#slider-next:disabled {
+    opacity: 0.3 !important;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .slider-card-item {
+        min-height: 100px;
+    }
+}
+
+@media (min-width: 768px) {
+    .slider-card-item {
+        min-height: 130px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .slider-card-item {
+        min-height: 140px;
+    }
+}
+
+/* Navigation Fixes */
+.navbar {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px);
+}
+
+.dark .navbar {
+    background-color: rgba(30, 30, 30, 0.9) !important;
+}
+
+/* Ensure logos always stay visible */
+#nav-logos {
+    position: relative;
+    z-index: 1001;
+}
+
+#nav-logos img {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transition: none !important;
+}
+
+/* Hamburger menu styles */
+#menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    z-index: 1002;
+}
+
+.hamburger-bar {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background-color: currentColor;
+    margin: 2px 0;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+/* Active hamburger animation */
+#menu-toggle.active .hamburger-bar:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+#menu-toggle.active .hamburger-bar:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+#menu-toggle.active .hamburger-bar:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Mobile menu styles */
+#mobile-menu {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    background-color: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(10px);
+}
+
+.dark #mobile-menu {
+    background-color: rgba(30, 30, 30, 0.98) !important;
+}
+
+#mobile-menu.open {
+    transform: translateX(0);
+}
+
+/* Prevent body scroll when mobile menu is open */
+body.menu-open {
+    overflow: hidden;
+}
+
+/* Mobile menu links */
+#mobile-menu .nav-link {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.dark #mobile-menu .nav-link {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#mobile-menu .nav-link:last-child {
+    border-bottom: none;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.75rem 1rem;
+    }
+    
+    #nav-logos img {
+        height: 2rem !important;
+    }
+    
+    /* Ensure mobile menu covers full screen */
+    #mobile-menu {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100vh;
+        width: 100vw;
+    }
+}
+/* Modal close button improvements */
+.modal-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 50;
+    width: 2rem; /* 32px */
+    height: 2rem; /* 32px */
+    border-radius: 9999px; /* rounded-full */
+    background: rgba(0, 0, 0, 0.5); /* bg-black/50 */
+    color: white; /* text-white */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    background: rgba(0, 0, 0, 0.7); /* hover:bg-black/70 */
+}
+
+/* Dark mode for the modal close button */
+.dark .modal-close-btn {
+    background: rgba(255, 255, 255, 0.5);
+    color: black;
+}
+
+.dark .modal-close-btn:hover {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+/* Ensure navbar links stay white */
+#desktop-menu .nav-link {
+    color: blue !important;
+}
+#desktop-menu .nav-link:hover {
+    color: #a78bfa !important; /* Tailwind secondary-violet */
+}
+
+/* Navbar link colors adaptive to theme */
+#desktop-menu .nav-link {
+    color: black !important; /* Light mode */
+    transition: color 0.2s ease;
+}
+
+#desktop-menu .nav-link:hover {
+    color: #a78bfa !important; /* Tailwind secondary-violet */
+}
+
+.dark #desktop-menu .nav-link {
+    color: rgb(247, 247, 250) !important; /* Dark mode */
+}
+
+.dark #desktop-menu .nav-link:hover {
+    color: #a78bfa !important;
+}
+
+#mobile-menu .nav-link {
+    color: #12163b !important;  /* Dark blue for light mode */
+}
+
+.dark #mobile-menu .nav-link {
+    color: white !important;    /* White in dark mode */
+}

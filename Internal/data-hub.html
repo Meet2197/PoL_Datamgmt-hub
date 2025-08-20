@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoL Data Management Hub - Frontend</title>
+    <!-- Load Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Optional custom styles for better visual appeal */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .data-card {
+            transition: transform 0.2s ease-in-out;
+        }
+        .data-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-8">
+
+    <div class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+        <h1 class="text-4xl font-bold text-center text-gray-800 mb-6">Data Management Hub</h1>
+
+        <!-- Search and Pagination controls -->
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-6 space-y-4 sm:space-y-0">
+            <div class="flex-grow flex items-center space-x-2 w-full sm:w-auto">
+                <input type="text" id="searchInput" placeholder="Search by title, description, or category..." class="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button id="searchButton" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200">
+                    Search
+                </button>
+            </div>
+            <div id="pagination-controls" class="flex items-center space-x-2 mt-4 sm:mt-0">
+                <!-- Pagination buttons will be inserted here dynamically -->
+            </div>
+        </div>
+
+        <!-- Data Display Area -->
+        <div id="data-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            <!-- Data cards will be rendered here -->
+        </div>
+
+        <!-- Loading spinner -->
+        <div id="loading" class="hidden text-center mt-8">
+            <svg class="animate-spin h-10 w-10 text-blue-500 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+        </div>
+
+        <!-- Error message -->
+        <div id="error-message" class="hidden text-center text-red-500 mt-8">
+            <p>An error occurred while fetching data. Please try again later.</p>
+        </div>
+
+        <!-- No results message -->
+        <div id="no-results" class="hidden text-center text-gray-500 mt-8">
+            <p>No results found.</p>
+        </div>
+    </div>
+
+    <script>
+        // --- API CONFIGURATION ---
+        const API_BASE_URL = 'http://127.0.0.1:5000/api/data';
+
+        // --- DOM ELEMENTS ---
+        const dataContainer = document.getElementById('data-container');
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const paginationControls = document.getElementById('pagination-controls');
+        const loadingSpinner = document.getElementById('loading');
+        const errorMessage = document.getElementById('error-message');
+        const noResultsMessage = document.getElementById('no-results');
+
+        let currentPage = 1;
+
+        // --- FETCH DATA FUNCTION ---
+        async function fetchData(query = '', page = 1) {
+            dataContainer.innerHTML = ''; // Clear previous data
+            loadingSpinner.classList.remove('hidden'); // Show loading spinner
+            errorMessage.classList.add('hidden'); // Hide any previous errors
+            noResultsMessage.classList.add('hidden'); // Hide no results message
+            
+            try {
+                // Construct the URL with search query and pagination parameters
+                const url = new URL(`${API_BASE_URL}/search`);
+                url.searchParams.append('q', query);
+                url.searchParams.append('page', page);
+                const response = await fetch(url);
+                
+                // Check if the response is successful
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+
+                loadingSpinner.classList.add('hidden'); // Hide spinner
+                
+                // Render the fetched data and pagination controls
+                renderData(result.data);
+                renderPagination(result.total_pages);
+                
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                loadingSpinner.classList.add('hidden'); // Hide spinner
+                errorMessage.classList.remove('hidden'); // Show error message
+            }
+        }
+        
+        // --- RENDER DATA FUNCTION ---
+        function renderData(data) {
+            dataContainer.innerHTML = '';
+            if (data.length === 0) {
+                noResultsMessage.classList.remove('hidden');
+                return;
+            }
+            
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'data-card bg-gray-50 p-6 rounded-xl shadow-md border border-gray-200';
+                card.innerHTML = `
+                    <h2 class="text-xl font-semibold text-gray-700">${item.title}</h2>
+                    <p class="text-sm text-gray-500 mb-2">Category: ${item.category}</p>
+                    <p class="text-gray-600 mt-2">${item.description}</p>
+                    <p class="text-xs text-gray-400 mt-4">Created: ${new Date(item.created_at).toLocaleDateString()}</p>
+                `;
+                dataContainer.appendChild(card);
+            });
+        }
+        
+        // --- RENDER PAGINATION FUNCTION ---
+        function renderPagination(totalPages) {
+            paginationControls.innerHTML = ''; // Clear existing buttons
+            if (totalPages <= 1) return;
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                button.className = `w-10 h-10 rounded-lg font-bold transition-colors duration-200 ${
+                    i === currentPage ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`;
+                button.addEventListener('click', () => {
+                    currentPage = i;
+                    fetchData(searchInput.value, currentPage);
+                });
+                paginationControls.appendChild(button);
+            }
+        }
+        
+        // --- EVENT LISTENERS ---
+        searchButton.addEventListener('click', () => {
+            currentPage = 1; // Reset to page 1 on new search
+            fetchData(searchInput.value);
+        });
+
+        searchInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent form submission
+                searchButton.click();
+            }
+        });
+        
+        // Initial data load when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchData();
+        });
+        
+    </script>
+</body>
+</html>

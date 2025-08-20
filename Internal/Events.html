@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - PoL Data Management Corner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#1a237e',
+                        'secondary-violet': '#6a47a8',
+                        'light-bg': '#f4f7f9',
+                        'dark-bg': '#121212',
+                        'dark-surface': '#1e1e1e',
+                        'dark-card': '#2a2a2a',
+                        'secondary-red': '#ef4444',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../Resources/public/css/style.css">
+    <link rel="icon" href="../Resources/images/logos/pol-logo.png" type="image/png">
+    <style>
+        /* Define a subtle fade-in and slide-up animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Apply staggered animation to the hero section elements */
+        .animate-stagger-1 {
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.2s;
+            opacity: 0; /* Ensure initial state is hidden */
+        }
+        .animate-stagger-2 {
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.4s;
+            opacity: 0;
+        }
+        .animate-stagger-3 {
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.6s;
+            opacity: 0;
+        }
+        /* Extend the staggered animation to the main content */
+        .animate-stagger-4 {
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.8s;
+            opacity: 0;
+        }
+        .animate-stagger-5 {
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 1s;
+            opacity: 0;
+        }
+        /* Animate footer with a final delay */
+        .animate-stagger-6 {
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 1.2s;
+            opacity: 0;
+        }
+
+        /* Style for the video background header */
+        .video-header {
+            position: relative;
+            height: 50vh; /* Adjust height as needed */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-header video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            z-index: -1;
+            filter: brightness(0.5); /* Darkens the video to improve text readability */
+        }
+        .video-header .content {
+            z-index: 1;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            position: relative;
+        }
+    </style>
+</head>
+<body class="bg-light-bg dark:bg-dark-bg text-gray-800 dark:text-gray-200 transition-colors duration-300">
+<!-- Navigation -->
+<nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/80 dark:bg-dark-surface/80 shadow-md transition-all">
+    <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <a href="../index.html"><img src="../Resources/images/logos/tud_logo.svg" alt="TUD" class="h-10 w-auto rounded-full" /></a>
+        <a href="../index.html"><img src="../Resources/images/logos/pol-logo.png" alt="PoL" class="h-8 w-auto" /></a>
+      </div>
+      <div class="hidden md:flex space-x-6 font-medium text-sm">
+        <a href="#" data-modal-target="about-modal" class="nav-link">Overview</a>
+        <a href="#" data-modal-target="resources-modal" class="nav-link">Resources</a>
+        <a href="../Internal/Events.html" class="nav-link">Events</a>
+        <a href="#" data-modal-target="contact-modal" class="nav-link">Contact</a>
+        <a href="../Internal/whats-new.html" class="nav-link text-secondary-red font-semibold">What's New</a>
+      </div>
+      <div class="flex items-center space-x-3">
+        <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+          <i id="theme-toggle-light-icon" class="fa-solid fa-sun hidden"></i>
+          <i id="theme-toggle-dark-icon" class="fa-solid fa-moon"></i>
+        </button>
+        <button class="md:hidden p-2" id="menu-toggle">
+          <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+    </div>
+    </div>
+    </nav>
+    
+    <header class="video-header mt-16 md:mt-0">
+        <video autoplay loop muted playsinline>
+            <source src="../Resources/images/4178359-hd_1906_1080_25fps.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="content">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">Upcoming Events</h1>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto">Explore workshops, seminars, and talks on data science and genomics.</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        <section id="upcoming-events" class="mb-12 animate-stagger-4">
+            
+            <div class="space-y-12">
+                <div class="relative pl-6 sm:pl-10">
+                    <h3 class="text-2xl font-bold text-primary-blue dark:text-secondary-violet mb-4">August 2025</h3>
+                    <div class="absolute left-0 top-0 w-1 h-full bg-gray-200 dark:bg-gray-700"></div>
+                    <div class="relative">
+                        <div class="event-card bg-white dark:bg-dark-surface p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 mb-6 ml-6">
+                            <span class="inline-block bg-primary-blue text-white text-xs font-bold px-3 py-1 rounded-full mb-4">Summer School</span>
+                            <a href="https://www.embl.org/about/info/course-and-conference-office/events/drg25-01/" target="_blank" rel="noopener noreferrer">
+                                <h3 class="text-xl font-bold mb-2">Drosophila genetics and genomics</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">An EMBO Practical Course covering next-generation sequencing, single-cell genomics, and other advanced techniques for biological data science.</p>
+                            </a>
+                            <div class="flex items-center mb-2">
+                                <i class="fa-solid fa-calendar-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">August 3-8, 2025</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-map-marker-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">EMBL Heidelberg</span>
+                            </div>
+                        </div>
+                        <div class="event-card bg-white dark:bg-dark-surface p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 mb-6 ml-6">
+                            <span class="inline-block bg-secondary-violet text-white text-xs font-bold px-3 py-1 rounded-full mb-4">Practical Course</span>
+                            <a href="http://meetings.embo.org/event/25-lsm" target="_blank" rel="noopener noreferrer">
+                                <h3 class="text-xl font-bold mb-2">Light sheet microscopy</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">An EMBO Practical Course focusing on state-of-the-art light sheet microscopy techniques in Dresden.</p>
+                            </a>
+                            <div class="flex items-center mb-2">
+                                <i class="fa-solid fa-calendar-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">August 11-22, 2025</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-map-marker-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">Dresden, Germany</span>
+                            </div>
+                        </div>
+                        <div class="event-card bg-white dark:bg-dark-surface p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 mb-6 ml-6">
+                            <span class="inline-block bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full mb-4">Workshop</span>
+                            <a href="https://www.embl.org/about/info/course-and-conference-office/events/pla25-01/" target="_blank" rel="noopener noreferrer">
+                                <h3 class="text-xl font-bold mb-2">Plant Membrane Biology</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">An EMBO Workshop on the latest research and methods in plant membrane biology.</p>
+                            </a>
+                            <div class="flex items-center mb-2">
+                                <i class="fa-solid fa-calendar-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">August 18-22, 2025</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-map-marker-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">Helsingør, Denmark</span>
+                            </div>
+                        </div>
+                        <div class="event-card bg-white dark:bg-dark-surface p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 mb-6 ml-6">
+                            <span class="inline-block bg-primary-blue text-white text-xs font-bold px-3 py-1 rounded-full mb-4">Conference</span>
+                            <a href="https://cordi2025.de/" target="_blank" rel="noopener noreferrer">
+                                <h3 class="text-xl font-bold mb-2">CORDI 2025</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">A conference focusing on building a sustainable research data infrastructure.</p>
+                            </a>
+                            <div class="flex items-center mb-2">
+                                <i class="fa-solid fa-calendar-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">August 26-28, 2025</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-map-marker-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">Aachen, Germany</span>
+                            </div>
+                        </div>
+                        <div class="event-card bg-white dark:bg-dark-surface p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 mb-6 ml-6">
+                            <span class="inline-block bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full mb-4">Workshop</span>
+                            <a href="https://www.embl.org/about/info/course-and-conference-office/events/fis25-01/" target="_blank" rel="noopener noreferrer">
+                                <h3 class="text-xl font-bold mb-2">FISHing for RNAs: classical to single molecule approaches</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">A practical course on state-of-the-art technologies for visualizing and quantifying RNA molecules, vital for biological data analysis.</p>
+                            </a>
+                            <div class="flex items-center mb-2">
+                                <i class="fa-solid fa-calendar-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">August 31 - September 5, 2025</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-map-marker-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">EMBL Heidelberg</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="relative pl-6 sm:pl-10">
+                    <h3 class="text-2xl font-bold text-primary-blue dark:text-secondary-violet mb-4">September 2025</h3>
+                    <div class="absolute left-0 top-0 w-1 h-full bg-gray-200 dark:bg-gray-700"></div>
+                    <div class="relative">
+                        <div class="event-card bg-white dark:bg-dark-surface p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 mb-6 ml-6">
+                            <span class="inline-block bg-secondary-violet text-white text-xs font-bold px-3 py-1 rounded-full mb-4">Conference</span>
+                            <a href="https://www.embl.org/about/info/course-and-conference-office/events/trc25-01/" target="_blank" rel="noopener noreferrer">
+                                <h3 class="text-xl font-bold mb-2">Protein synthesis and translational control</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">A conference on the molecular and structural understanding of the translational machinery, its regulation, and its implications in disease.</p>
+                            </a>
+                            <div class="flex items-center mb-2">
+                                <i class="fa-solid fa-calendar-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">September 3-7, 2025</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-map-marker-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">EMBL Heidelberg</span>
+                            </div>
+                        </div>
+                        <div class="event-card bg-white dark:bg-dark-surface p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 mb-6 ml-6">
+                            <span class="inline-block bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full mb-4">Symposium</span>
+                            <a href="https://helmholtz-metadaten.de/en/earth-and-environment/workshops-and-conferences" target="_blank" rel="noopener noreferrer">
+                                <h3 class="text-xl font-bold mb-2">10th Data Science Symposium</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">A symposium on the latest developments in data science.</p>
+                            </a>
+                            <div class="flex items-center mb-2">
+                                <i class="fa-solid fa-calendar-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">September 3-4, 2025</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-map-marker-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">Geesthacht, Germany</span>
+                            </div>
+                        </div>
+                        <div class="event-card bg-white dark:bg-dark-surface p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 mb-6 ml-6">
+                            <span class="inline-block bg-primary-blue text-white text-xs font-bold px-3 py-1 rounded-full mb-4">Conference</span>
+                            <a href="https://helmholtz-metadaten.de/en/earth-and-environment/workshops-and-conferences" target="_blank" rel="noopener noreferrer">
+                                <h3 class="text-xl font-bold mb-2">Open Science Fair 2025</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">An international event dedicated to Open Science and research data management.</p>
+                            </a>
+                            <div class="flex items-center mb-2">
+                                <i class="fa-solid fa-calendar-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">September 15-17, 2025</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-map-marker-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">Geneva, Switzerland</span>
+                            </div>
+                        </div>
+                        <div class="event-card bg-white dark:bg-dark-surface p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 mb-6 ml-6">
+                            <span class="inline-block bg-secondary-violet text-white text-xs font-bold px-3 py-1 rounded-full mb-4">Symposium</span>
+                            <a href="https://www.embl.org/about/info/course-and-conference-office/events/ees25-08/" target="_blank" rel="noopener noreferrer">
+                                <h3 class="text-xl font-bold mb-2">The human microbiome</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">An EMBO | EMBL symposium on the human microbiota's impact on health and disease, covering new studies and techniques.</p>
+                            </a>
+                            <div class="flex items-center mb-2">
+                                <i class="fa-solid fa-calendar-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">September 16-19, 2025</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-map-marker-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">EMBL Heidelberg and Virtual</span>
+                            </div>
+                        </div>
+                        <div class="event-card bg-white dark:bg-dark-surface p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 mb-6 ml-6">
+                            <span class="inline-block bg-secondary-violet text-white text-xs font-bold px-3 py-1 rounded-full mb-4">Meeting</span>
+                            <a href="https://helmholtz-metadaten.de/en/earth-and-environment/workshops-and-conferences" target="_blank" rel="noopener noreferrer">
+                                <h3 class="text-xl font-bold mb-2">NFDI4Biodiversity meets NFDI4Earth</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">A collaborative meeting focused on research data infrastructure for biodiversity and earth sciences.</p>
+                            </a>
+                            <div class="flex items-center mb-2">
+                                <i class="fa-solid fa-calendar-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">September 22-25, 2025</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-map-marker-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">Bremen, Germany</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="relative pl-6 sm:pl-10">
+                    <h3 class="text-2xl font-bold text-primary-blue dark:text-secondary-violet mb-4">October 2025</h3>
+                    <div class="absolute left-0 top-0 w-1 h-full bg-gray-200 dark:bg-gray-700"></div>
+                    <div class="relative">
+                        <div class="event-card bg-white dark:bg-dark-surface p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 mb-6 ml-6">
+                            <span class="inline-block bg-primary-blue text-white text-xs font-bold px-3 py-1 rounded-full mb-4">Symposium</span>
+                            <a href="https://www.embl.org/about/info/course-and-conference-office/events/ees25-09/" target="_blank" rel="noopener noreferrer">
+                                <h3 class="text-xl font-bold mb-2">EMBO | EMBL Symposium: Seeing is believing</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">A symposium focusing on advanced imaging techniques and how they are used to visualize and understand molecular processes of life.</p>
+                            </a>
+                            <div class="flex items-center mb-2">
+                                <i class="fa-solid fa-calendar-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">October 8-11, 2025</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-map-marker-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">Heidelberg, Germany</span>
+                            </div>
+                        </div>
+                        <div class="event-card bg-white dark:bg-dark-surface p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 mb-6 ml-6">
+                            <span class="inline-block bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full mb-4">Conference</span>
+                            <a href="https://www.embl.org/about/info/course-and-conference-office/events/spb25-01/" target="_blank" rel="noopener noreferrer">
+                                <h3 class="text-xl font-bold mb-2">Spatial biology: the melting pot</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">A conference on new developments in spatial biology, covering topics from tumor microenvironments to data analysis.</p>
+                            </a>
+                            <div class="flex items-center mb-2">
+                                <i class="fa-solid fa-calendar-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">October 14-17, 2025</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-map-marker-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">EMBL Heidelberg and Virtual</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative pl-6 sm:pl-10">
+                    <h3 class="text-2xl font-bold text-primary-blue dark:text-secondary-violet mb-4">November 2025</h3>
+                    <div class="absolute left-0 top-0 w-1 h-full bg-gray-200 dark:bg-gray-700"></div>
+                    <div class="relative">
+                        <div class="event-card bg-white dark:bg-dark-surface p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 mb-6 ml-6">
+                            <span class="inline-block bg-primary-blue text-white text-xs font-bold px-3 py-1 rounded-full mb-4">Conference</span>
+                            <a href="https://www.embl.org/about/info/course-and-conference-office/events/mge25-01/" target="_blank" rel="noopener noreferrer">
+                                <h3 class="text-xl font-bold mb-2">The mobile genome: genetic and physiological impacts of transposable elements</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">A conference on the broad impact of transposable elements on genomics, epigenetics, and evolutionary biology.</p>
+                            </a>
+                            <div class="flex items-center mb-2">
+                                <i class="fa-solid fa-calendar-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">November 4-7, 2025</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-map-marker-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">EMBL Heidelberg and Virtual</span>
+                            </div>
+                        </div>
+                        <div class="event-card bg-white dark:bg-dark-surface p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 mb-6 ml-6">
+                            <span class="inline-block bg-secondary-violet text-white text-xs font-bold px-3 py-1 rounded-full mb-4">Symposium</span>
+                            <a href="https://cytodata25.eu-openscreen.eu/" target="_blank" rel="noopener noreferrer">
+                                <h3 class="text-xl font-bold mb-2">Cytodata Symposium</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">A symposium on morphological profiling and the analysis of Cell Painting Data, a key area of biological data science.</p>
+                            </a>
+                            <div class="flex items-center mb-2">
+                                <i class="fa-solid fa-calendar-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">November 20-21, 2025</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-map-marker-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">Berlin, Germany</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative pl-6 sm:pl-10">
+                    <h3 class="text-2xl font-bold text-primary-blue dark:text-secondary-violet mb-4">Ongoing</h3>
+                    <div class="absolute left-0 top-0 w-1 h-full bg-gray-200 dark:bg-gray-700"></div>
+                    <div class="relative">
+                        <div class="event-card bg-white dark:bg-dark-surface p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 mb-6 ml-6">
+                            <span class="inline-block bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full mb-4">Exhibition</span>
+                            <a href="https://tu-dresden.de/cids/interactive-science-lab?set_language=en" target="_blank" rel="noopener noreferrer">
+                                <h3 class="text-xl font-bold mb-2">DataSpaces : Experiencing Science</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">An exhibition by the CIDS Interactive Science Lab focusing on experiencing science through interactive data visualization.</p>
+                            </a>
+                            <div class="flex items-center mb-2">
+                                <i class="fa-solid fa-calendar-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">Until the end of 2025</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fa-solid fa-map-marker-alt text-gray-500 mr-2"></i>
+                                <span class="text-sm font-medium">SLUB Makerspace</span>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-400 p-6 text-center transition-colors duration-300">
+        <div class="container mx-auto">
+            © 2025 PoL Data Management Corner. All rights reserved.
+        </div>
+    </footer>
+    <div id="modal-container">
+        <!-- Resources Modal -->
+        <div id="resources-modal" class="modal-wrapper">
+            <div class="modal-content-container">
+                <div class="relative bg-white dark:bg-dark-surface p-6 rounded-xl shadow-2xl max-w-3xl w-full mx-4 my-8">
+                    <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white" data-modal-close="resources-modal"><i class="fa-solid fa-xmark text-2xl"></i></button>
+                    <h2 class="text-2xl font-bold mb-6 text-center">Key Resources</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="resource-card p-6 bg-gray-100 dark:bg-dark-card rounded-xl shadow-md">
+                            <h3 class="font-bold text-xl mb-2">
+                                <a href="../Internal/regulations.html" class="hover:text-secondary-violet">
+                                    <i class="fa-solid fa-file-alt mr-2 text-secondary-violet"></i>Data Management Regulations
+                                </a>
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-400">Learn how to create effective DMPs.</p>
+                        </div>
+                        <div class="resource-card p-6 bg-gray-100 dark:bg-dark-card rounded-xl shadow-md">
+                            <h3 class="font-bold text-xl mb-2">
+                                <a href="../Internal/backup.html" class="hover:text-secondary-violet">
+                                    <i class="fa-solid fa-hard-drive mr-2 text-secondary-violet"></i>Data Storage & Backup
+                                </a>
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-400">Guidelines for secure data storage.</p>
+                        </div>
+                        <div class="resource-card p-6 bg-gray-100 dark:bg-dark-card rounded-xl shadow-md">
+                            <h3 class="font-bold text-xl mb-2">
+                                <a href="../Internal/archiving.html" class="hover:text-secondary-violet">
+                                    <i class="fa-solid fa-share-alt mr-2 text-secondary-violet"></i>Data Sharing & Archiving
+                                </a>
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-400">Best practices for sharing and archiving data.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Contact Modal -->
+        <div id="contact-modal" class="modal-wrapper hidden fixed inset-0 z-50 flex items-center justify-center p-4">>
+            <div class="modal-backdrop absolute inset-0 bg-black bg-opacity-50"></div>
+            <div class="modal-content-container relative bg-white dark:bg-dark-surface p-4 sm:p-6 rounded-xl shadow-2xl max-w-2xl w-full mx-4 my-4 sm:my-8 max-h-[90vh] overflow-y-auto">
+                <button data-modal-close="contact-modal" class="modal-close-btn absolute top-4 right-4 text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white transition-colors duration-200 z-10">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+                <h2 class="text-xl sm:text-2xl font-bold mb-4 text-center pr-8">Contact Us </h2>
+                <form id="contact-form" class="space-y-4 mt-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
+                        <input type="text" id="name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" placeholder="John Doe">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                        <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" placeholder="john.doe@example.com">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Message</label>
+                        <textarea id="message" name="message" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" placeholder="Your message..."></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="w-full sm:w-auto bg-secondary-violet text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-violet-700 hover:shadow-xl transition duration-300">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../Resources/public/js/chatbot.js"></script>
+    <script src="../Resources/public/js/script.js"></script>
+</body>
+</html>

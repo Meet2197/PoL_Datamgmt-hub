@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoL Data Management Corner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#12163b',
+                        'secondary-violet': '#8b5cf6',
+                        'secondary-red': '#ef4444',
+                        'light-bg': '#f4f7f9',
+                        'dark-bg': '#1C1C1C',
+                        'dark-surface': '#1e1e1e',
+                        'dark-card': '#2a2a2a',
+                        'dark-surface': '#252540',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    screens: {
+                        'xs': '475px',
+                    },
+                },
+            },
+            
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Resources/public/css/style.css">
+    <link rel="icon" href="Resources/images/logos/pol-logo.png" type="image/png">
+    
+    <style>
+        /* Define a subtle fade-in and slide-up animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Apply staggered animation to the hero section elements */
+        .animate-stagger-1 {
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+        .animate-stagger-2 {
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.4s;
+            opacity: 0;   
+        }
+        .animate-stagger-3 {
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.6s;
+            opacity: 0;
+        }
+        .animate-stagger-4 {
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.8s;
+            opacity: 0;
+        }
+        .animate-stagger-5 {
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 1s;
+            opacity: 0;
+        }
+        .animate-stagger-6 {
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 1.2s;
+            opacity: 0;
+        }
+
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-size: 0.875rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Tooltip fade + slide up */
+        @keyframes fadeInUpHover {
+          from {
+            opacity: 0;
+            transform: translate(-50%, 10px);
+          }
+          to {
+            opacity: 1;
+            transform: translate(-50%, 0);
+          }
+        }
+
+        .tooltip-hover {
+          opacity: 0;
+          transform: translate(-50%, 10px);
+          transition: opacity 0.3s ease, transform 0.3s ease;
+          pointer-events: none;
+        }
+
+        .group:hover .tooltip-hover {
+          animation: fadeInUpHover 0.4s ease forwards;
+        }
+
+        /* Mobile-specific improvements */
+        @media (max-width: 640px) {
+            .tooltip-hover {
+                display: none; /* Hide tooltips on mobile */
+            }
+            
+            .nav-link {
+                padding: 0.75rem 1rem;
+                display: block;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .mobile-menu {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+            
+            .mobile-menu.open {
+                transform: translateX(0);
+            }
+            
+            /* Adjust hero buttons for mobile */
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero-buttons .group {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            /* Make cards stack nicely on mobile */
+            .resource-card {
+                margin-bottom: 1rem;
+            }
+            
+            /* Adjust slider for mobile */
+            .slider-card-item {
+                min-width: 160px !important;
+            }
+        }
+
+        /* Tablet adjustments */
+        @media (min-width: 641px) and (max-width: 1024px) {
+            .hero-buttons .group {
+                min-width: 200px;
+            }
+        }
+
+        /* Hide scrollbar for slider but keep scrolling */
+        .slider-wrapper {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .slider-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-light-bg dark:bg-dark-bg text-white dark:text-gray-200 transition-colors duration-300">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-blue-500 shadow-md transition-all" id="navbar">
+        <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2 sm:space-x-4" id="nav-logos">
+                <a href="index.html"><img src="Resources/images/logos/tud_logo.svg" alt="TUD" class="h-8 sm:h-10 w-auto rounded-full" id="tud-logo" /></a>
+                <a href="index.html"><img src="Resources/images/logos/pol-logo.png" alt="PoL" class="h-6 sm:h-8 w-auto" id="pol-logo" /></a>
+            </div>
+          
+            <div class="hidden md:flex space-x-4 lg:space-x-6 font-medium text-sm" id="desktop-menu">
+                <a href="#" data-modal-target="about-modal" class="nav-link hover:text-secondary-violet transition-colors">Overview</a>
+                <a href="#" data-modal-target="resources-modal" class="nav-link hover:text-secondary-violet transition-colors">Resources</a>
+                <a href="Internal/Events.html" class="nav-link hover:text-secondary-violet transition-colors">Events</a>
+                <a href="#" data-modal-target="contact-modal" class="nav-link hover:text-secondary-violet transition-colors">Contact</a>
+                <a href="Internal/whats-new.html" class="nav-link text-secondary-red hover:text-secondary-violet font-semibold transition-colors">What's New</a>
+              </div>
+        
+        <div class="flex items-center space-x-3">
+            <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                <i id="theme-toggle-light-icon" class="fa-solid fa-sun hidden"></i>
+                <i id="theme-toggle-dark-icon" class="fa-solid fa-moon"></i>
+            </button>
+            <button class="md:hidden p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" id="menu-toggle">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
+        </div>
+        </div>  
+        </div>
+        
+        <div id="mobile-menu" class="md:hidden fixed top-0 left-0 w-full h-full bg-white dark:bg-dark-surface z-40 transform -translate-x-full transition-transform duration-300 ease-in-out">
+            <div class="flex flex-col pt-20 px-4">
+                <button id="mobile-menu-close" class="modal-close-btn">
+                    <button id="mobile-menu-close" class="absolute top-4 right-4 z-50 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center transition-colors duration-200 hover:bg-black/70">
+                    </button>
+                <a href="#" data-modal-target="about-modal" class="nav-link text-white dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Overview</a>
+                <a href="#" data-modal-target="resources-modal" class="nav-link text-white dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Resources</a>
+                <a href="Internal/Events.html" class="nav-link text-white dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Events</a>
+                <a href="#" data-modal-target="contact-modal" class="nav-link text-white dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">Contact</a>
+                <a href="Internal/whats-new.html" class="nav-link text-secondary-red font-semibold hover:bg-gray-100 dark:hover:bg-gray-700 py-3 px-4 block">What's New</a>
+            </div>
+        </div>
+    </nav>
+
+      <header class="relative bg-primary-blue text-white min-h-screen flex items-center justify-center pt-20 sm:pt-32 pb-12 sm:pb-24 overflow-hidden">
+        <div class="absolute inset-0 z-0 bg-black">
+            <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-50">
+                <source src="Resources/images/mice cells.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 animate-stagger-1 leading-tight"> Data Management <span class="text-green-300">Corner</span></h1>
+            <p class="text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-6 sm:mb-8 animate-stagger-2 px-4">
+                Streamline your research data lifecycle with comprehensive guides, best practices, and tools designed for researchers at PoL.
+            </p>
+            <div class="hero-buttons flex flex-col sm:flex-row justify-center gap-4 animate-stagger-3 px-4">
+                <div class="relative group inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 border border-transparent text-sm sm:text-base font-medium rounded-full text-white bg-secondary-violet cursor-default transition-all duration-300 transform hover:scale-105">
+                    <i class="fa-solid fa-play mr-2"></i> Get Started
+                    <div class="absolute bottom-full mb-3 left-1/2 bg-black text-white text-sm rounded-lg shadow-lg px-4 py-2 tooltip-hover whitespace-nowrap">
+                        Quick links to resources, events, news, and contact info.
+                    </div>
+                </div>
+                <div class="relative group inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 border-2 border-white text-sm sm:text-base font-medium rounded-full text-white cursor-default transition-all duration-300 transform hover:scale-105">
+                    <i class="fa-solid fa-book-open mr-2"></i> View Our Guidelines
+                    <div class="absolute bottom-full mb-3 left-1/2 bg-black text-white text-sm rounded-lg shadow-lg px-4 py-2 tooltip-hover text-left min-w-[300px] hidden sm:block">
+                        <h4 class="font-bold mb-1">Key Data Regulations:</h4>
+                        <ul class="list-disc list-inside space-y-1 text-xs">
+                            <li><strong>GDPR</strong>: Legal framework for personal data.</li>
+                            <li><strong>DFG Guidelines</strong>: Best practices for scientific data.</li>
+                            <li><strong>Ethics</strong>: Rules for animal and sensitive data.</li>
+                            <li><strong>Metadata</strong>: Standards for data quality and discoverability.</li>
+                            <li><strong>FHIR, UCUM, LOINC, SNOMED CT</strong>: Interoperability standards for healthcare data.</li>
+                        </ul>
+                        <a href="Internal/regulations.html" class="inline-block mt-2 text-secondary-violet bg-white px-2 py-1 rounded-full text-xs font-semibold hover:underline">Read More &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+      <main class="px-4 sm:px-6 lg:px-8">
+        <section id="key-resources" class="bg-blue-300 dark:bg-gray-900 py-12 sm:py-16 px-4 sm:px-6 lg:px-8 rounded-3xl my-8 sm:my-12 text-primary-blue dark:text-gray-200 relative overflow-hidden">
+            <div id="particles-js" class="absolute inset-0 z-0"></div>
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-12">Key Resources</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto relative z-10">
+              <div class="group relative bg-transparent border-2 border-gray-300 dark:border-gray-700 rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 backdrop-blur-sm bg-white/50 dark:bg-dark-surface/50">
+                <div class="flex items-center mb-4">
+                  <i class="fa-solid fa-file-contract text-2xl sm:text-3xl text-green-700 mr-3 sm:mr-4 group-hover:scale-110 transition-transform"></i>
+                  <h3 class="text-lg sm:text-xl font-semibold"><span class="text-green-700">Data Management Regulations</span></h3>
+                </div>
+                <p class="text-sm text-primary-blue dark:text-gray-400 mb-4">Learn how to create effective Data Management policies for your research projects.</p>
+                <a href="Internal/regulations.html" class="inline-block text-green-700 hover:underline font-medium">Read More &rarr;</a>
+              </div>
+          
+              <div class="group relative bg-transparent border-2 border-gray-300 dark:border-gray-700 rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 backdrop-blur-sm bg-white/50 dark:bg-dark-surface/50">
+                <div class="flex items-center mb-4">
+                  <i class="fa-solid fa-database text-2xl sm:text-3xl text-blue-600 mr-3 sm:mr-4 group-hover:scale-110 transition-transform"></i>
+                  <h3 class="text-lg sm:text-xl font-semibold"><span class="text-blue-500">Data Storage & Backup</span></h3>
+                </div>
+                <p class="text-sm text-primary-blue dark:text-gray-400 mb-4">Guidelines and recommendations for secure data storage and backup solutions.</p>
+                <a href="Internal/backup.html" class="inline-block text-blue-600 hover:underline font-medium">Read More &rarr;</a>
+              </div>      
+              
+              <div class="group relative bg-transparent border-2 border-gray-300 dark:border-gray-700 rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 backdrop-blur-sm bg-white/50 dark:bg-dark-surface/50 md:col-span-2 lg:col-span-1">
+                <div class="flex items-center mb-4">
+                  <i class="fa-solid fa-share-nodes text-2xl sm:text-3xl text-yellow-600 mr-3 sm:mr-4 group-hover:scale-110 transition-transform"></i>
+                  <h3 class="text-lg sm:text-xl font-semibold"><span class="text-yellow-600">Data Sharing & Archiving</span></h3>
+                </div>
+                <p class="text-sm text-primary-blue dark:text-gray-400 mb-4">Best practices for sharing your research data and long-term archiving.</p>
+                <a href="Internal/archiving.html" class="inline-block text-yellow-600 hover:underline font-medium">Read More &rarr;</a>
+                
+                
+                <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 relative">
+                    <div class="flex items-center justify-between mb-3">
+                      <h4 class="font-semibold">Recommended Tools</h4>
+                      <div class="flex space-x-2">
+                        <button id="slider-prev" class="p-1 rounded-full bg-gray-200 dark:bg-gray-300 hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" aria-label="Previous tools">
+                          <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </button>
+                        <button id="slider-next" class="p-1 rounded-full bg-gray-200 dark:bg-gray-300 hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" aria-label="Next tools">
+                          <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="slider-container relative overflow-hidden">
+                      <div class="slider-wrapper flex transition-transform duration-300 ease-in-out" id="sharing-archiving-tools-container">
+                      </div>
+                    </div>
+                    <div class="flex justify-center mt-3 space-x-1" id="slider-dots">
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </section>
+        <section id="whats-new-section" class="relative bg-primary-blue text-white min-h-screen flex items-center justify-center pt-20 sm:pt-32 pb-12 sm:pb-24 overflow-hidden">
+            <div class="absolute inset-0 z-0 flex items-center justify-center rounded-3xl overflow-hidden">
+                <img src="Resources/images/background_img.jpg" class="absolute inset-0 w-full h-full object-cover opacity-50" alt="Microscope">
+                <div class="absolute inset-0 bg-black opacity-40"></div>
+            </div>
+            <div class="relative z-10 text-center text-white px-4">
+                <h3 class="text-2xl sm:text-3xl font-bold mb-3">Stay Up-to-Date with Latest Trends!</h3>
+                <p class="text-base sm:text-lg mb-6 max-w-xl mx-auto">Discover the newest advancements in data science, AI, and research tools.</p>
+                <a href="Internal/whats-new.html" class="inline-block bg-white text-secondary-violet font-bold py-3 px-6 rounded-full shadow-lg hover:bg-gray-100 transition transform hover:scale-105">
+                    Read More &rarr;
+                </a>
+            </div>
+        </section>
+    
+            <section id="events-section" class="relative bg-primary-blue dark:bg-violet-900 text-white p-8 sm:p-10 lg:p-12 rounded-3xl my-12 sm:my-16 overflow-hidden text-center">
+              <img src="Resources/images/DataScience_event.jpg" class="absolute inset-0 w-full h-full object-cover opacity-30" alt="Data Background">
+              <div class="absolute inset-0 bg-black opacity-40"></div>
+              <div class="relative z-10">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-6">Upcoming Data Science Events</h2>
+                <a href="Internal/Events.html" class="inline-block bg-secondary-red hover:bg-red-700 transition-transform transform hover:scale-105 text-white font-bold py-3 px-6 rounded-full shadow">
+                  View All Events &rarr;
+                </a>
+              </div>
+            </section>
+    
+            <section id="get-in-touch" class="bg-gradient-to-br from-primary-blue to-secondary-violet text-white py-16 sm:py-20 px-4 sm:px-6 lg:px-8 rounded-3xl shadow-lg text-center my-12 sm:my-16">
+              <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Get in Touch</h2>
+              <p class="text-base sm:text-lg max-w-2xl mx-auto mb-8">Have questions with your data management? </p>
+              <p class="text-base sm:text-lg max-w-2xl mx-auto mb-8">Contact Us for personalized assistance.</p>
+                <button data-modal-target="email-us-modal" class="bg-white text-secondary-violet font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition transform hover:scale-105">
+                Email Us
+            </button>
+            </section>
+        </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 text-sm text-center py-6 mt-12 rounded-t-3xl shadow-inner">
+        <p>&copy; 2025 PoL Data Management Corner. All rights reserved.</p>
+    </footer>
+
+    <div id="modal-container">
+        <div id="tool-details-modal" class="modal-wrapper hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div class="modal-backdrop absolute inset-0 bg-black bg-opacity-50"></div>
+            <div class="modal-content-container relative bg-white dark:bg-dark-card w-full max-w-xs sm:max-w-sm p-4 sm:p-6 rounded-lg shadow-xl">
+                <button data-modal-close="tool-details-modal" class="modal-close-btn absolute top-4 right-4 z-50 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center transition-colors duration-200 hover:bg-black/70">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+                <div class="flex flex-col items-center text-center">
+                    <img id="tool-modal-logo" src="" alt="Tool logo" class="w-16 h-16 object-contain mb-2">
+                    <h3 id="tool-modal-name" class="text-xl font-bold mb-1"></h3>
+                    <p id="tool-modal-description" class="text-sm text-gray-600 dark:text-gray-400 mb-4"></p>
+                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full">
+                        <a id="tool-modal-doc-btn" href="#" target="_blank" class="flex-1 px-4 py-2 text-xs text-center rounded-lg font-semibold text-white bg-secondary-violet hover:bg-violet-700 transition-colors duration-200">
+                            Documentation
+                        </a>
+                        <a id="tool-modal-join-btn" href="#" target="_blank" class="flex-1 px-4 py-2 text-xs text-center rounded-lg font-semibold text-white bg-primary-blue hover:bg-primary-blue-dark transition-colors duration-200">
+                            Log In
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="about-modal" class="modal-wrapper">
+            <div class="modal-content-container">
+                <div class="relative bg-white dark:bg-dark-surface p-0 rounded-xl shadow-2xl max-w-2xl w-full mx-4 my-4 sm:my-8 overflow-hidden max-h-[90vh] overflow-y-auto">
+        
+                    <div class="relative pt-12 pb-8 px-6 bg-primary-blue text-white text-center">
+                        <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('Resources/images/image2.jpg');"></div>
+                        <div class="relative z-10">
+                            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">About Our Initiative</h2>
+                            <p class="text-base sm:text-lg opacity-80">Your guide to effective research data management at PoL.</p>
+                        </div>
+                    </div>
+        
+                    <div class="p-4 sm:p-6 lg:p-8">
+                        <button data-modal-close="about-modal" class="modal-close-btn">
+                            <i class="fa-solid fa-xmark text-lg"></i>
+                        </button>       
+                        <div class="text-center mb-6">
+                            <p class="text-primary-blue dark:text-gray-400 text-sm sm:text-base">
+                                This is your central hub for all things related to research data management at the Physics of Life (PoL) and TU Dresden (TUD). We provide comprehensive guides, best practices, and essential tools to help you streamline the entire lifecycle of your research data, from project inception to long-term archiving.
+                            </p>
+                        </div>
+        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-6">
+                            <a href="Internal/resources.html" class="flex items-center p-4 bg-gray-100 dark:bg-dark-card rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-dark-card/80 transition duration-300">
+                                <i class="fa-solid fa-file-contract mr-4 text-2xl sm:text-3xl text-secondary-violet"></i>
+                                <div>
+                                    <h3 class="font-bold text-lg sm:text-xl">Key Resources</h3>
+                                    <p class="text-xs sm:text-sm text-primary-blue dark:text-gray-400">Detailed guides on regulations, storage, and sharing.</p>
+                                </div>
+                            </a>
+        
+                            <a href="Internal/Events.html" class="flex items-center p-4 bg-gray-100 dark:bg-dark-card rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-dark-card/80 transition duration-300">
+                                <i class="fa-solid fa-calendar-alt mr-4 text-2xl sm:text-3xl text-secondary-violet"></i>
+                                <div>
+                                    <h3 class="font-bold text-lg sm:text-xl">Upcoming Events</h3>
+                                    <p class="text-xs sm:text-sm text-primary-blue dark:text-gray-400">Workshops, seminars, and talks on data science.</p>
+                                </div>
+                            </a>
+        
+                            <a href="Internal/whats-new.html" class="flex items-center p-4 bg-gray-100 dark:bg-dark-card rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-dark-card/80 transition duration-300">
+                                <i class="fa-solid fa-bell mr-4 text-2xl sm:text-3xl text-secondary-violet"></i>
+                                <div>
+                                    <h3 class="font-bold text-lg sm:text-xl">What's New</h3>
+                                    <p class="text-xs sm:text-sm text-primary-blue dark:text-gray-400">Latest updates and news from the team.</p>
+                                </div>
+                            </a>
+        
+                            <a href="#" class="flex items-center p-4 bg-gray-100 dark:bg-dark-card rounded-lg shadow-md hover:bg-gray-200 dark:hover:bg-dark-card/80 transition duration-300">
+                                <i class="fa-solid fa-envelope mr-4 text-2xl sm:text-3xl text-secondary-violet"></i>
+                                <div>
+                                    <h3 class="font-bold text-lg sm:text-xl">Contact Us</h3>
+                                    <p class="text-xs sm:text-sm text-primary-blue dark:text-gray-400">Get in touch with the data management team.</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="resources-modal" class="modal-wrapper">
+            <div class="modal-content-container">
+                <div class="relative bg-white dark:bg-dark-surface p-4 sm:p-6 rounded-xl shadow-2xl max-w-3xl w-full mx-4 my-4 sm:my-8 max-h-[90vh] overflow-y-auto">
+                    <button class="modal-close-btn" data-modal-close="resources-modal"><i class="fa-solid fa-xmark text-2xl"></i></button>
+                    <h2 class="text-xl sm:text-2xl font-bold mb-6 text-center pr-8">Key Resources</h2>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        
+                        <div class="resource-card p-4 sm:p-6 bg-gray-100 dark:bg-dark-card rounded-xl shadow-md">
+                            <h3 class="font-bold text-lg sm:text-xl mb-2">
+                                <a href="Internal/regulations.html" class="hover:text-secondary-violet">
+                                    <i class="fa-solid fa-file-shield mr-2 text-secondary-violet"></i>Data Management & Regulations
+                                </a>
+                            </h3>
+                            <p class="text-sm sm:text-base text-primary-blue dark:text-gray-400">Learn how to create effective Data management associated activities.</p>
+                        </div>
+                        
+                        <div class="resource-card p-4 sm:p-6 bg-gray-100 dark:bg-dark-card rounded-xl shadow-md">
+                            <h3 class="font-bold text-lg sm:text-xl mb-2">
+                                <a href="Internal/backup.html" class="hover:text-secondary-violet">
+                                    <i class="fa-solid fa-hard-drive mr-2 text-secondary-violet"></i>Data Storage & Backup
+                                </a>
+                            </h3>
+                            <p class="text-sm sm:text-base text-primary-blue dark:text-gray-400">Guidelines for secure data storage.</p>
+                        </div>
+                        
+                        <div class="resource-card p-4 sm:p-6 bg-gray-100 dark:bg-dark-card rounded-xl shadow-md">
+                            <h3 class="font-bold text-lg sm:text-xl mb-2">
+                                <a href="Internal/archiving.html" class="hover:text-secondary-violet">
+                                    <i class="fa-solid fa-share-alt mr-2 text-black-400"></i>Data Sharing & Archiving
+                                </a>
+                            </h3>
+                            <p class="text-sm sm:text-base text-primary-blue dark:text-gray-400">Best practices for sharing and archiving data.</p>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+ 
+        <div id="contact-modal" class="modal-wrapper hidden fixed inset-0 z-50 flex items-center justify-center p-4">>
+            <div class="modal-backdrop absolute inset-0 bg-black bg-opacity-50"></div>
+            <div class="modal-content-container relative bg-white dark:bg-dark-surface p-4 sm:p-6 rounded-xl shadow-2xl max-w-2xl w-full mx-4 my-4 sm:my-8 max-h-[90vh] overflow-y-auto">
+                <button data-modal-close="contact-modal" class="modal-close-btn">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+                <h2 class="text-xl sm:text-2xl font-bold mb-4 text-center pr-8">Contact Us </h2>
+                <form id="contact-form" class="space-y-4 mt-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Name</label>
+                        <input type="text" id="name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" placeholder="John Doe">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Email</label>
+                        <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" placeholder="john.doe@example.com">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Message</label>
+                        <textarea id="message" name="message" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" placeholder="Your message..."></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="w-full sm:w-auto bg-secondary-violet text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-violet-700 hover:shadow-xl transition duration-300">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="email-us-modal" class="modal-wrapper hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div class="modal-backdrop absolute inset-0 bg-black bg-opacity-50"></div>
+            <div class="modal-content-container relative bg-white dark:bg-dark-surface p-4 sm:p-6 rounded-xl shadow-2xl max-w-2xl w-full mx-4 my-4 sm:my-8 max-h-[90vh] overflow-y-auto">
+                <button data-modal-close="email-us-modal" class="modal-close-btn">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+                <h2 class="text-xl sm:text-2xl font-bold mb-4 text-center pr-8">Contact Data Manager</h2>
+                <form id="email-us-form" class="space-y-4">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                          <label for="email-us-name" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Name</label>
+                          <input type="text" id="email-us-name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" required>
+                      </div>
+                      <div>
+                          <label for="email-us-email" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Email</label>
+                          <input type="email" id="email-us-email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" required>
+                      </div>
+                  </div>
+                  <div>
+                      <label for="group-name" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Name of group</label>
+                      <input type="text" id="group-name" name="group-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" required>
+                  </div>
+                  <div>
+                      <label for="concern-type" class="block text-sm font-medium text-primary-blue dark:text-gray-300">Type of concern</label>
+                      <select id="concern-type" name="concern-type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-secondary-violet focus:ring focus:ring-secondary-violet focus:ring-opacity-50 dark:bg-dark-card dark:border-gray-600 dark:text-white p-3" required>
+                          <option value="" disabled selected>Select an option</option>
+                          <option value="Regulations for Data management/software">Regulations for Data management/software</option>
+                          <option value="Frequent data storage issues">Frequent data storage issues</option>
+                          <option value="Tools to know">Tools to know</option>
+                          <option value="Require meeting">Require meeting</option>
+                      </select>
+                  </div>
+                  <div class="text-center">
+                      <button type="submit" class="w-full sm:w-auto bg-secondary-violet text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-violet-700 transition duration-300">Send Email</button>
+                  </div>
+              </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#ffffff"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#ffffff",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 6,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "repulse"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 400,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+            // --- Modal Management Functions ---
+            const openModal = (modalId) => {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.style.display = 'flex';
+                    modal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
+            };
+        
+            const closeModal = (modal) => {
+                if (modal) {
+                    modal.style.display = 'none';
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            };
+        
+            // --- Modal Event Listeners ---
+            // Open modal buttons
+            document.querySelectorAll('[data-modal-target]').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const modalId = button.getAttribute('data-modal-target');
+                    openModal(modalId);
+                });
+            });
+        
+            // Close modal buttons
+            document.querySelectorAll('[data-modal-close]').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    event.stopPropagation(); // Prevent event bubbling
+                    const modalId = button.getAttribute('data-modal-close');
+                    const modal = document.getElementById(modalId);
+                    closeModal(modal);
+                });
+            });
+        
+            // Close modal when clicking outside
+            document.querySelectorAll('.modal-wrapper').forEach(modal => {
+                modal.addEventListener('click', (event) => {
+                    if (event.target === modal || event.target.classList.contains('modal-backdrop')) {
+                        closeModal(modal);
+                    }
+                });
+            });
+        
+            // Close modal with Escape key
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    const openModal = document.querySelector('.modal-wrapper[style*="flex"]');
+                    if (openModal) {
+                        closeModal(openModal);
+                    }
+                }
+            });
+        
+            // --- Slider Configuration ---
+            const toolsData = [
+                { name: 'Zenodo', logo: 'Resources/images/logos/zenodo_logo.jpg', description: 'A general-purpose open-access repository for research data, software, publications, and more.', documentation: 'https://help.zenodo.org/docs/', join: 'https://zenodo.org/signup/' },
+                { name: 'Figshare', logo: 'Resources/images/logos/imagesc-logo.png', description: 'An online repository to share, publish, and discover research data, figures, and other scholarly outputs.', documentation: 'https://knowledge.figshare.com/', join: 'https://figshare.com/account/login' },
+                { name: 'elabftw', logo: 'Resources/images/logos/elabftw-logo.png', description: 'An open-source electronic lab notebook for recording and managing experimental data.', documentation: 'https://doc.elabftw.net/', join: 'https://elab.cmcb.tu-dresden.de/login.php' },
+                { name: 'Gitlab TUD', logo: 'Resources/images/logos/gitlab-logo.png', description: 'TU Dresden\'s platform for Git-based version control, code collaboration, and CI/CD.', documentation: 'https://tu-dresden.de/mn/der-bereich/it-kompetenz-und-servicezentrum/gitlab-dienst', join: 'https://gitlab.mn.tu-dresden.de/users/sign_in' },
+                { name: 'OpARA TUD', logo: 'Resources/images/logos/opara-logo.png', description: 'TU Dresden\'s institutional repository for publications and research data, ensuring long-term accessibility.', documentation: 'https://opara.zih.tu-dresden.de/collections/1b788b1c-9c5f-402c-8c5b-74eb38f69bb0', join: 'https://opara.zih.tu-dresden.de/login' },
+                { name: 'BioImage Archive', logo: 'Resources/images/logos/bioimage-archive-logo.png', description: 'EMBL supported Large-scale, centralised data resource to host reference imaging data.', documentation: 'https://www.ebi.ac.uk/about/', join: 'https://www.ebi.ac.uk/biostudies/submissions/signin' },
+                { name: 'PRIDE Database', logo: 'Resources/images/logos/pride_logo.png', description: 'PRoteomics Archive database is data repository for mass spectrometry proteomics data.', documentation: 'https://www.ebi.ac.uk/pride/markdownpage/citationpage', join: 'https://www.ebi.ac.uk/pride/login' },
+            ];
+        
+            // --- Slider Implementation ---
+            const sliderContainer = document.getElementById('sharing-archiving-tools-container');
+            const sliderPrev = document.getElementById('slider-prev');
+            const sliderNext = document.getElementById('slider-next');
+            const sliderDots = document.getElementById('slider-dots');
+            
+            let currentSlide = 0;
+            let toolsPerSlide = 2;
+            let totalSlides = 0;
+        
+            const updateToolsPerSlide = () => {
+                const width = window.innerWidth;
+                if (width >= 1024) {
+                    toolsPerSlide = 3;
+                } else if (width >= 768) {
+                    toolsPerSlide = 2;
+                } else {
+                    toolsPerSlide = 1;
+                }
+                totalSlides = Math.ceil(toolsData.length / toolsPerSlide);
+            };
+        
+            // Open tool details modal with data
+            const openToolDetailsModal = (tool) => {
+                const modal = document.getElementById('tool-details-modal');
+                if (!modal) return;
+                
+                // Populate modal content
+                const modalLogo = document.getElementById('tool-modal-logo');
+                const modalName = document.getElementById('tool-modal-name');
+                const modalDescription = document.getElementById('tool-modal-description');
+                const modalDocBtn = document.getElementById('tool-modal-doc-btn');
+                const modalJoinBtn = document.getElementById('tool-modal-join-btn');
+                
+                if (modalLogo) modalLogo.src = tool.logo;
+                if (modalLogo) modalLogo.alt = `${tool.name} logo`;
+                if (modalName) modalName.textContent = tool.name;
+                if (modalDescription) modalDescription.textContent = tool.description;
+                if (modalDocBtn) modalDocBtn.href = tool.documentation;
+                if (modalJoinBtn) modalJoinBtn.href = tool.join;
+        
+                // Open the modal
+                openModal('tool-details-modal');
+            };
+        
+            const renderSliderCards = () => {
+                if (!sliderContainer) return;
+                
+                sliderContainer.innerHTML = '';
+                
+                toolsData.forEach((tool) => {
+                    const card = document.createElement('div');
+                    card.className = "slider-card-item cursor-pointer bg-light-bg dark:bg-dark-card rounded-lg shadow-sm p-3 hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex-shrink-0";
+                    card.style.width = `calc(${100 / toolsPerSlide}% - ${(toolsPerSlide - 1) * 12 / toolsPerSlide}px)`;
+                    
+                    card.innerHTML = `
+                        <div class="flex flex-col items-center text-center h-full">
+                            <img src="${tool.logo}" alt="${tool.name} logo" class="w-10 h-10 object-contain mb-2" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iNCIgZmlsbD0iI0Y0RjdGOSIvPgo8L3N2Zz4K'">
+                            <h5 class="font-bold text-sm mb-1">${tool.name}</h5>
+                            <p class="text-xs text-primary-blue dark:text-gray-400 flex-grow">${tool.description.substring(0, 80)}${tool.description.length > 80 ? '...' : ''}</p>
+                        </div>
+                    `;
+                    
+                    // Add click event with proper event handling
+                    card.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        openToolDetailsModal(tool);
+                    });
+                    
+                    sliderContainer.appendChild(card);
+                });
+            };
+        
+            const renderDots = () => {
+                if (!sliderDots) return;
+                
+                sliderDots.innerHTML = '';
+                
+                for (let i = 0; i < totalSlides; i++) {
+                    const dot = document.createElement('button');
+                    dot.className = `w-2 h-2 rounded-full transition-colors duration-200 ${i === currentSlide ? 'bg-secondary-violet' : 'bg-gray-300 dark:bg-gray-600'}`;
+                    dot.addEventListener('click', () => goToSlide(i));
+                    sliderDots.appendChild(dot);
+                }
+            };
+        
+            const updateSlider = () => {
+                if (!sliderContainer) return;
+                
+                const translateX = -(currentSlide * 100);
+                sliderContainer.style.transform = `translateX(${translateX}%)`;
+                
+                if (sliderPrev) {
+                    sliderPrev.disabled = currentSlide === 0;
+                    sliderPrev.style.opacity = currentSlide === 0 ? '0.5' : '1';
+                }
+                
+                if (sliderNext) {
+                    sliderNext.disabled = currentSlide >= totalSlides - 1;
+                    sliderNext.style.opacity = currentSlide >= totalSlides - 1 ? '0.5' : '1';
+                }
+                
+                const dots = sliderDots?.children || [];
+                for (let i = 0; i < dots.length; i++) {
+                    dots[i].className = `w-2 h-2 rounded-full transition-colors duration-200 ${i === currentSlide ? 'bg-secondary-violet' : 'bg-gray-300 dark:bg-gray-600'}`;
+                }
+            };
+        
+            const goToSlide = (slideIndex) => {
+                currentSlide = Math.max(0, Math.min(slideIndex, totalSlides - 1));
+                updateSlider();
+            };
+        
+            const nextSlide = () => {
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    updateSlider();
+                }
+            };
+        
+            const prevSlide = () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateSlider();
+                }
+            };
+        
+            const initSlider = () => {
+                updateToolsPerSlide();
+                renderSliderCards();
+                renderDots();
+                updateSlider();
+            };
+        
+            // --- Event Listeners ---
+            sliderPrev?.addEventListener('click', prevSlide);
+            sliderNext?.addEventListener('click', nextSlide);
+        
+            window.addEventListener('resize', () => {
+                const oldToolsPerSlide = toolsPerSlide;
+                updateToolsPerSlide();
+                
+                if (oldToolsPerSlide !== toolsPerSlide) {
+                    currentSlide = 0;
+                    initSlider();
+                }
+            });
+        
+            // Touch support
+            let startX = 0;
+            let isDragging = false;
+        
+            sliderContainer?.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            });
+        
+            sliderContainer?.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+            });
+        
+            sliderContainer?.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                
+                const currentX = e.changedTouches[0].clientX;
+                const diff = startX - currentX;
+                const threshold = 50;
+                
+                if (Math.abs(diff) > threshold) {
+                    if (diff > 0) {
+                        nextSlide();
+                    } else {
+                        prevSlide();
+                    }
+                }
+            });
+        
+            // Initialize slider
+            if (sliderContainer) {
+                initSlider();
+            }
+        });
+    </script>
+  <script src="Resources/public/js/chatbot.js"></script>
+  <script src="Resources/public/js/script.js"></script>
+ </body>
+ </html>
