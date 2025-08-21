@@ -6,10 +6,11 @@
     <title>PoL Data Management Corner - Storage & Backup</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-    tailwind.config = {
+        // Tailwind config with custom colors and dark mode
+        tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
@@ -25,286 +26,288 @@
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                     },
-        },
-      },
-    }
+                },
+            },
+        }
     </script>
+    <link rel="icon" href="../Resources/images/logos/pol-logo.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" href="Resources/images/logos/pol-logo.png" type="image/png">
     <style>
-        /* CSS for card hover effect */
-        .card-animate {
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        .card-animate:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
         
-        /*
-        * CSS for the modal animations and transitions
-        */
-        .modal-wrapper {
-            position: fixed;
-            inset: 0;
-            z-index: 50;
+                /* CSS for card hover effect */
+                .card-animate {
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                }
+                .card-animate:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+                }
+                
+                /*
+                * CSS for the modal animations and transitions
+                */
+                .modal-wrapper {
+                    position: fixed;
+                    inset: 0;
+                    z-index: 50;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 1rem;
+                    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+                    opacity: 0;
+                    visibility: hidden;
+                }
+
+                .modal-wrapper.active {
+                    opacity: 1;
+                    visibility: visible;
+                }
+
+                .modal-backdrop {
+                    position: absolute;
+                    inset: 0;
+                    background-color: rgba(0, 0, 0, 0.5);
+                }
+
+                .modal-content-container {
+                    position: relative;
+                    background-color: white;
+                    border-radius: 0.75rem; /* rounded-xl */
+                    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
+                    max-width: 100%;
+                    width: auto;
+                    transform: scale(0.9);
+                    transition: transform 0.3s ease-in-out;
+                }
+
+                .modal-wrapper.active .modal-content-container {
+                    transform: scale(1);
+                }
+
+                /* Define a subtle fade-in and slide-up animation */
+                @keyframes fadeInUp {
+                    from {
+                        opacity: 0;
+                        transform: translateY(20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                
+                /* Apply staggered animation to the header section elements */
+                .animate-stagger-1 {
+                    animation: fadeInUp 0.8s ease-out forwards;
+                    animation-delay: 0.2s;
+                    opacity: 0; /* Ensure initial state is hidden */
+                }
+                .animate-stagger-2 {
+                    animation: fadeInUp 0.8s ease-out forwards;
+                    animation-delay: 0.4s;
+                    opacity: 0;
+                }
+
+                /* Styles for the new tooltips */
+                .tooltip-container {
+                    position: relative;
+                    display: inline-block;
+                }
+
+                .tooltip-text {
+                    visibility: hidden;
+                    background-color: rgba(0, 0, 0, 0.85);
+                    color: #fff;
+                    text-align: center;
+                    border-radius: 8px;
+                    padding: 15px;
+                    position: absolute;
+                    z-index: 10;
+                    bottom: 125%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 300px;
+                    opacity: 0;
+                    transition: opacity 0.3s, visibility 0.3s;
+                    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+                }
+
+                .tooltip-text::after {
+                    content: "";
+                    position: absolute;
+                    top: 100%;
+                    left: 50%;
+                    margin-left: -5px;
+                    border-width: 5px;
+                    border-style: solid;
+                    border-color: rgba(0, 0, 0, 0.85) transparent transparent transparent;
+                }
+
+                .tooltip-container:hover .tooltip-text {
+                    visibility: visible;
+                    opacity: 1;
+                }
+                .navbar {
+            background-color: rgba(255, 255, 255, 0.9) !important;
+            backdrop-filter: blur(10px);
+        }
+
+        .dark .navbar {
+            background-color: rgba(30, 30, 30, 0.9) !important;
+        }
+
+        /* Ensure logos always stay visible */
+        #nav-logos {
+            position: relative;
+            z-index: 1001;
+        }
+
+        #nav-logos img {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transition: none !important;
+        }
+
+        /* Hamburger menu styles */
+        #menu-toggle {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            z-index: 1002;
+        }
+
+        .hamburger-bar {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background-color: currentColor;
+            margin: 2px 0;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        /* Active hamburger animation */
+        #menu-toggle.active .hamburger-bar:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        #menu-toggle.active .hamburger-bar:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        #menu-toggle.active .hamburger-bar:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Mobile menu styles */
+        #mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            background-color: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(10px);
+        }
+
+        .dark #mobile-menu {
+            background-color: rgba(30, 30, 30, 0.98) !important;
+        }
+
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Prevent body scroll when mobile menu is open */
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        /* Mobile menu links */
+        #mobile-menu .nav-link {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .dark #mobile-menu .nav-link {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #mobile-menu .nav-link:last-child {
+            border-bottom: none;
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.75rem 1rem;
+            }
+            
+            #nav-logos img {
+                height: 2rem !important;
+            }
+            
+            /* Ensure mobile menu covers full screen */
+            #mobile-menu {
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 100vh;
+                width: 100vw;
+            }
+        }
+        /* Modal close button improvements */
+        .modal-close-btn {
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-            opacity: 0;
-            visibility: hidden;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
         }
 
-        .modal-wrapper.active {
-            opacity: 1;
-            visibility: visible;
+        .modal-close-btn:hover {
+            background: rgba(0, 0, 0, 0.2);
+            transform: scale(1.1);
         }
 
-        .modal-backdrop {
-            position: absolute;
-            inset: 0;
-            background-color: rgba(0, 0, 0, 0.5);
+        .dark .modal-close-btn {
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        .modal-content-container {
-            position: relative;
-            background-color: white;
-            border-radius: 0.75rem; /* rounded-xl */
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
-            max-width: 100%;
-            width: auto;
-            transform: scale(0.9);
-            transition: transform 0.3s ease-in-out;
+        .dark .modal-close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
-        .modal-wrapper.active .modal-content-container {
-            transform: scale(1);
+        /* Ensure close button is always on top */
+        .modal-close-btn {
+            z-index: 9999;
         }
-
-        /* Define a subtle fade-in and slide-up animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Apply staggered animation to the header section elements */
-        .animate-stagger-1 {
-            animation: fadeInUp 0.8s ease-out forwards;
-            animation-delay: 0.2s;
-            opacity: 0; /* Ensure initial state is hidden */
-        }
-        .animate-stagger-2 {
-            animation: fadeInUp 0.8s ease-out forwards;
-            animation-delay: 0.4s;
-            opacity: 0;
-        }
-
-        /* Styles for the new tooltips */
-        .tooltip-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .tooltip-text {
-            visibility: hidden;
-            background-color: rgba(0, 0, 0, 0.85);
-            color: #fff;
-            text-align: center;
-            border-radius: 8px;
-            padding: 15px;
-            position: absolute;
-            z-index: 10;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 300px;
-            opacity: 0;
-            transition: opacity 0.3s, visibility 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        .tooltip-text::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: rgba(0, 0, 0, 0.85) transparent transparent transparent;
-        }
-
-        .tooltip-container:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
-        }
-        .navbar {
-    background-color: rgba(255, 255, 255, 0.9) !important;
-    backdrop-filter: blur(10px);
-}
-
-.dark .navbar {
-    background-color: rgba(30, 30, 30, 0.9) !important;
-}
-
-/* Ensure logos always stay visible */
-#nav-logos {
-    position: relative;
-    z-index: 1001;
-}
-
-#nav-logos img {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transition: none !important;
-}
-
-/* Hamburger menu styles */
-#menu-toggle {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    position: relative;
-    z-index: 1002;
-}
-
-.hamburger-bar {
-    display: block;
-    width: 20px;
-    height: 2px;
-    background-color: currentColor;
-    margin: 2px 0;
-    transition: all 0.3s ease;
-    transform-origin: center;
-}
-
-/* Active hamburger animation */
-#menu-toggle.active .hamburger-bar:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-
-#menu-toggle.active .hamburger-bar:nth-child(2) {
-    opacity: 0;
-    transform: translateX(-20px);
-}
-
-#menu-toggle.active .hamburger-bar:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
-}
-
-/* Mobile menu styles */
-#mobile-menu {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-    background-color: rgba(255, 255, 255, 0.98) !important;
-    backdrop-filter: blur(10px);
-}
-
-.dark #mobile-menu {
-    background-color: rgba(30, 30, 30, 0.98) !important;
-}
-
-#mobile-menu.open {
-    transform: translateX(0);
-}
-
-/* Prevent body scroll when mobile menu is open */
-body.menu-open {
-    overflow: hidden;
-}
-
-/* Mobile menu links */
-#mobile-menu .nav-link {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
-}
-
-.dark #mobile-menu .nav-link {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-#mobile-menu .nav-link:last-child {
-    border-bottom: none;
-}
-
-/* Responsive improvements */
-@media (max-width: 768px) {
-    .navbar {
-        padding: 0.75rem 1rem;
-    }
-    
-    #nav-logos img {
-        height: 2rem !important;
-    }
-    
-    /* Ensure mobile menu covers full screen */
-    #mobile-menu {
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 100vh;
-        width: 100vw;
-    }
-}
-/* Modal close button improvements */
-.modal-close-btn {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
-}
-
-.modal-close-btn:hover {
-    background: rgba(0, 0, 0, 0.2);
-    transform: scale(1.1);
-}
-
-.dark .modal-close-btn {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.dark .modal-close-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* Ensure close button is always on top */
-.modal-close-btn {
-    z-index: 9999;
-}
     </style>
 </head>
-<body class="bg-light-bg dark:bg-dark-bg text-gray-800 dark:text-gray-200 transition-colors duration-300">  
-    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/80 dark:bg-dark-surface/80 shadow-md transition-all" id="navbar">
+<body class="bg-light-bg dark:bg-dark-bg text-gray-800 dark:text-gray-200 transition-colors duration-300">    
+    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/80 dark:bg-dark-surface/80 shadow-md transition-all">
         <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-2 sm:space-x-4" id="nav-logos">
-                <a href="../index.html"><img src="../Resources/images/logos/tud_logo.svg" alt="TUD" class="h-8 sm:h-10 w-auto rounded-full" id="tud-logo" /></a>
-                <a href="../index.html"><img src="../Resources/images/logos/pol-logo.png" alt="PoL" class="h-6 sm:h-8 w-auto" id="pol-logo" /></a>
-            </div>
-          
+          <!-- Logos -->
+          <div class="flex items-center space-x-4">
+            <a href="../index.html"><img src="../Resources/images/logos/tud_logo.svg" alt="TUD" class="h-10 w-auto rounded-full" /></a>
+            <a href="../index.html"><img src="../Resources/images/logos/pol-logo.png" alt="PoL" class="h-8 w-auto" /></a>
+          </div>
+      
           <!-- Desktop Menu -->
           <div class="hidden md:flex space-x-4 lg:space-x-6 font-medium text-sm" id="desktop-menu">
             <a href="#" data-modal-target="about-modal" class="nav-link hover:text-secondary-violet transition-colors">Overview</a>
             <a href="#" data-modal-target="resources-modal" class="nav-link hover:text-secondary-violet transition-colors">Resources</a>
             <a href="../Internal/Events.html" class="nav-link hover:text-secondary-violet transition-colors">Events</a>
             <a href="#" data-modal-target="contact-modal" class="nav-link hover:text-secondary-violet transition-colors">Contact</a>
-            <a href="../Internal/whats-new.html" class="nav-link text-secondary-red font-semibold hover:text-red-600 transition-colors">What's New</a>
+            <a href="w../Internal/hats-new.html" class="nav-link text-secondary-red font-semibold hover:text-red-600 transition-colors">What's New</a>
         </div>
         
         <div class="flex items-center space-x-3">
@@ -335,12 +338,11 @@ body.menu-open {
             </div>
         </div>
      </nav>
-
     
     <header class="relative pt-24 pb-16 md:pt-40 md:pb-24 bg-secondary-violet text-white overflow-hidden shadow-xl">
         <div class="container mx-auto px-4 text-center z-10 relative">
             <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-stagger-1">
-                Secure Your <span class="text-indigo-600 dark:text-secondary-lightblue">Digital Research</span>
+                Secure Your <span class="text-yellow-600 dark:text-secondary-lightblue">Digital Research</span>
             </h1>
             <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8 animate-stagger-2">
                 Explore a range of creative and robust data storage and backup solutions.
@@ -569,7 +571,7 @@ body.menu-open {
           </div>
         </div>
         <script>
-          document.addEventListener('DOMContentLoaded', () => {
+         document.addEventListener('DOMContentLoaded', () => {
               // Theme toggle logic
               const themeToggleBtn = document.getElementById('theme-toggle');
               const lightIcon = document.getElementById('theme-toggle-light-icon');
@@ -641,8 +643,7 @@ body.menu-open {
             }
             });
         });
-      </script>
+    </script>
     <script src="../Resources/public/js/chatbot.js"></script>
-    <script src="../Resources/public/js/script.js"></script>
 </body>
 </html>
