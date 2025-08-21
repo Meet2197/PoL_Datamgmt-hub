@@ -215,25 +215,53 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const heroSection = document.querySelector('header');
-    const navbar = document.getElementById('navbar');
+    const updateNavbarAppearance = (isTransparent) => {
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const themeToggleButton = document.getElementById('theme-toggle');
     
-    if (heroSection && navbar) {
+        if (isTransparent) {
+            // Transparent background for the hero section
+            navbar.classList.remove('bg-primary-blue', 'shadow-lg');
+            navbar.classList.add('bg-transparent');
+            // Change colors to white for the hero section
+            navLinks.forEach(link => link.style.color = '#fff');
+            if (mobileMenuButton) mobileMenuButton.style.color = '#fff';
+            if (themeToggleButton) themeToggleButton.style.color = '#fff';
+        } else {
+            // Solid blue background for other sections
+            navbar.classList.remove('bg-transparent');
+            navbar.classList.add('bg-primary-blue', 'shadow-lg');
+            // Change colors to white for the other sections
+            navLinks.forEach(link => link.style.color = '#fff');
+            if (mobileMenuButton) mobileMenuButton.style.color = '#fff';
+            if (themeToggleButton) themeToggleButton.style.color = '#fff';
+        }
+    };
+    
+    // Intersection Observer to handle navbar transparency on the hero section
+    const heroSection = document.getElementById('hero');
+    if (heroSection) {
         const observer = new IntersectionObserver(
             ([entry]) => {
-                if (!entry.isIntersecting) {
-                    navbar.classList.add('bg-white/80', 'dark:bg-dark-surface/80', 'shadow-md');
+                if (entry.isIntersecting) {
+                    updateNavbarAppearance(true); // Hero section is visible
                 } else {
-                    navbar.classList.remove('bg-white/80', 'dark:bg-dark-surface/80', 'shadow-md');
+                    updateNavbarAppearance(false); // Hero section is not visible
                 }
-            },
-            {
-                rootMargin: '-50px 0px 0px 0px',
+            }, {
+                rootMargin: '-80px 0px 0px 0px',
             }
         );
         observer.observe(heroSection);
+    } else {
+        // If there is no hero section, ensure the navbar is always solid blue
+        document.addEventListener('DOMContentLoaded', () => {
+            updateNavbarAppearance(false);
+        });
     }
-    
+
     // --- Initial Setup and Event Handling ---
     renderTools();
     updateSlider();
