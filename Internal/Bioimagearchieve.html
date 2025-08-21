@@ -348,68 +348,7 @@
             </div>
         </div>
     </div>
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-     // --- Modal Management Functions ---
-     const openModal = (modalId) => {
-                const modal = document.getElementById(modalId);
-                if (modal) {
-                    modal.style.display = 'flex';
-                    modal.classList.remove('hidden');
-                    document.body.style.overflow = 'hidden';
-                }
-            };
-        
-            const closeModal = (modal) => {
-                if (modal) {
-                    modal.style.display = 'none';
-                    modal.classList.add('hidden');
-                    document.body.style.overflow = 'auto';
-                }
-            };
-        
-            // --- Modal Event Listeners ---
-            // Open modal buttons
-            document.querySelectorAll('[data-modal-target]').forEach(button => {
-                button.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const modalId = button.getAttribute('data-modal-target');
-                    openModal(modalId);
-                });
-            });
-        
-            // Close modal buttons
-            document.querySelectorAll('[data-modal-close]').forEach(button => {
-                button.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    event.stopPropagation(); // Prevent event bubbling
-                    const modalId = button.getAttribute('data-modal-close');
-                    const modal = document.getElementById(modalId);
-                    closeModal(modal);
-                });
-            });
-        
-            // Close modal when clicking outside
-            document.querySelectorAll('.modal-wrapper').forEach(modal => {
-                modal.addEventListener('click', (event) => {
-                    if (event.target === modal || event.target.classList.contains('modal-backdrop')) {
-                        closeModal(modal);
-                    }
-                });
-            });
-        
-            // Close modal with Escape key
-            document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape') {
-                    const openModal = document.querySelector('.modal-wrapper[style*="flex"]');
-                    if (openModal) {
-                        closeModal(openModal);
-                    }
-                }
-            });
-    });
-    </script>
+    <script src="../Internal/script.js"></script>
     <script src="../Resources/public/js/chatbot.js"></script>
-    <script src="../Resources/public/js/script.js"></script>
 </body>
 </html>
