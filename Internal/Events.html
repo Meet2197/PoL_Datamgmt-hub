@@ -32,83 +32,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../Resources/public/css/style.css">
     <link rel="icon" href="../Resources/images/logos/pol-logo.png" type="image/png">
-    <style>
-        /* Define a subtle fade-in and slide-up animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Apply staggered animation to the hero section elements */
-        .animate-stagger-1 {
-            animation: fadeInUp 0.8s ease-out forwards;
-            animation-delay: 0.2s;
-            opacity: 0; /* Ensure initial state is hidden */
-        }
-        .animate-stagger-2 {
-            animation: fadeInUp 0.8s ease-out forwards;
-            animation-delay: 0.4s;
-            opacity: 0;
-        }
-        .animate-stagger-3 {
-            animation: fadeInUp 0.8s ease-out forwards;
-            animation-delay: 0.6s;
-            opacity: 0;
-        }
-        /* Extend the staggered animation to the main content */
-        .animate-stagger-4 {
-            animation: fadeInUp 0.8s ease-out forwards;
-            animation-delay: 0.8s;
-            opacity: 0;
-        }
-        .animate-stagger-5 {
-            animation: fadeInUp 0.8s ease-out forwards;
-            animation-delay: 1s;
-            opacity: 0;
-        }
-        /* Animate footer with a final delay */
-        .animate-stagger-6 {
-            animation: fadeInUp 0.8s ease-out forwards;
-            animation-delay: 1.2s;
-            opacity: 0;
-        }
+    <link rel="stylesheet" href="../Internal/style.css">
 
-        /* Style for the video background header */
-        .video-header {
-            position: relative;
-            height: 50vh; /* Adjust height as needed */
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .video-header video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translateX(-50%) translateY(-50%);
-            z-index: -1;
-            filter: brightness(0.5); /* Darkens the video to improve text readability */
-        }
-        .video-header .content {
-            z-index: 1;
-            text-align: center;
-            color: white;
-            padding: 2rem;
-            position: relative;
-        }
-    </style>
 </head>
 <body class="bg-light-bg dark:bg-dark-bg text-gray-800 dark:text-gray-200 transition-colors duration-300">
 <!-- Navigation -->
